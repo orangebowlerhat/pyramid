@@ -1,0 +1,824 @@
+module gobject;
+
+import g;
+
+def Array = void;
+
+def BaseFinalizeFunc = fn void (TypeClass* g_class) @export;
+def BaseInitFunc = fn void (TypeClass* g_class) @export;
+
+struct Binding {
+	void* unused;
+}
+
+fn Object* Binding.dup_source (Binding* self) @extern ("g_binding_dup_source");
+fn Object* Binding.dup_target (Binding* self) @extern ("g_binding_dup_target");
+fn BindingFlags Binding.get_flags (Binding* self) @extern ("g_binding_get_flags");
+fn Object* Binding.get_source (Binding* self) @extern ("g_binding_get_source");
+fn ZString Binding.get_source_property (Binding* self) @extern ("g_binding_get_source_property");
+fn Object* Binding.get_target (Binding* self) @extern ("g_binding_get_target");
+fn ZString Binding.get_target_property (Binding* self) @extern ("g_binding_get_target_property");
+fn void Binding.unbind (Binding* self) @extern ("g_binding_unbind");
+
+enum BindingFlags: CInt (inline CInt bit) {
+	DEFAULT = 0,
+	BIDIRECTIONAL = 1,
+	SYNC_CREATE = 2,
+	INVERT_BOOLEAN = 4
+}
+
+struct BindingGroup {
+	void* unused;
+}
+
+fn BindingGroup* BindingGroup.new () @operator (construct) @extern ("g_binding_group_new");
+fn void BindingGroup.bind (BindingGroup* self, ZString source_property, Object* target, ZString target_property, BindingFlags flags) @extern ("g_binding_group_bind");
+fn void BindingGroup.bind_full (BindingGroup* self, ZString source_property, Object* target, ZString target_property, BindingFlags flags, Closure* transform_to, Closure* transform_from) @extern ("g_binding_group_bind_with_closures");
+fn Object* BindingGroup.dup_source (BindingGroup* self) @extern ("g_binding_group_dup_source");
+fn void BindingGroup.set_source (BindingGroup* self, Object* source) @extern ("g_binding_group_set_source");
+def BindingTransformFunc = fn CInt (Binding* binding, Value* from_value, Value* to_value, void* user_data) @export;
+def BookmarkFile = void;
+
+def BoxedCopyFunc = fn void* (void* boxed) @export;
+def BoxedFreeFunc = fn void (void* boxed) @export;
+def ByteArray = void;
+
+def Bytes = void;
+
+struct CClosure {
+	Closure closure;
+	void* callback;
+}
+
+fn void CClosure.marshal_BOOLEAN__BOXED_BOXED (CClosure* self, Closure* closure, Value* return_value, uint n_param_values, Value* param_values, void* invocation_hint, void* marshal_data) @extern ("g_cclosure_marshal_BOOLEAN__BOXED_BOXED");
+fn void CClosure.marshal_BOOLEAN__FLAGS (CClosure* self, Closure* closure, Value* return_value, uint n_param_values, Value* param_values, void* invocation_hint, void* marshal_data) @extern ("g_cclosure_marshal_BOOLEAN__FLAGS");
+fn void CClosure.marshal_STRING__OBJECT_POINTER (CClosure* self, Closure* closure, Value* return_value, uint n_param_values, Value* param_values, void* invocation_hint, void* marshal_data) @extern ("g_cclosure_marshal_STRING__OBJECT_POINTER");
+fn void CClosure.marshal_VOID__BOOLEAN (CClosure* self, Closure* closure, Value* return_value, uint n_param_values, Value* param_values, void* invocation_hint, void* marshal_data) @extern ("g_cclosure_marshal_VOID__BOOLEAN");
+fn void CClosure.marshal_VOID__BOXED (CClosure* self, Closure* closure, Value* return_value, uint n_param_values, Value* param_values, void* invocation_hint, void* marshal_data) @extern ("g_cclosure_marshal_VOID__BOXED");
+fn void CClosure.marshal_VOID__CHAR (CClosure* self, Closure* closure, Value* return_value, uint n_param_values, Value* param_values, void* invocation_hint, void* marshal_data) @extern ("g_cclosure_marshal_VOID__CHAR");
+fn void CClosure.marshal_VOID__DOUBLE (CClosure* self, Closure* closure, Value* return_value, uint n_param_values, Value* param_values, void* invocation_hint, void* marshal_data) @extern ("g_cclosure_marshal_VOID__DOUBLE");
+fn void CClosure.marshal_VOID__ENUM (CClosure* self, Closure* closure, Value* return_value, uint n_param_values, Value* param_values, void* invocation_hint, void* marshal_data) @extern ("g_cclosure_marshal_VOID__ENUM");
+fn void CClosure.marshal_VOID__FLAGS (CClosure* self, Closure* closure, Value* return_value, uint n_param_values, Value* param_values, void* invocation_hint, void* marshal_data) @extern ("g_cclosure_marshal_VOID__FLAGS");
+fn void CClosure.marshal_VOID__FLOAT (CClosure* self, Closure* closure, Value* return_value, uint n_param_values, Value* param_values, void* invocation_hint, void* marshal_data) @extern ("g_cclosure_marshal_VOID__FLOAT");
+fn void CClosure.marshal_VOID__INT (CClosure* self, Closure* closure, Value* return_value, uint n_param_values, Value* param_values, void* invocation_hint, void* marshal_data) @extern ("g_cclosure_marshal_VOID__INT");
+fn void CClosure.marshal_VOID__LONG (CClosure* self, Closure* closure, Value* return_value, uint n_param_values, Value* param_values, void* invocation_hint, void* marshal_data) @extern ("g_cclosure_marshal_VOID__LONG");
+fn void CClosure.marshal_VOID__OBJECT (CClosure* self, Closure* closure, Value* return_value, uint n_param_values, Value* param_values, void* invocation_hint, void* marshal_data) @extern ("g_cclosure_marshal_VOID__OBJECT");
+fn void CClosure.marshal_VOID__PARAM (CClosure* self, Closure* closure, Value* return_value, uint n_param_values, Value* param_values, void* invocation_hint, void* marshal_data) @extern ("g_cclosure_marshal_VOID__PARAM");
+fn void CClosure.marshal_VOID__POINTER (CClosure* self, Closure* closure, Value* return_value, uint n_param_values, Value* param_values, void* invocation_hint, void* marshal_data) @extern ("g_cclosure_marshal_VOID__POINTER");
+fn void CClosure.marshal_VOID__STRING (CClosure* self, Closure* closure, Value* return_value, uint n_param_values, Value* param_values, void* invocation_hint, void* marshal_data) @extern ("g_cclosure_marshal_VOID__STRING");
+fn void CClosure.marshal_VOID__UCHAR (CClosure* self, Closure* closure, Value* return_value, uint n_param_values, Value* param_values, void* invocation_hint, void* marshal_data) @extern ("g_cclosure_marshal_VOID__UCHAR");
+fn void CClosure.marshal_VOID__UINT (CClosure* self, Closure* closure, Value* return_value, uint n_param_values, Value* param_values, void* invocation_hint, void* marshal_data) @extern ("g_cclosure_marshal_VOID__UINT");
+fn void CClosure.marshal_VOID__UINT_POINTER (CClosure* self, Closure* closure, Value* return_value, uint n_param_values, Value* param_values, void* invocation_hint, void* marshal_data) @extern ("g_cclosure_marshal_VOID__UINT_POINTER");
+fn void CClosure.marshal_VOID__ULONG (CClosure* self, Closure* closure, Value* return_value, uint n_param_values, Value* param_values, void* invocation_hint, void* marshal_data) @extern ("g_cclosure_marshal_VOID__ULONG");
+fn void CClosure.marshal_VOID__VARIANT (CClosure* self, Closure* closure, Value* return_value, uint n_param_values, Value* param_values, void* invocation_hint, void* marshal_data) @extern ("g_cclosure_marshal_VOID__VARIANT");
+fn void CClosure.marshal_VOID__VOID (CClosure* self, Closure* closure, Value* return_value, uint n_param_values, Value* param_values, void* invocation_hint, void* marshal_data) @extern ("g_cclosure_marshal_VOID__VOID");
+fn void CClosure.marshal_generic (CClosure* self, Closure* closure, Value* return_gvalue, uint n_param_values, Value* param_values, void* invocation_hint, void* marshal_data) @extern ("g_cclosure_marshal_generic");
+def Callback = fn void () @export;
+def Checksum = void;
+
+def ClassFinalizeFunc = fn void (TypeClass* g_class, void* class_data) @export;
+def ClassInitFunc = fn void (TypeClass* g_class, void* class_data) @export;
+def Closure_marshal = fn void (Closure* closure, Value* return_value, uint n_param_values, Value* param_values, void* invocation_hint, void* marshal_data) @export;
+struct Closure {
+	uint ref_count;
+	uint meta_marshal_nouse;
+	uint n_guards;
+	uint n_fnotifiers;
+	uint n_inotifiers;
+	uint in_inotify;
+	uint floating;
+	uint derivative_flag;
+	uint in_marshal;
+	uint is_invalid;
+	Closure_marshal marshal;
+	void* data;
+	ClosureNotifyData* notifiers;
+}
+
+fn Closure* Closure.new_object (uint sizeof_closure, Object* object) @operator (construct) @extern ("g_closure_new_object");
+fn Closure* Closure.new_simple (uint sizeof_closure, void* data) @operator (construct) @extern ("g_closure_new_simple");
+fn void Closure.invalidate (Closure* self) @extern ("g_closure_invalidate");
+fn void Closure.invoke (Closure* self, Value return_value, uint n_param_values, char** param_values, void* invocation_hint) @extern ("g_closure_invoke");
+fn Closure* Closure.ref (Closure* self) @extern ("g_closure_ref");
+fn void Closure.sink (Closure* self) @extern ("g_closure_sink");
+fn void Closure.unref (Closure* self) @extern ("g_closure_unref");
+def ClosureMarshal = fn void (Closure* closure, Value* return_value, uint n_param_values, char** param_values, void* invocation_hint, void* marshal_data) @export;
+def ClosureNotify = fn void (void* data, Closure* closure) @export;
+struct ClosureNotifyData {
+	void* data;
+	ClosureNotify notify;
+}
+
+enum ConnectFlags: CInt (inline CInt bit) {
+	DEFAULT = 0,
+	AFTER = 1,
+	SWAPPED = 2
+}
+
+def Date = void;
+
+def DateTime = void;
+
+def Dir = void;
+
+struct EnumClass {
+	TypeClass g_type_class;
+	int minimum;
+	int maximum;
+	uint n_values;
+	EnumValue* values;
+}
+
+struct EnumValue {
+	int value;
+	ZString value_name;
+	ZString value_nick;
+}
+
+def Error = void;
+
+struct FlagsClass {
+	TypeClass g_type_class;
+	uint mask;
+	uint n_values;
+	FlagsValue* values;
+}
+
+struct FlagsValue {
+	uint value;
+	ZString value_name;
+	ZString value_nick;
+}
+
+def HashTable = void;
+
+def Hmac = void;
+
+def IOChannel = void;
+
+enum IOCondition: CInt (inline CInt bit) {
+	IN = 1,
+	OUT = 4,
+	PRI = 2,
+	ERR = 8,
+	HUP = 16,
+	NVAL = 32
+}
+
+def InitiallyUnowned = void;
+def InstanceInitFunc = fn void (TypeInstance* instance, TypeClass* g_class) @export;
+def InterfaceFinalizeFunc = fn void (TypeInterface* g_iface, void* iface_data) @export;
+struct InterfaceInfo {
+	InterfaceInitFunc interface_init;
+	InterfaceFinalizeFunc interface_finalize;
+	void* interface_data;
+}
+
+def InterfaceInitFunc = fn void (TypeInterface* g_iface, void* iface_data) @export;
+def KeyFile = void;
+
+def MainContext = void;
+
+def MainLoop = void;
+
+def MappedFile = void;
+
+def MarkupParseContext = void;
+
+def MatchInfo = void;
+
+struct Object {
+	inline TypeInstance g_type_instance;
+	uint ref_count;
+	glib::Data* qdata;
+}
+
+fn Object* Object.newv (GType object_type, uint n_parameters, char** parameters) @operator (construct) @extern ("g_object_newv");
+fn ulong Object.compat_control (Object* self, ulong what, void* data) @extern ("g_object_compat_control");
+fn ParamSpec* Object.interface_find_property (Object* self, TypeInterface* g_iface, ZString property_name) @extern ("g_object_interface_find_property");
+fn void Object.interface_install_property (Object* self, TypeInterface* g_iface, ParamSpec* pspec) @extern ("g_object_interface_install_property");
+fn char** Object.interface_list_properties (Object* self, TypeInterface* g_iface, uint n_properties_p) @extern ("g_object_interface_list_properties");
+fn Binding* Object.bind_property (Object* self, ZString source_property, Object* target, ZString target_property, BindingFlags flags) @extern ("g_object_bind_property");
+fn Binding* Object.bind_property_full (Object* self, ZString source_property, Object* target, ZString target_property, BindingFlags flags, Closure* transform_to, Closure* transform_from) @extern ("g_object_bind_property_with_closures");
+fn void Object.force_floating (Object* self) @extern ("g_object_force_floating");
+fn void Object.freeze_notify (Object* self) @extern ("g_object_freeze_notify");
+fn void* Object.get_data (Object* self, ZString key) @extern ("g_object_get_data");
+fn void Object.get_property (Object* self, ZString property_name, Value* value) @extern ("g_object_get_property");
+fn void* Object.get_qdata (Object* self, uint quark) @extern ("g_object_get_qdata");
+fn void Object.getv (Object* self, uint n_properties, char** names, char** values) @extern ("g_object_getv");
+fn CInt Object.is_floating (Object* self) @extern ("g_object_is_floating");
+fn void Object.notify (Object* self, ZString property_name) @extern ("g_object_notify");
+fn void Object.notify_by_pspec (Object* self, ParamSpec* pspec) @extern ("g_object_notify_by_pspec");
+fn Object* Object.ref (Object* self) @extern ("g_object_ref");
+fn Object* Object.ref_sink (Object* self) @extern ("g_object_ref_sink");
+fn void Object.run_dispose (Object* self) @extern ("g_object_run_dispose");
+fn void Object.set_data (Object* self, ZString key, void* data) @extern ("g_object_set_data");
+fn void Object.set_property (Object* self, ZString property_name, Value* value) @extern ("g_object_set_property");
+fn void* Object.steal_data (Object* self, ZString key) @extern ("g_object_steal_data");
+fn void* Object.steal_qdata (Object* self, uint quark) @extern ("g_object_steal_qdata");
+fn void Object.thaw_notify (Object* self) @extern ("g_object_thaw_notify");
+fn void Object.unref (Object* self) @extern ("g_object_unref");
+fn void Object.watch_closure (Object* self, Closure* closure) @extern ("g_object_watch_closure");
+
+struct ObjectConstructParam {
+	ParamSpec* pspec;
+	Value* value;
+}
+
+def ObjectFinalizeFunc = fn void (Object* object) @export;
+def ObjectGetPropertyFunc = fn void (Object* object, uint property_id, Value* value, ParamSpec* pspec) @export;
+def ObjectSetPropertyFunc = fn void (Object* object, uint property_id, Value* value, ParamSpec* pspec) @export;
+def OptionGroup = void;
+
+const int PARAM_MASK = 255;
+const int PARAM_STATIC_STRINGS = 224;
+const int PARAM_USER_SHIFT = 8;
+enum ParamFlags: CInt (inline CInt bit) {
+	READABLE = 1,
+	WRITABLE = 2,
+	READWRITE = 3,
+	CONSTRUCT = 4,
+	CONSTRUCT_ONLY = 8,
+	LAX_VALIDATION = 16,
+	STATIC_NAME = 32,
+	PRIVATE = 32,
+	STATIC_NICK = 64,
+	STATIC_BLURB = 128,
+	EXPLICIT_NOTIFY = 1073741824,
+	DEPRECATED = 2147483648
+}
+
+struct ParamSpec {
+	inline TypeInstance g_type_instance;
+	ZString name;
+	ParamFlags flags;
+	GType value_type;
+	GType owner_type;
+	ZString _nick;
+	ZString _blurb;
+	glib::Data* qdata;
+	uint ref_count;
+	uint param_id;
+}
+
+fn CInt ParamSpec.is_valid_name (ParamSpec* self, ZString name) @extern ("g_param_spec_is_valid_name");
+fn ZString ParamSpec.get_blurb (ParamSpec* self) @extern ("g_param_spec_get_blurb");
+fn Value* ParamSpec.get_default_value (ParamSpec* self) @extern ("g_param_spec_get_default_value");
+fn ZString ParamSpec.get_name (ParamSpec* self) @extern ("g_param_spec_get_name");
+fn uint ParamSpec.get_name_quark (ParamSpec* self) @extern ("g_param_spec_get_name_quark");
+fn ZString ParamSpec.get_nick (ParamSpec* self) @extern ("g_param_spec_get_nick");
+fn void* ParamSpec.get_qdata (ParamSpec* self, uint quark) @extern ("g_param_spec_get_qdata");
+fn ParamSpec* ParamSpec.get_redirect_target (ParamSpec* self) @extern ("g_param_spec_get_redirect_target");
+fn void ParamSpec.set_qdata (ParamSpec* self, uint quark, void* data) @extern ("g_param_spec_set_qdata");
+fn void ParamSpec.sink (ParamSpec* self) @extern ("g_param_spec_sink");
+fn void* ParamSpec.steal_qdata (ParamSpec* self, uint quark) @extern ("g_param_spec_steal_qdata");
+
+def ParamSpecBoolean = void;
+def ParamSpecBoxed = void;
+def ParamSpecChar = void;
+def ParamSpecDouble = void;
+def ParamSpecEnum = void;
+def ParamSpecFlags = void;
+def ParamSpecFloat = void;
+def ParamSpecGType = void;
+def ParamSpecInt = void;
+def ParamSpecInt64 = void;
+def ParamSpecLong = void;
+def ParamSpecObject = void;
+def ParamSpecOverride = void;
+def ParamSpecParam = void;
+def ParamSpecPointer = void;
+struct ParamSpecPool {
+	void* unused;
+}
+
+fn void ParamSpecPool.free (ParamSpecPool* self) @extern ("g_param_spec_pool_free");
+fn void ParamSpecPool.insert (ParamSpecPool* self, ParamSpec* pspec, GType owner_type) @extern ("g_param_spec_pool_insert");
+fn char** ParamSpecPool.list (ParamSpecPool* self, GType owner_type, uint n_pspecs_p) @extern ("g_param_spec_pool_list");
+fn List* ParamSpecPool.list_owned (ParamSpecPool* self, GType owner_type) @extern ("g_param_spec_pool_list_owned");
+fn ParamSpec* ParamSpecPool.lookup (ParamSpecPool* self, ZString param_name, GType owner_type, CInt walk_ancestors) @extern ("g_param_spec_pool_lookup");
+fn void ParamSpecPool.remove (ParamSpecPool* self, ParamSpec* pspec) @extern ("g_param_spec_pool_remove");
+def ParamSpecString = void;
+def ParamSpecTypeInfo_instance_init = fn void (ParamSpec* pspec) @export;
+def ParamSpecTypeInfo_finalize = fn void (ParamSpec* pspec) @export;
+def ParamSpecTypeInfo_value_set_default = fn void (ParamSpec* pspec, Value* value) @export;
+def ParamSpecTypeInfo_value_validate = fn CInt (ParamSpec* pspec, Value* value) @export;
+def ParamSpecTypeInfo_values_cmp = fn int (ParamSpec* pspec, Value* value1, Value* value2) @export;
+struct ParamSpecTypeInfo {
+	ushort instance_size;
+	ushort n_preallocs;
+	ParamSpecTypeInfo_instance_init instance_init;
+	GType value_type;
+	ParamSpecTypeInfo_finalize finalize;
+	ParamSpecTypeInfo_value_set_default value_set_default;
+	ParamSpecTypeInfo_value_validate value_validate;
+	ParamSpecTypeInfo_values_cmp values_cmp;
+}
+
+def ParamSpecUChar = void;
+def ParamSpecUInt = void;
+def ParamSpecUInt64 = void;
+def ParamSpecULong = void;
+def ParamSpecUnichar = void;
+def ParamSpecValueArray = void;
+def ParamSpecVariant = void;
+struct Parameter {
+	ZString name;
+	Value value;
+}
+
+def PatternSpec = void;
+
+def PollFD = void;
+
+def PtrArray = void;
+
+def Rand = void;
+
+def Regex = void;
+
+const int SIGNAL_FLAGS_MASK = 511;
+const int SIGNAL_MATCH_MASK = 63;
+def SignalAccumulator = fn CInt (SignalInvocationHint* ihint, Value* return_accu, Value* handler_return, void* data) @export;
+def SignalEmissionHook = fn CInt (SignalInvocationHint* ihint, uint n_param_values, char** param_values, void* data) @export;
+enum SignalFlags: CInt (inline CInt bit) {
+	RUN_FIRST = 1,
+	RUN_LAST = 2,
+	RUN_CLEANUP = 4,
+	NO_RECURSE = 8,
+	DETAILED = 16,
+	ACTION = 32,
+	NO_HOOKS = 64,
+	MUST_COLLECT = 128,
+	DEPRECATED = 256,
+	ACCUMULATOR_FIRST_RUN = 131072
+}
+
+struct SignalGroup {
+	void* unused;
+}
+
+fn SignalGroup* SignalGroup.new (GType target_type) @operator (construct) @extern ("g_signal_group_new");
+fn void SignalGroup.block (SignalGroup* self) @extern ("g_signal_group_block");
+fn void SignalGroup.connect_closure (SignalGroup* self, ZString detailed_signal, Closure* closure, CInt after) @extern ("g_signal_group_connect_closure");
+fn void SignalGroup.connect_data (SignalGroup* self, ZString detailed_signal, Callback c_handler, void* data, ClosureNotify notify, ConnectFlags flags) @extern ("g_signal_group_connect_data");
+fn void SignalGroup.connect_swapped (SignalGroup* self, ZString detailed_signal, Callback c_handler, void* data) @extern ("g_signal_group_connect_swapped");
+fn Object* SignalGroup.dup_target (SignalGroup* self) @extern ("g_signal_group_dup_target");
+fn void SignalGroup.set_target (SignalGroup* self, Object* target) @extern ("g_signal_group_set_target");
+fn void SignalGroup.unblock (SignalGroup* self) @extern ("g_signal_group_unblock");
+
+struct SignalInvocationHint {
+	uint signal_id;
+	uint detail;
+	SignalFlags run_type;
+}
+
+enum SignalMatchType: CInt (inline CInt bit) {
+	ID = 1,
+	DETAIL = 2,
+	CLOSURE = 4,
+	FUNC = 8,
+	DATA = 16,
+	UNBLOCKED = 32
+}
+
+struct SignalQuery {
+	uint signal_id;
+	ZString signal_name;
+	GType itype;
+	SignalFlags signal_flags;
+	GType return_type;
+	uint n_params;
+	char** param_types;
+}
+
+struct Source {
+	void* unused;
+}
+
+fn void Source.set_closure (Source* self, glib::Source* source, Closure* closure) @extern ("g_source_set_closure");
+fn void Source.set_dummy_callback (Source* self, glib::Source* source) @extern ("g_source_set_dummy_callback");
+def String = void;
+
+def Strv = void;
+
+def StrvBuilder = void;
+
+const ulong TYPE_FLAG_RESERVED_ID_BIT = 1;
+const int TYPE_FUNDAMENTAL_MAX = 1020;
+const int TYPE_FUNDAMENTAL_SHIFT = 2;
+const int TYPE_RESERVED_BSE_FIRST = 32;
+const int TYPE_RESERVED_BSE_LAST = 48;
+const int TYPE_RESERVED_GLIB_FIRST = 22;
+const int TYPE_RESERVED_GLIB_LAST = 31;
+const int TYPE_RESERVED_USER_FIRST = 49;
+def Thread = void;
+
+def TimeZone = void;
+
+def ToggleNotify = fn void (void* data, Object* object, CInt is_last_ref) @export;
+def Tree = void;
+
+union TypeCValue {
+	int v_int;
+	long v_long;
+	long v_int64;
+	double v_double;
+	void* v_pointer;
+}
+
+struct TypeClass {
+	GType g_type;
+}
+
+fn void TypeClass.add_private (TypeClass* self, ulong private_size) @extern ("g_type_class_add_private");
+fn void* TypeClass.get_private (TypeClass* self, GType private_type) @extern ("g_type_class_get_private");
+fn TypeClass* TypeClass.peek_parent (TypeClass* self) @extern ("g_type_class_peek_parent");
+fn void TypeClass.unref (TypeClass* self) @extern ("g_type_class_unref");
+fn void TypeClass.adjust_private_offset (TypeClass* self, void* g_class, int* private_size_or_offset) @extern ("g_type_class_adjust_private_offset");
+fn TypeClass* TypeClass.peek (TypeClass* self, GType type) @extern ("g_type_class_peek");
+fn TypeClass* TypeClass.peek_static (TypeClass* self, GType type) @extern ("g_type_class_peek_static");
+fn TypeClass* TypeClass.ref (TypeClass* self, GType type) @extern ("g_type_class_ref");
+def TypeClassCacheFunc = fn CInt (void* cache_data, TypeClass* g_class) @export;
+enum TypeDebugFlags: CInt (inline CInt bit) {
+	NONE = 0,
+	OBJECTS = 1,
+	SIGNALS = 2,
+	INSTANCE_COUNT = 4,
+	MASK = 7
+}
+
+enum TypeFlags: CInt (inline CInt bit) {
+	NONE = 0,
+	ABSTRACT = 16,
+	VALUE_ABSTRACT = 32,
+	FINAL = 64,
+	DEPRECATED = 128
+}
+
+enum TypeFundamentalFlags: CInt (inline CInt bit) {
+	CLASSED = 1,
+	INSTANTIATABLE = 2,
+	DERIVABLE = 4,
+	DEEP_DERIVABLE = 8
+}
+
+struct TypeFundamentalInfo {
+	TypeFundamentalFlags type_flags;
+}
+
+struct TypeInfo {
+	ushort class_size;
+	BaseInitFunc base_init;
+	BaseFinalizeFunc base_finalize;
+	ClassInitFunc class_init;
+	ClassFinalizeFunc class_finalize;
+	void* class_data;
+	ushort instance_size;
+	ushort n_preallocs;
+	InstanceInitFunc instance_init;
+	TypeValueTable* value_table;
+}
+
+struct TypeInstance {
+	TypeClass* g_class;
+}
+
+fn void* TypeInstance.get_private (TypeInstance* self, GType private_type) @extern ("g_type_instance_get_private");
+struct TypeInterface {
+	GType g_type;
+	GType g_instance_type;
+}
+
+fn TypeInterface* TypeInterface.peek_parent (TypeInterface* self) @extern ("g_type_interface_peek_parent");
+fn void TypeInterface.add_prerequisite (TypeInterface* self, GType interface_type, GType prerequisite_type) @extern ("g_type_interface_add_prerequisite");
+fn TypePlugin* TypeInterface.get_plugin (TypeInterface* self, GType instance_type, GType interface_type) @extern ("g_type_interface_get_plugin");
+fn GType TypeInterface.instantiatable_prerequisite (TypeInterface* self, GType interface_type) @extern ("g_type_interface_instantiatable_prerequisite");
+fn TypeInterface* TypeInterface.peek (TypeInterface* self, TypeClass* instance_class, GType iface_type) @extern ("g_type_interface_peek");
+fn char** TypeInterface.prerequisites (TypeInterface* self, GType interface_type, uint n_prerequisites) @extern ("g_type_interface_prerequisites");
+def TypeInterfaceCheckFunc = fn void (void* check_data, TypeInterface* g_iface) @export;
+struct TypeModule (TypePlugin) {
+	inline Object parent_instance;
+	uint use_count;
+	SList* type_infos;
+	SList* interface_infos;
+	ZString name;
+}
+
+fn void TypeModule.add_interface (TypeModule* self, GType instance_type, GType interface_type, InterfaceInfo* interface_info) @extern ("g_type_module_add_interface");
+fn GType TypeModule.register_enum (TypeModule* self, ZString name, EnumValue* const_static_values) @extern ("g_type_module_register_enum");
+fn GType TypeModule.register_flags (TypeModule* self, ZString name, FlagsValue* const_static_values) @extern ("g_type_module_register_flags");
+fn GType TypeModule.register_type (TypeModule* self, GType parent_type, ZString type_name, TypeInfo* type_info, TypeFlags flags) @extern ("g_type_module_register_type");
+fn void TypeModule.set_name (TypeModule* self, ZString name) @extern ("g_type_module_set_name");
+fn void TypeModule.unuse (TypeModule* self) @extern ("g_type_module_unuse");
+fn CInt TypeModule.use (TypeModule* self) @extern ("g_type_module_use");
+
+interface TypePlugin {
+	fn void complete_interface_info (GType instance_type, GType interface_type, InterfaceInfo* info) @extern ("g_type_plugin_complete_interface_info");
+	fn void complete_type_info (GType g_type, TypeInfo* info, TypeValueTable* value_table) @extern ("g_type_plugin_complete_type_info");
+	fn void unuse () @extern ("g_type_plugin_unuse");
+	fn void use () @extern ("g_type_plugin_use");
+}
+
+struct TypePluginClass {
+	TypeInterface base_iface;
+	TypePluginUse use_plugin;
+	TypePluginUnuse unuse_plugin;
+	TypePluginCompleteTypeInfo complete_type_info;
+	TypePluginCompleteInterfaceInfo complete_interface_info;
+}
+
+def TypePluginCompleteInterfaceInfo = fn void (TypePlugin* plugin, GType instance_type, GType interface_type, InterfaceInfo* info) @export;
+def TypePluginCompleteTypeInfo = fn void (TypePlugin* plugin, GType g_type, TypeInfo* info, TypeValueTable* value_table) @export;
+def TypePluginUnuse = fn void (TypePlugin* plugin) @export;
+def TypePluginUse = fn void (TypePlugin* plugin) @export;
+struct TypeQuery {
+	GType type;
+	ZString type_name;
+	uint class_size;
+	uint instance_size;
+}
+
+def TypeValueCollectFunc = fn ZString (Value* value, uint n_collect_values, char** collect_values, uint collect_flags) @export;
+def TypeValueCopyFunc = fn void (Value* src_value, Value dest_value) @export;
+def TypeValueFreeFunc = fn void (Value* value) @export;
+def TypeValueInitFunc = fn void (Value* value) @export;
+def TypeValueLCopyFunc = fn ZString (Value* value, uint n_collect_values, char** collect_values, uint collect_flags) @export;
+def TypeValuePeekPointerFunc = fn void* (Value* value) @export;
+struct TypeValueTable {
+	TypeValueInitFunc value_init;
+	TypeValueFreeFunc value_free;
+	TypeValueCopyFunc value_copy;
+	TypeValuePeekPointerFunc value_peek_pointer;
+	ZString collect_format;
+	TypeValueCollectFunc collect_value;
+	ZString lcopy_format;
+	TypeValueLCopyFunc lcopy_value;
+}
+
+def Uri = void;
+
+const int VALUE_COLLECT_FORMAT_MAX_LENGTH = 8;
+const int VALUE_INTERNED_STRING = 268435456;
+const int VALUE_NOCOPY_CONTENTS = 134217728;
+struct Value {
+	GType g_type;
+	char[2] data;
+}
+
+fn void Value.copy (Value* self, Value* dest_value) @extern ("g_value_copy");
+fn Object* Value.dup_object (Value* self) @extern ("g_value_dup_object");
+fn ZString Value.dup_string (Value* self) @extern ("g_value_dup_string");
+fn glib::Variant* Value.dup_variant (Value* self) @extern ("g_value_dup_variant");
+fn CInt Value.fits_pointer (Value* self) @extern ("g_value_fits_pointer");
+fn CInt Value.get_boolean (Value* self) @extern ("g_value_get_boolean");
+fn void* Value.get_boxed (Value* self) @extern ("g_value_get_boxed");
+fn ichar Value.get_char (Value* self) @extern ("g_value_get_char");
+fn double Value.get_double (Value* self) @extern ("g_value_get_double");
+fn int Value.get_enum (Value* self) @extern ("g_value_get_enum");
+fn uint Value.get_flags (Value* self) @extern ("g_value_get_flags");
+fn float Value.get_float (Value* self) @extern ("g_value_get_float");
+fn GType Value.get_gtype (Value* self) @extern ("g_value_get_gtype");
+fn int Value.get_int (Value* self) @extern ("g_value_get_int");
+fn long Value.get_int64 (Value* self) @extern ("g_value_get_int64");
+fn long Value.get_long (Value* self) @extern ("g_value_get_long");
+fn Object* Value.get_object (Value* self) @extern ("g_value_get_object");
+fn ParamSpec* Value.get_param (Value* self) @extern ("g_value_get_param");
+fn void* Value.get_pointer (Value* self) @extern ("g_value_get_pointer");
+fn ichar Value.get_schar (Value* self) @extern ("g_value_get_schar");
+fn ZString Value.get_string (Value* self) @extern ("g_value_get_string");
+fn char Value.get_uchar (Value* self) @extern ("g_value_get_uchar");
+fn uint Value.get_uint (Value* self) @extern ("g_value_get_uint");
+fn ulong Value.get_uint64 (Value* self) @extern ("g_value_get_uint64");
+fn ulong Value.get_ulong (Value* self) @extern ("g_value_get_ulong");
+fn glib::Variant* Value.get_variant (Value* self) @extern ("g_value_get_variant");
+fn Value* Value.init (Value* self, GType g_type) @extern ("g_value_init");
+fn void Value.init_from_instance (Value* self, TypeInstance* instance) @extern ("g_value_init_from_instance");
+fn void* Value.peek_pointer (Value* self) @extern ("g_value_peek_pointer");
+fn Value* Value.reset (Value* self) @extern ("g_value_reset");
+fn void Value.set_boolean (Value* self, CInt v_boolean) @extern ("g_value_set_boolean");
+fn void Value.set_boxed (Value* self, void* v_boxed) @extern ("g_value_set_boxed");
+fn void Value.set_boxed_take_ownership (Value* self, void* v_boxed) @extern ("g_value_set_boxed_take_ownership");
+fn void Value.set_char (Value* self, ichar v_char) @extern ("g_value_set_char");
+fn void Value.set_double (Value* self, double v_double) @extern ("g_value_set_double");
+fn void Value.set_enum (Value* self, int v_enum) @extern ("g_value_set_enum");
+fn void Value.set_flags (Value* self, uint v_flags) @extern ("g_value_set_flags");
+fn void Value.set_float (Value* self, float v_float) @extern ("g_value_set_float");
+fn void Value.set_gtype (Value* self, GType v_gtype) @extern ("g_value_set_gtype");
+fn void Value.set_instance (Value* self, void* instance) @extern ("g_value_set_instance");
+fn void Value.set_int (Value* self, int v_int) @extern ("g_value_set_int");
+fn void Value.set_int64 (Value* self, long v_int64) @extern ("g_value_set_int64");
+fn void Value.set_interned_string (Value* self, ZString v_string) @extern ("g_value_set_interned_string");
+fn void Value.set_long (Value* self, long v_long) @extern ("g_value_set_long");
+fn void Value.set_object (Value* self, Object* v_object) @extern ("g_value_set_object");
+fn void Value.set_param (Value* self, ParamSpec* param) @extern ("g_value_set_param");
+fn void Value.set_pointer (Value* self, void* v_pointer) @extern ("g_value_set_pointer");
+fn void Value.set_schar (Value* self, ichar v_char) @extern ("g_value_set_schar");
+fn void Value.set_static_boxed (Value* self, void* v_boxed) @extern ("g_value_set_static_boxed");
+fn void Value.set_static_string (Value* self, ZString v_string) @extern ("g_value_set_static_string");
+fn void Value.set_string (Value* self, ZString v_string) @extern ("g_value_set_string");
+fn void Value.set_string_take_ownership (Value* self, ZString v_string) @extern ("g_value_set_string_take_ownership");
+fn void Value.set_uchar (Value* self, char v_uchar) @extern ("g_value_set_uchar");
+fn void Value.set_uint (Value* self, uint v_uint) @extern ("g_value_set_uint");
+fn void Value.set_uint64 (Value* self, ulong v_uint64) @extern ("g_value_set_uint64");
+fn void Value.set_ulong (Value* self, ulong v_ulong) @extern ("g_value_set_ulong");
+fn void Value.set_variant (Value* self, glib::Variant* variant) @extern ("g_value_set_variant");
+fn ZString Value.steal_string (Value* self) @extern ("g_value_steal_string");
+fn void Value.take_boxed (Value* self, void* v_boxed) @extern ("g_value_take_boxed");
+fn void Value.take_string (Value* self, ZString v_string) @extern ("g_value_take_string");
+fn void Value.take_variant (Value* self, glib::Variant* variant) @extern ("g_value_take_variant");
+fn CInt Value.transform (Value* self, Value* dest_value) @extern ("g_value_transform");
+fn void Value.unset (Value* self) @extern ("g_value_unset");
+fn CInt Value.type_compatible (Value* self, GType src_type, GType dest_type) @extern ("g_value_type_compatible");
+fn CInt Value.type_transformable (Value* self, GType src_type, GType dest_type) @extern ("g_value_type_transformable");
+struct ValueArray {
+	uint n_values;
+	Value* values;
+	uint n_prealloced;
+}
+
+fn ValueArray* ValueArray.new (uint n_prealloced) @operator (construct) @extern ("g_value_array_new");
+fn ValueArray* ValueArray.append (ValueArray* self, Value* value) @extern ("g_value_array_append");
+fn ValueArray* ValueArray.copy (ValueArray* self) @extern ("g_value_array_copy");
+fn Value* ValueArray.get_nth (ValueArray* self, uint index_) @extern ("g_value_array_get_nth");
+fn ValueArray* ValueArray.insert (ValueArray* self, uint index_, Value* value) @extern ("g_value_array_insert");
+fn ValueArray* ValueArray.prepend (ValueArray* self, Value* value) @extern ("g_value_array_prepend");
+fn ValueArray* ValueArray.remove (ValueArray* self, uint index_) @extern ("g_value_array_remove");
+fn ValueArray* ValueArray.sort (ValueArray* self, glib::CompareDataFunc compare_func, void* user_data) @extern ("g_value_array_sort_with_data");
+def ValueTransform = fn void (Value* src_value, Value* dest_value) @export;
+def VariantBuilder = void;
+
+def VariantDict = void;
+
+def VariantType = void;
+
+def WeakNotify = fn void (void* data, Object* where_the_object_was) @export;
+def WeakRef = void;
+
+union _Value__data__union {
+	int v_int;
+	uint v_uint;
+	long v_long;
+	ulong v_ulong;
+	long v_int64;
+	ulong v_uint64;
+	float v_float;
+	double v_double;
+	void* v_pointer;
+}
+
+extern fn void* boxed_copy (GType boxed_type, void* src_boxed) @extern ("g_boxed_copy");
+extern fn void boxed_free (GType boxed_type, void* boxed) @extern ("g_boxed_free");
+extern fn GType boxed_type_register_static (ZString name, BoxedCopyFunc boxed_copy, BoxedFreeFunc boxed_free) @extern ("g_boxed_type_register_static");
+extern fn void cclosure_marshal_BOOLEAN__BOXED_BOXED (Closure* closure, Value* return_value, uint n_param_values, Value* param_values, void* invocation_hint, void* marshal_data) @extern ("g_cclosure_marshal_BOOLEAN__BOXED_BOXED");
+extern fn void cclosure_marshal_BOOLEAN__FLAGS (Closure* closure, Value* return_value, uint n_param_values, Value* param_values, void* invocation_hint, void* marshal_data) @extern ("g_cclosure_marshal_BOOLEAN__FLAGS");
+extern fn void cclosure_marshal_STRING__OBJECT_POINTER (Closure* closure, Value* return_value, uint n_param_values, Value* param_values, void* invocation_hint, void* marshal_data) @extern ("g_cclosure_marshal_STRING__OBJECT_POINTER");
+extern fn void cclosure_marshal_VOID__BOOLEAN (Closure* closure, Value* return_value, uint n_param_values, Value* param_values, void* invocation_hint, void* marshal_data) @extern ("g_cclosure_marshal_VOID__BOOLEAN");
+extern fn void cclosure_marshal_VOID__BOXED (Closure* closure, Value* return_value, uint n_param_values, Value* param_values, void* invocation_hint, void* marshal_data) @extern ("g_cclosure_marshal_VOID__BOXED");
+extern fn void cclosure_marshal_VOID__CHAR (Closure* closure, Value* return_value, uint n_param_values, Value* param_values, void* invocation_hint, void* marshal_data) @extern ("g_cclosure_marshal_VOID__CHAR");
+extern fn void cclosure_marshal_VOID__DOUBLE (Closure* closure, Value* return_value, uint n_param_values, Value* param_values, void* invocation_hint, void* marshal_data) @extern ("g_cclosure_marshal_VOID__DOUBLE");
+extern fn void cclosure_marshal_VOID__ENUM (Closure* closure, Value* return_value, uint n_param_values, Value* param_values, void* invocation_hint, void* marshal_data) @extern ("g_cclosure_marshal_VOID__ENUM");
+extern fn void cclosure_marshal_VOID__FLAGS (Closure* closure, Value* return_value, uint n_param_values, Value* param_values, void* invocation_hint, void* marshal_data) @extern ("g_cclosure_marshal_VOID__FLAGS");
+extern fn void cclosure_marshal_VOID__FLOAT (Closure* closure, Value* return_value, uint n_param_values, Value* param_values, void* invocation_hint, void* marshal_data) @extern ("g_cclosure_marshal_VOID__FLOAT");
+extern fn void cclosure_marshal_VOID__INT (Closure* closure, Value* return_value, uint n_param_values, Value* param_values, void* invocation_hint, void* marshal_data) @extern ("g_cclosure_marshal_VOID__INT");
+extern fn void cclosure_marshal_VOID__LONG (Closure* closure, Value* return_value, uint n_param_values, Value* param_values, void* invocation_hint, void* marshal_data) @extern ("g_cclosure_marshal_VOID__LONG");
+extern fn void cclosure_marshal_VOID__OBJECT (Closure* closure, Value* return_value, uint n_param_values, Value* param_values, void* invocation_hint, void* marshal_data) @extern ("g_cclosure_marshal_VOID__OBJECT");
+extern fn void cclosure_marshal_VOID__PARAM (Closure* closure, Value* return_value, uint n_param_values, Value* param_values, void* invocation_hint, void* marshal_data) @extern ("g_cclosure_marshal_VOID__PARAM");
+extern fn void cclosure_marshal_VOID__POINTER (Closure* closure, Value* return_value, uint n_param_values, Value* param_values, void* invocation_hint, void* marshal_data) @extern ("g_cclosure_marshal_VOID__POINTER");
+extern fn void cclosure_marshal_VOID__STRING (Closure* closure, Value* return_value, uint n_param_values, Value* param_values, void* invocation_hint, void* marshal_data) @extern ("g_cclosure_marshal_VOID__STRING");
+extern fn void cclosure_marshal_VOID__UCHAR (Closure* closure, Value* return_value, uint n_param_values, Value* param_values, void* invocation_hint, void* marshal_data) @extern ("g_cclosure_marshal_VOID__UCHAR");
+extern fn void cclosure_marshal_VOID__UINT (Closure* closure, Value* return_value, uint n_param_values, Value* param_values, void* invocation_hint, void* marshal_data) @extern ("g_cclosure_marshal_VOID__UINT");
+extern fn void cclosure_marshal_VOID__UINT_POINTER (Closure* closure, Value* return_value, uint n_param_values, Value* param_values, void* invocation_hint, void* marshal_data) @extern ("g_cclosure_marshal_VOID__UINT_POINTER");
+extern fn void cclosure_marshal_VOID__ULONG (Closure* closure, Value* return_value, uint n_param_values, Value* param_values, void* invocation_hint, void* marshal_data) @extern ("g_cclosure_marshal_VOID__ULONG");
+extern fn void cclosure_marshal_VOID__VARIANT (Closure* closure, Value* return_value, uint n_param_values, Value* param_values, void* invocation_hint, void* marshal_data) @extern ("g_cclosure_marshal_VOID__VARIANT");
+extern fn void cclosure_marshal_VOID__VOID (Closure* closure, Value* return_value, uint n_param_values, Value* param_values, void* invocation_hint, void* marshal_data) @extern ("g_cclosure_marshal_VOID__VOID");
+extern fn void cclosure_marshal_generic (Closure* closure, Value* return_gvalue, uint n_param_values, Value* param_values, void* invocation_hint, void* marshal_data) @extern ("g_cclosure_marshal_generic");
+extern fn void clear_signal_handler (ulong* handler_id_ptr, Object* instance) @extern ("g_clear_signal_handler");
+extern fn void enum_complete_type_info (GType g_enum_type, TypeInfo info, EnumValue* const_values) @extern ("g_enum_complete_type_info");
+extern fn EnumValue* enum_get_value (EnumClass* enum_class, int value) @extern ("g_enum_get_value");
+extern fn EnumValue* enum_get_value_by_name (EnumClass* enum_class, ZString name) @extern ("g_enum_get_value_by_name");
+extern fn EnumValue* enum_get_value_by_nick (EnumClass* enum_class, ZString nick) @extern ("g_enum_get_value_by_nick");
+extern fn GType enum_register_static (ZString name, EnumValue* const_static_values) @extern ("g_enum_register_static");
+extern fn ZString enum_to_string (GType g_enum_type, int value) @extern ("g_enum_to_string");
+extern fn void flags_complete_type_info (GType g_flags_type, TypeInfo info, FlagsValue* const_values) @extern ("g_flags_complete_type_info");
+extern fn FlagsValue* flags_get_first_value (FlagsClass* flags_class, uint value) @extern ("g_flags_get_first_value");
+extern fn FlagsValue* flags_get_value_by_name (FlagsClass* flags_class, ZString name) @extern ("g_flags_get_value_by_name");
+extern fn FlagsValue* flags_get_value_by_nick (FlagsClass* flags_class, ZString nick) @extern ("g_flags_get_value_by_nick");
+extern fn GType flags_register_static (ZString name, FlagsValue* const_static_values) @extern ("g_flags_register_static");
+extern fn ZString flags_to_string (GType flags_type, uint value) @extern ("g_flags_to_string");
+extern fn GType gtype_get_type () @extern ("g_gtype_get_type");
+extern fn ParamSpec* param_spec_boolean (ZString name, ZString nick, ZString blurb, CInt default_value, ParamFlags flags) @extern ("g_param_spec_boolean");
+extern fn ParamSpec* param_spec_boxed (ZString name, ZString nick, ZString blurb, GType boxed_type, ParamFlags flags) @extern ("g_param_spec_boxed");
+extern fn ParamSpec* param_spec_char (ZString name, ZString nick, ZString blurb, ichar minimum, ichar maximum, ichar default_value, ParamFlags flags) @extern ("g_param_spec_char");
+extern fn ParamSpec* param_spec_double (ZString name, ZString nick, ZString blurb, double minimum, double maximum, double default_value, ParamFlags flags) @extern ("g_param_spec_double");
+extern fn ParamSpec* param_spec_enum (ZString name, ZString nick, ZString blurb, GType enum_type, int default_value, ParamFlags flags) @extern ("g_param_spec_enum");
+extern fn ParamSpec* param_spec_flags (ZString name, ZString nick, ZString blurb, GType flags_type, uint default_value, ParamFlags flags) @extern ("g_param_spec_flags");
+extern fn ParamSpec* param_spec_float (ZString name, ZString nick, ZString blurb, float minimum, float maximum, float default_value, ParamFlags flags) @extern ("g_param_spec_float");
+extern fn ParamSpec* param_spec_gtype (ZString name, ZString nick, ZString blurb, GType is_a_type, ParamFlags flags) @extern ("g_param_spec_gtype");
+extern fn ParamSpec* param_spec_int (ZString name, ZString nick, ZString blurb, int minimum, int maximum, int default_value, ParamFlags flags) @extern ("g_param_spec_int");
+extern fn ParamSpec* param_spec_int64 (ZString name, ZString nick, ZString blurb, long minimum, long maximum, long default_value, ParamFlags flags) @extern ("g_param_spec_int64");
+extern fn ParamSpec* param_spec_long (ZString name, ZString nick, ZString blurb, long minimum, long maximum, long default_value, ParamFlags flags) @extern ("g_param_spec_long");
+extern fn ParamSpec* param_spec_object (ZString name, ZString nick, ZString blurb, GType object_type, ParamFlags flags) @extern ("g_param_spec_object");
+extern fn ParamSpec* param_spec_param (ZString name, ZString nick, ZString blurb, GType param_type, ParamFlags flags) @extern ("g_param_spec_param");
+extern fn ParamSpec* param_spec_pointer (ZString name, ZString nick, ZString blurb, ParamFlags flags) @extern ("g_param_spec_pointer");
+extern fn ParamSpec* param_spec_string (ZString name, ZString nick, ZString blurb, ZString default_value, ParamFlags flags) @extern ("g_param_spec_string");
+extern fn ParamSpec* param_spec_uchar (ZString name, ZString nick, ZString blurb, char minimum, char maximum, char default_value, ParamFlags flags) @extern ("g_param_spec_uchar");
+extern fn ParamSpec* param_spec_uint (ZString name, ZString nick, ZString blurb, uint minimum, uint maximum, uint default_value, ParamFlags flags) @extern ("g_param_spec_uint");
+extern fn ParamSpec* param_spec_uint64 (ZString name, ZString nick, ZString blurb, ulong minimum, ulong maximum, ulong default_value, ParamFlags flags) @extern ("g_param_spec_uint64");
+extern fn ParamSpec* param_spec_ulong (ZString name, ZString nick, ZString blurb, ulong minimum, ulong maximum, ulong default_value, ParamFlags flags) @extern ("g_param_spec_ulong");
+extern fn ParamSpec* param_spec_unichar (ZString name, ZString nick, ZString blurb, WString default_value, ParamFlags flags) @extern ("g_param_spec_unichar");
+extern fn ParamSpec* param_spec_variant (ZString name, ZString nick, ZString blurb, glib::VariantType* type, glib::Variant* default_value, ParamFlags flags) @extern ("g_param_spec_variant");
+extern fn GType param_type_register_static (ZString name, ParamSpecTypeInfo* pspec_info) @extern ("g_param_type_register_static");
+extern fn CInt param_value_convert (ParamSpec* pspec, Value* src_value, Value* dest_value, CInt strict_validation) @extern ("g_param_value_convert");
+extern fn CInt param_value_defaults (ParamSpec* pspec, Value* value) @extern ("g_param_value_defaults");
+extern fn CInt param_value_is_valid (ParamSpec* pspec, Value* value) @extern ("g_param_value_is_valid");
+extern fn void param_value_set_default (ParamSpec* pspec, Value* value) @extern ("g_param_value_set_default");
+extern fn CInt param_value_validate (ParamSpec* pspec, Value* value) @extern ("g_param_value_validate");
+extern fn int param_values_cmp (ParamSpec* pspec, Value* value1, Value* value2) @extern ("g_param_values_cmp");
+extern fn GType pointer_type_register_static (ZString name) @extern ("g_pointer_type_register_static");
+extern fn CInt signal_accumulator_first_wins (SignalInvocationHint* ihint, Value* return_accu, Value* handler_return, void* dummy) @extern ("g_signal_accumulator_first_wins");
+extern fn CInt signal_accumulator_true_handled (SignalInvocationHint* ihint, Value* return_accu, Value* handler_return, void* dummy) @extern ("g_signal_accumulator_true_handled");
+extern fn ulong signal_add_emission_hook (uint signal_id, uint detail, SignalEmissionHook hook_func, void* hook_data, glib::DestroyNotify data_destroy) @extern ("g_signal_add_emission_hook");
+extern fn void signal_chain_from_overridden (char** instance_and_params, Value* return_value) @extern ("g_signal_chain_from_overridden");
+extern fn ulong signal_connect_closure (Object* instance, ZString detailed_signal, Closure* closure, CInt after) @extern ("g_signal_connect_closure");
+extern fn ulong signal_connect_closure_by_id (Object* instance, uint signal_id, uint detail, Closure* closure, CInt after) @extern ("g_signal_connect_closure_by_id");
+extern fn void signal_emitv (char** instance_and_params, uint signal_id, uint detail, Value return_value) @extern ("g_signal_emitv");
+extern fn SignalInvocationHint* signal_get_invocation_hint (Object* instance) @extern ("g_signal_get_invocation_hint");
+extern fn void signal_handler_block (Object* instance, ulong handler_id) @extern ("g_signal_handler_block");
+extern fn void signal_handler_disconnect (Object* instance, ulong handler_id) @extern ("g_signal_handler_disconnect");
+extern fn ulong signal_handler_find (Object* instance, SignalMatchType mask, uint signal_id, uint detail, Closure* closure, void* func, void* data) @extern ("g_signal_handler_find");
+extern fn CInt signal_handler_is_connected (Object* instance, ulong handler_id) @extern ("g_signal_handler_is_connected");
+extern fn void signal_handler_unblock (Object* instance, ulong handler_id) @extern ("g_signal_handler_unblock");
+extern fn uint signal_handlers_block_matched (Object* instance, SignalMatchType mask, uint signal_id, uint detail, Closure* closure, void* func, void* data) @extern ("g_signal_handlers_block_matched");
+extern fn void signal_handlers_destroy (Object* instance) @extern ("g_signal_handlers_destroy");
+extern fn uint signal_handlers_disconnect_matched (Object* instance, SignalMatchType mask, uint signal_id, uint detail, Closure* closure, void* func, void* data) @extern ("g_signal_handlers_disconnect_matched");
+extern fn uint signal_handlers_unblock_matched (Object* instance, SignalMatchType mask, uint signal_id, uint detail, Closure* closure, void* func, void* data) @extern ("g_signal_handlers_unblock_matched");
+extern fn CInt signal_has_handler_pending (Object* instance, uint signal_id, uint detail, CInt may_be_blocked) @extern ("g_signal_has_handler_pending");
+extern fn CInt signal_is_valid_name (ZString name) @extern ("g_signal_is_valid_name");
+extern fn char** signal_list_ids (GType itype, uint n_ids) @extern ("g_signal_list_ids");
+extern fn uint signal_lookup (ZString name, GType itype) @extern ("g_signal_lookup");
+extern fn ZString signal_name (uint signal_id) @extern ("g_signal_name");
+extern fn void signal_override_class_closure (uint signal_id, GType instance_type, Closure* class_closure) @extern ("g_signal_override_class_closure");
+extern fn void signal_override_class_handler (ZString signal_name, GType instance_type, Callback class_handler) @extern ("g_signal_override_class_handler");
+extern fn CInt signal_parse_name (ZString detailed_signal, GType itype, uint signal_id_p, uint detail_p, CInt force_detail_quark) @extern ("g_signal_parse_name");
+extern fn void signal_query (uint signal_id, SignalQuery query) @extern ("g_signal_query");
+extern fn void signal_remove_emission_hook (uint signal_id, ulong hook_id) @extern ("g_signal_remove_emission_hook");
+extern fn void signal_stop_emission (Object* instance, uint signal_id, uint detail) @extern ("g_signal_stop_emission");
+extern fn void signal_stop_emission_by_name (Object* instance, ZString detailed_signal) @extern ("g_signal_stop_emission_by_name");
+extern fn Closure* signal_type_cclosure_new (GType itype, uint struct_offset) @extern ("g_signal_type_cclosure_new");
+extern fn void source_set_closure (glib::Source* source, Closure* closure) @extern ("g_source_set_closure");
+extern fn void source_set_dummy_callback (glib::Source* source) @extern ("g_source_set_dummy_callback");
+extern fn ZString strdup_value_contents (Value* value) @extern ("g_strdup_value_contents");
+extern fn void type_add_class_private (GType class_type, ulong private_size) @extern ("g_type_add_class_private");
+extern fn int type_add_instance_private (GType class_type, ulong private_size) @extern ("g_type_add_instance_private");
+extern fn void type_add_interface_dynamic (GType instance_type, GType interface_type, TypePlugin* plugin) @extern ("g_type_add_interface_dynamic");
+extern fn void type_add_interface_static (GType instance_type, GType interface_type, InterfaceInfo* info) @extern ("g_type_add_interface_static");
+extern fn CInt type_check_class_is_a (TypeClass* g_class, GType is_a_type) @extern ("g_type_check_class_is_a");
+extern fn CInt type_check_instance (TypeInstance* instance) @extern ("g_type_check_instance");
+extern fn CInt type_check_instance_is_a (TypeInstance* instance, GType iface_type) @extern ("g_type_check_instance_is_a");
+extern fn CInt type_check_instance_is_fundamentally_a (TypeInstance* instance, GType fundamental_type) @extern ("g_type_check_instance_is_fundamentally_a");
+extern fn CInt type_check_is_value_type (GType type) @extern ("g_type_check_is_value_type");
+extern fn CInt type_check_value (Value* value) @extern ("g_type_check_value");
+extern fn CInt type_check_value_holds (Value* value, GType type) @extern ("g_type_check_value_holds");
+extern fn char** type_children (GType type, uint n_children) @extern ("g_type_children");
+extern fn void type_class_adjust_private_offset (void* g_class, int* private_size_or_offset) @extern ("g_type_class_adjust_private_offset");
+extern fn TypeClass* type_class_peek (GType type) @extern ("g_type_class_peek");
+extern fn TypeClass* type_class_peek_static (GType type) @extern ("g_type_class_peek_static");
+extern fn TypeClass* type_class_ref (GType type) @extern ("g_type_class_ref");
+extern fn TypeInterface* type_default_interface_peek (GType g_type) @extern ("g_type_default_interface_peek");
+extern fn TypeInterface* type_default_interface_ref (GType g_type) @extern ("g_type_default_interface_ref");
+extern fn void type_default_interface_unref (TypeInterface* g_iface) @extern ("g_type_default_interface_unref");
+extern fn uint type_depth (GType type) @extern ("g_type_depth");
+extern fn void type_ensure (GType type) @extern ("g_type_ensure");
+extern fn void type_free_instance (TypeInstance* instance) @extern ("g_type_free_instance");
+extern fn GType type_from_name (ZString name) @extern ("g_type_from_name");
+extern fn GType type_fundamental (GType type_id) @extern ("g_type_fundamental");
+extern fn GType type_fundamental_next () @extern ("g_type_fundamental_next");
+extern fn int type_get_instance_count (GType type) @extern ("g_type_get_instance_count");
+extern fn TypePlugin* type_get_plugin (GType type) @extern ("g_type_get_plugin");
+extern fn void* type_get_qdata (GType type, uint quark) @extern ("g_type_get_qdata");
+extern fn uint type_get_type_registration_serial () @extern ("g_type_get_type_registration_serial");
+extern fn void type_init () @extern ("g_type_init");
+extern fn void type_init_with_debug_flags (TypeDebugFlags debug_flags) @extern ("g_type_init_with_debug_flags");
+extern fn void type_interface_add_prerequisite (GType interface_type, GType prerequisite_type) @extern ("g_type_interface_add_prerequisite");
+extern fn TypePlugin* type_interface_get_plugin (GType instance_type, GType interface_type) @extern ("g_type_interface_get_plugin");
+extern fn GType type_interface_instantiatable_prerequisite (GType interface_type) @extern ("g_type_interface_instantiatable_prerequisite");
+extern fn TypeInterface* type_interface_peek (TypeClass* instance_class, GType iface_type) @extern ("g_type_interface_peek");
+extern fn char** type_interface_prerequisites (GType interface_type, uint n_prerequisites) @extern ("g_type_interface_prerequisites");
+extern fn char** type_interfaces (GType type, uint n_interfaces) @extern ("g_type_interfaces");
+extern fn CInt type_is_a (GType type, GType is_a_type) @extern ("g_type_is_a");
+extern fn ZString type_name (GType type) @extern ("g_type_name");
+extern fn ZString type_name_from_class (TypeClass* g_class) @extern ("g_type_name_from_class");
+extern fn ZString type_name_from_instance (TypeInstance* instance) @extern ("g_type_name_from_instance");
+extern fn GType type_next_base (GType leaf_type, GType root_type) @extern ("g_type_next_base");
+extern fn GType type_parent (GType type) @extern ("g_type_parent");
+extern fn uint type_qname (GType type) @extern ("g_type_qname");
+extern fn void type_query (GType type, TypeQuery query) @extern ("g_type_query");
+extern fn GType type_register_dynamic (GType parent_type, ZString type_name, TypePlugin* plugin, TypeFlags flags) @extern ("g_type_register_dynamic");
+extern fn GType type_register_fundamental (GType type_id, ZString type_name, TypeInfo* info, TypeFundamentalInfo* finfo, TypeFlags flags) @extern ("g_type_register_fundamental");
+extern fn GType type_register_static (GType parent_type, ZString type_name, TypeInfo* info, TypeFlags flags) @extern ("g_type_register_static");
+extern fn void type_set_qdata (GType type, uint quark, void* data) @extern ("g_type_set_qdata");
+extern fn CInt type_test_flags (GType type, uint flags) @extern ("g_type_test_flags");
+extern fn CInt value_type_compatible (GType src_type, GType dest_type) @extern ("g_value_type_compatible");
+extern fn CInt value_type_transformable (GType src_type, GType dest_type) @extern ("g_value_type_transformable");
+extern fn GType variant_get_gtype () @extern ("g_variant_get_gtype");

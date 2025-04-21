@@ -1,0 +1,3318 @@
+module g;
+
+const int ALLOCATOR_LIST = 1;
+const int ALLOCATOR_NODE = 3;
+const int ALLOCATOR_SLIST = 2;
+const int ALLOC_AND_FREE = 2;
+const int ALLOC_ONLY = 1;
+const int ANALYZER_ANALYZING = 1;
+const int ASCII_DTOSTR_BUF_SIZE = 39;
+const int ATOMIC_REF_COUNT_INIT = 1;
+struct Allocator {
+	void* unused;
+}
+
+fn void Allocator.free (Allocator* self) @extern ("g_allocator_free");
+struct Array {
+	ZString data;
+	uint len;
+}
+
+enum AsciiType: CInt (inline CInt bit) {
+	ALNUM = 1,
+	ALPHA = 2,
+	CNTRL = 4,
+	DIGIT = 8,
+	GRAPH = 16,
+	LOWER = 32,
+	PRINT = 64,
+	PUNCT = 128,
+	SPACE = 256,
+	UPPER = 512,
+	XDIGIT = 1024
+}
+
+struct AsyncQueue {
+	void* unused;
+}
+
+fn int AsyncQueue.length (AsyncQueue* self) @extern ("g_async_queue_length");
+fn int AsyncQueue.length_unlocked (AsyncQueue* self) @extern ("g_async_queue_length_unlocked");
+fn void AsyncQueue.lock (AsyncQueue* self) @extern ("g_async_queue_lock");
+fn void* AsyncQueue.pop (AsyncQueue* self) @extern ("g_async_queue_pop");
+fn void* AsyncQueue.pop_unlocked (AsyncQueue* self) @extern ("g_async_queue_pop_unlocked");
+fn void AsyncQueue.push (AsyncQueue* self, void* data) @extern ("g_async_queue_push");
+fn void AsyncQueue.push_front (AsyncQueue* self, void* item) @extern ("g_async_queue_push_front");
+fn void AsyncQueue.push_front_unlocked (AsyncQueue* self, void* item) @extern ("g_async_queue_push_front_unlocked");
+fn void AsyncQueue.push_sorted (AsyncQueue* self, void* data, CompareDataFunc func, void* user_data) @extern ("g_async_queue_push_sorted");
+fn void AsyncQueue.push_sorted_unlocked (AsyncQueue* self, void* data, CompareDataFunc func, void* user_data) @extern ("g_async_queue_push_sorted_unlocked");
+fn void AsyncQueue.push_unlocked (AsyncQueue* self, void* data) @extern ("g_async_queue_push_unlocked");
+fn AsyncQueue* AsyncQueue.ref (AsyncQueue* self) @extern ("g_async_queue_ref");
+fn void AsyncQueue.ref_unlocked (AsyncQueue* self) @extern ("g_async_queue_ref_unlocked");
+fn CInt AsyncQueue.remove (AsyncQueue* self, void* item) @extern ("g_async_queue_remove");
+fn CInt AsyncQueue.remove_unlocked (AsyncQueue* self, void* item) @extern ("g_async_queue_remove_unlocked");
+fn void AsyncQueue.sort (AsyncQueue* self, CompareDataFunc func, void* user_data) @extern ("g_async_queue_sort");
+fn void AsyncQueue.sort_unlocked (AsyncQueue* self, CompareDataFunc func, void* user_data) @extern ("g_async_queue_sort_unlocked");
+fn void* AsyncQueue.timed_pop (AsyncQueue* self, TimeVal* end_time) @extern ("g_async_queue_timed_pop");
+fn void* AsyncQueue.timed_pop_unlocked (AsyncQueue* self, TimeVal* end_time) @extern ("g_async_queue_timed_pop_unlocked");
+fn void* AsyncQueue.timeout_pop (AsyncQueue* self, ulong timeout) @extern ("g_async_queue_timeout_pop");
+fn void* AsyncQueue.timeout_pop_unlocked (AsyncQueue* self, ulong timeout) @extern ("g_async_queue_timeout_pop_unlocked");
+fn void* AsyncQueue.try_pop (AsyncQueue* self) @extern ("g_async_queue_try_pop");
+fn void* AsyncQueue.try_pop_unlocked (AsyncQueue* self) @extern ("g_async_queue_try_pop_unlocked");
+fn void AsyncQueue.unlock (AsyncQueue* self) @extern ("g_async_queue_unlock");
+fn void AsyncQueue.unref (AsyncQueue* self) @extern ("g_async_queue_unref");
+fn void AsyncQueue.unref_and_unlock (AsyncQueue* self) @extern ("g_async_queue_unref_and_unlock");
+fn AsyncQueue* AsyncQueue.new (AsyncQueue* self) @extern ("g_async_queue_new");
+fn AsyncQueue* AsyncQueue.new_full (AsyncQueue* self, DestroyNotify item_free_func) @extern ("g_async_queue_new_full");
+const int BIG_ENDIAN = 4321;
+struct BookmarkFile {
+	void* unused;
+}
+
+fn BookmarkFile* BookmarkFile.new () @operator (construct) @extern ("g_bookmark_file_new");
+fn void BookmarkFile.add_application (BookmarkFile* self, ZString uri, ZString name, ZString exec) @extern ("g_bookmark_file_add_application");
+fn void BookmarkFile.add_group (BookmarkFile* self, ZString uri, ZString group) @extern ("g_bookmark_file_add_group");
+fn BookmarkFile* BookmarkFile.copy (BookmarkFile* self) @extern ("g_bookmark_file_copy");
+fn void BookmarkFile.free (BookmarkFile* self) @extern ("g_bookmark_file_free");
+fn long BookmarkFile.get_added (BookmarkFile* self, ZString uri) @extern ("g_bookmark_file_get_added");
+fn DateTime* BookmarkFile.get_added_date_time (BookmarkFile* self, ZString uri) @extern ("g_bookmark_file_get_added_date_time");
+fn CInt BookmarkFile.get_app_info (BookmarkFile* self, ZString uri, ZString name, ZString exec, uint count, long stamp) @extern ("g_bookmark_file_get_app_info");
+fn CInt BookmarkFile.get_application_info (BookmarkFile* self, ZString uri, ZString name, ZString exec, uint count, DateTime* stamp) @extern ("g_bookmark_file_get_application_info");
+fn char** BookmarkFile.get_applications (BookmarkFile* self, ZString uri, ulong length) @extern ("g_bookmark_file_get_applications");
+fn ZString BookmarkFile.get_description (BookmarkFile* self, ZString uri) @extern ("g_bookmark_file_get_description");
+fn char** BookmarkFile.get_groups (BookmarkFile* self, ZString uri, ulong length) @extern ("g_bookmark_file_get_groups");
+fn CInt BookmarkFile.get_icon (BookmarkFile* self, ZString uri, ZString href, ZString mime_type) @extern ("g_bookmark_file_get_icon");
+fn CInt BookmarkFile.get_is_private (BookmarkFile* self, ZString uri) @extern ("g_bookmark_file_get_is_private");
+fn ZString BookmarkFile.get_mime_type (BookmarkFile* self, ZString uri) @extern ("g_bookmark_file_get_mime_type");
+fn long BookmarkFile.get_modified (BookmarkFile* self, ZString uri) @extern ("g_bookmark_file_get_modified");
+fn DateTime* BookmarkFile.get_modified_date_time (BookmarkFile* self, ZString uri) @extern ("g_bookmark_file_get_modified_date_time");
+fn int BookmarkFile.get_size (BookmarkFile* self) @extern ("g_bookmark_file_get_size");
+fn ZString BookmarkFile.get_title (BookmarkFile* self, ZString uri) @extern ("g_bookmark_file_get_title");
+fn char** BookmarkFile.get_uris (BookmarkFile* self, ulong length) @extern ("g_bookmark_file_get_uris");
+fn long BookmarkFile.get_visited (BookmarkFile* self, ZString uri) @extern ("g_bookmark_file_get_visited");
+fn DateTime* BookmarkFile.get_visited_date_time (BookmarkFile* self, ZString uri) @extern ("g_bookmark_file_get_visited_date_time");
+fn CInt BookmarkFile.has_application (BookmarkFile* self, ZString uri, ZString name) @extern ("g_bookmark_file_has_application");
+fn CInt BookmarkFile.has_group (BookmarkFile* self, ZString uri, ZString group) @extern ("g_bookmark_file_has_group");
+fn CInt BookmarkFile.has_item (BookmarkFile* self, ZString uri) @extern ("g_bookmark_file_has_item");
+fn CInt BookmarkFile.load_from_data (BookmarkFile* self, char** data, ulong length) @extern ("g_bookmark_file_load_from_data");
+fn CInt BookmarkFile.load_from_data_dirs (BookmarkFile* self, ZString* file, ZString* full_path) @extern ("g_bookmark_file_load_from_data_dirs");
+fn CInt BookmarkFile.load_from_file (BookmarkFile* self, ZString* filename) @extern ("g_bookmark_file_load_from_file");
+fn CInt BookmarkFile.move_item (BookmarkFile* self, ZString old_uri, ZString new_uri) @extern ("g_bookmark_file_move_item");
+fn CInt BookmarkFile.remove_application (BookmarkFile* self, ZString uri, ZString name) @extern ("g_bookmark_file_remove_application");
+fn CInt BookmarkFile.remove_group (BookmarkFile* self, ZString uri, ZString group) @extern ("g_bookmark_file_remove_group");
+fn CInt BookmarkFile.remove_item (BookmarkFile* self, ZString uri) @extern ("g_bookmark_file_remove_item");
+fn void BookmarkFile.set_added (BookmarkFile* self, ZString uri, long added) @extern ("g_bookmark_file_set_added");
+fn void BookmarkFile.set_added_date_time (BookmarkFile* self, ZString uri, DateTime* added) @extern ("g_bookmark_file_set_added_date_time");
+fn CInt BookmarkFile.set_app_info (BookmarkFile* self, ZString uri, ZString name, ZString exec, int count, long stamp) @extern ("g_bookmark_file_set_app_info");
+fn CInt BookmarkFile.set_application_info (BookmarkFile* self, ZString uri, ZString name, ZString exec, int count, DateTime* stamp) @extern ("g_bookmark_file_set_application_info");
+fn void BookmarkFile.set_description (BookmarkFile* self, ZString uri, ZString description) @extern ("g_bookmark_file_set_description");
+fn void BookmarkFile.set_groups (BookmarkFile* self, ZString uri, char** groups, ulong length) @extern ("g_bookmark_file_set_groups");
+fn void BookmarkFile.set_icon (BookmarkFile* self, ZString uri, ZString href, ZString mime_type) @extern ("g_bookmark_file_set_icon");
+fn void BookmarkFile.set_is_private (BookmarkFile* self, ZString uri, CInt is_private) @extern ("g_bookmark_file_set_is_private");
+fn void BookmarkFile.set_mime_type (BookmarkFile* self, ZString uri, ZString mime_type) @extern ("g_bookmark_file_set_mime_type");
+fn void BookmarkFile.set_modified (BookmarkFile* self, ZString uri, long modified) @extern ("g_bookmark_file_set_modified");
+fn void BookmarkFile.set_modified_date_time (BookmarkFile* self, ZString uri, DateTime* modified) @extern ("g_bookmark_file_set_modified_date_time");
+fn void BookmarkFile.set_title (BookmarkFile* self, ZString uri, ZString title) @extern ("g_bookmark_file_set_title");
+fn void BookmarkFile.set_visited (BookmarkFile* self, ZString uri, long visited) @extern ("g_bookmark_file_set_visited");
+fn void BookmarkFile.set_visited_date_time (BookmarkFile* self, ZString uri, DateTime* visited) @extern ("g_bookmark_file_set_visited_date_time");
+fn char** BookmarkFile.to_data (BookmarkFile* self, ulong length) @extern ("g_bookmark_file_to_data");
+fn CInt BookmarkFile.to_file (BookmarkFile* self, ZString* filename) @extern ("g_bookmark_file_to_file");
+fn uint BookmarkFile.error_quark (BookmarkFile* self) @extern ("g_bookmark_file_error_quark");
+
+enum BookmarkFileError {
+	INVALID_URI,
+	INVALID_VALUE,
+	APP_NOT_REGISTERED,
+	URI_NOT_FOUND,
+	READ,
+	UNKNOWN_ENCODING,
+	WRITE,
+	FILE_NOT_FOUND
+}
+
+struct ByteArray {
+	char* data;
+	uint len;
+}
+
+fn ByteArray** ByteArray.append (ByteArray* self, ByteArray** array, char* data, uint len) @extern ("g_byte_array_append");
+fn char* ByteArray.free (ByteArray* self, ByteArray** array, CInt free_segment) @extern ("g_byte_array_free");
+fn Bytes* ByteArray.free_to_bytes (ByteArray* self, ByteArray** array) @extern ("g_byte_array_free_to_bytes");
+fn ByteArray** ByteArray.new (ByteArray* self) @extern ("g_byte_array_new");
+fn ByteArray** ByteArray.new_take (ByteArray* self, char** data, ulong len) @extern ("g_byte_array_new_take");
+fn ByteArray** ByteArray.prepend (ByteArray* self, ByteArray** array, char* data, uint len) @extern ("g_byte_array_prepend");
+fn ByteArray** ByteArray.ref (ByteArray* self, ByteArray** array) @extern ("g_byte_array_ref");
+fn ByteArray** ByteArray.remove_index (ByteArray* self, ByteArray** array, uint index_) @extern ("g_byte_array_remove_index");
+fn ByteArray** ByteArray.remove_index_fast (ByteArray* self, ByteArray** array, uint index_) @extern ("g_byte_array_remove_index_fast");
+fn ByteArray** ByteArray.remove_range (ByteArray* self, ByteArray** array, uint index_, uint length) @extern ("g_byte_array_remove_range");
+fn ByteArray** ByteArray.set_size (ByteArray* self, ByteArray** array, uint length) @extern ("g_byte_array_set_size");
+fn ByteArray** ByteArray.sized_new (ByteArray* self, uint reserved_size) @extern ("g_byte_array_sized_new");
+fn void ByteArray.sort (ByteArray* self, ByteArray** array, CompareFunc compare_func) @extern ("g_byte_array_sort");
+fn void ByteArray.sort_with_data (ByteArray* self, ByteArray** array, CompareDataFunc compare_func, void* user_data) @extern ("g_byte_array_sort_with_data");
+fn char* ByteArray.steal (ByteArray* self, ByteArray** array, ulong len) @extern ("g_byte_array_steal");
+fn void ByteArray.unref (ByteArray* self, ByteArray** array) @extern ("g_byte_array_unref");
+struct Bytes {
+	void* unused;
+}
+
+fn Bytes* Bytes.new (char** data, ulong size) @operator (construct) @extern ("g_bytes_new");
+fn Bytes* Bytes.new_take (char** data, ulong size) @operator (construct) @extern ("g_bytes_new_take");
+fn int Bytes.compare (Bytes* self, Bytes* bytes2) @extern ("g_bytes_compare");
+fn CInt Bytes.equal (Bytes* self, Bytes* bytes2) @extern ("g_bytes_equal");
+fn char** Bytes.get_data (Bytes* self, ulong size) @extern ("g_bytes_get_data");
+fn void* Bytes.get_region (Bytes* self, ulong element_size, ulong offset, ulong n_elements) @extern ("g_bytes_get_region");
+fn ulong Bytes.get_size (Bytes* self) @extern ("g_bytes_get_size");
+fn uint Bytes.hash (Bytes* self) @extern ("g_bytes_hash");
+fn Bytes* Bytes.new_from_bytes (Bytes* self, ulong offset, ulong length) @extern ("g_bytes_new_from_bytes");
+fn Bytes* Bytes.ref (Bytes* self) @extern ("g_bytes_ref");
+fn void Bytes.unref (Bytes* self) @extern ("g_bytes_unref");
+fn ByteArray** Bytes.unref_to_array (Bytes* self) @extern ("g_bytes_unref_to_array");
+fn char** Bytes.unref_to_data (Bytes* self, ulong size) @extern ("g_bytes_unref_to_data");
+const ZString CSET_A_2_Z = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const ZString CSET_DIGITS = "0123456789";
+const ZString CSET_A_2_Z = "abcdefghijklmnopqrstuvwxyz";
+const int C_STD_VERSION = 199000;
+struct Cache {
+	void* unused;
+}
+
+fn void Cache.destroy (Cache* self) @extern ("g_cache_destroy");
+fn void* Cache.insert (Cache* self, void* key) @extern ("g_cache_insert");
+fn void Cache.key_foreach (Cache* self, HFunc func, void* user_data) @extern ("g_cache_key_foreach");
+fn void Cache.remove (Cache* self, void* value) @extern ("g_cache_remove");
+fn void Cache.value_foreach (Cache* self, HFunc func, void* user_data) @extern ("g_cache_value_foreach");
+def CacheDestroyFunc = fn void (void* value) @export;
+def CacheDupFunc = fn void* (void* value) @export;
+def CacheNewFunc = fn void* (void* key) @export;
+struct Checksum {
+	void* unused;
+}
+
+fn Checksum* Checksum.new (ChecksumType checksum_type) @operator (construct) @extern ("g_checksum_new");
+fn Checksum* Checksum.copy (Checksum* self) @extern ("g_checksum_copy");
+fn void Checksum.free (Checksum* self) @extern ("g_checksum_free");
+fn ZString Checksum.get_string (Checksum* self) @extern ("g_checksum_get_string");
+fn void Checksum.reset (Checksum* self) @extern ("g_checksum_reset");
+fn void Checksum.update (Checksum* self, char** data, long length) @extern ("g_checksum_update");
+fn long Checksum.type_get_length (Checksum* self, ChecksumType checksum_type) @extern ("g_checksum_type_get_length");
+
+enum ChecksumType {
+	MD5,
+	SHA1,
+	SHA256,
+	SHA512,
+	SHA384
+}
+
+def ChildWatchFunc = fn void (int pid, int wait_status, void* user_data) @export;
+def ClearHandleFunc = fn void (uint handle_id) @export;
+def CompareDataFunc = fn int (void* a, void* b, void* user_data) @export;
+def CompareFunc = fn int (void* a, void* b) @export;
+struct Completion {
+	List* items;
+	CompletionFunc func;
+	ZString prefix;
+	List* cache;
+	CompletionStrncmpFunc strncmp_func;
+}
+
+fn void Completion.clear_items (Completion* self) @extern ("g_completion_clear_items");
+fn List* Completion.complete_utf8 (Completion* self, ZString prefix, ZString new_prefix) @extern ("g_completion_complete_utf8");
+fn void Completion.free (Completion* self) @extern ("g_completion_free");
+def CompletionFunc = fn ZString (void* item) @export;
+def CompletionStrncmpFunc = fn int (ZString s1, ZString s2, ulong n) @export;
+struct Cond {
+	void* p;
+	char[2] i;
+}
+
+fn void Cond.broadcast (Cond* self) @extern ("g_cond_broadcast");
+fn void Cond.clear (Cond* self) @extern ("g_cond_clear");
+fn void Cond.init (Cond* self) @extern ("g_cond_init");
+fn void Cond.signal (Cond* self) @extern ("g_cond_signal");
+fn void Cond.wait (Cond* self, Mutex* mutex) @extern ("g_cond_wait");
+fn CInt Cond.wait_until (Cond* self, Mutex* mutex, long end_time) @extern ("g_cond_wait_until");
+
+enum ConvertError {
+	NO_CONVERSION,
+	ILLEGAL_SEQUENCE,
+	FAILED,
+	PARTIAL_INPUT,
+	BAD_URI,
+	NOT_ABSOLUTE_PATH,
+	NO_MEMORY,
+	EMBEDDED_NUL
+}
+
+def CopyFunc = fn void* (void* src, void* data) @export;
+const int DATALIST_FLAGS_MASK = 3;
+const int DATE_BAD_DAY = 0;
+const int DATE_BAD_JULIAN = 0;
+const int DATE_BAD_YEAR = 0;
+const int DIR_SEPARATOR = 47;
+const ZString DIR_SEPARATOR_S = "/";
+def Data = void;
+
+def DataForeachFunc = fn void (uint key_id, void* data, void* user_data) @export;
+struct Date {
+	uint julian_days;
+	uint julian;
+	uint dmy;
+	uint day;
+	uint month;
+	uint year;
+}
+
+fn Date* Date.new () @operator (construct) @extern ("g_date_new");
+fn Date* Date.new_dmy (char day, DateMonth month, ushort year) @operator (construct) @extern ("g_date_new_dmy");
+fn Date* Date.new_julian (uint julian_day) @operator (construct) @extern ("g_date_new_julian");
+fn void Date.add_days (Date* self, uint n_days) @extern ("g_date_add_days");
+fn void Date.add_months (Date* self, uint n_months) @extern ("g_date_add_months");
+fn void Date.add_years (Date* self, uint n_years) @extern ("g_date_add_years");
+fn void Date.clamp (Date* self, Date* min_date, Date* max_date) @extern ("g_date_clamp");
+fn void Date.clear (Date* self, uint n_dates) @extern ("g_date_clear");
+fn int Date.compare (Date* self, Date* rhs) @extern ("g_date_compare");
+fn Date* Date.copy (Date* self) @extern ("g_date_copy");
+fn int Date.days_between (Date* self, Date* date2) @extern ("g_date_days_between");
+fn void Date.free (Date* self) @extern ("g_date_free");
+fn char Date.get_day (Date* self) @extern ("g_date_get_day");
+fn uint Date.get_day_of_year (Date* self) @extern ("g_date_get_day_of_year");
+fn uint Date.get_iso8601_week_of_year (Date* self) @extern ("g_date_get_iso8601_week_of_year");
+fn uint Date.get_julian (Date* self) @extern ("g_date_get_julian");
+fn uint Date.get_monday_week_of_year (Date* self) @extern ("g_date_get_monday_week_of_year");
+fn DateMonth Date.get_month (Date* self) @extern ("g_date_get_month");
+fn uint Date.get_sunday_week_of_year (Date* self) @extern ("g_date_get_sunday_week_of_year");
+fn DateWeekday Date.get_weekday (Date* self) @extern ("g_date_get_weekday");
+fn ushort Date.get_year (Date* self) @extern ("g_date_get_year");
+fn CInt Date.is_first_of_month (Date* self) @extern ("g_date_is_first_of_month");
+fn CInt Date.is_last_of_month (Date* self) @extern ("g_date_is_last_of_month");
+fn void Date.order (Date* self, Date* date2) @extern ("g_date_order");
+fn void Date.set_day (Date* self, char day) @extern ("g_date_set_day");
+fn void Date.set_dmy (Date* self, char day, DateMonth month, ushort y) @extern ("g_date_set_dmy");
+fn void Date.set_julian (Date* self, uint julian_date) @extern ("g_date_set_julian");
+fn void Date.set_month (Date* self, DateMonth month) @extern ("g_date_set_month");
+fn void Date.set_parse (Date* self, ZString str) @extern ("g_date_set_parse");
+fn void Date.set_time (Date* self, int time_) @extern ("g_date_set_time");
+fn void Date.set_time_t (Date* self, long timet) @extern ("g_date_set_time_t");
+fn void Date.set_time_val (Date* self, TimeVal* timeval) @extern ("g_date_set_time_val");
+fn void Date.set_year (Date* self, ushort year) @extern ("g_date_set_year");
+fn void Date.subtract_days (Date* self, uint n_days) @extern ("g_date_subtract_days");
+fn void Date.subtract_months (Date* self, uint n_months) @extern ("g_date_subtract_months");
+fn void Date.subtract_years (Date* self, uint n_years) @extern ("g_date_subtract_years");
+fn void Date.to_struct_tm (Date* self, void* tm) @extern ("g_date_to_struct_tm");
+fn CInt Date.valid (Date* self) @extern ("g_date_valid");
+fn char Date.get_days_in_month (Date* self, DateMonth month, ushort year) @extern ("g_date_get_days_in_month");
+fn char Date.get_monday_weeks_in_year (Date* self, ushort year) @extern ("g_date_get_monday_weeks_in_year");
+fn char Date.get_sunday_weeks_in_year (Date* self, ushort year) @extern ("g_date_get_sunday_weeks_in_year");
+fn CInt Date.is_leap_year (Date* self, ushort year) @extern ("g_date_is_leap_year");
+fn ulong Date.strftime (Date* self, ZString s, ulong slen, ZString format, Date* date) @extern ("g_date_strftime");
+fn CInt Date.valid_day (Date* self, char day) @extern ("g_date_valid_day");
+fn CInt Date.valid_dmy (Date* self, char day, DateMonth month, ushort year) @extern ("g_date_valid_dmy");
+fn CInt Date.valid_julian (Date* self, uint julian_date) @extern ("g_date_valid_julian");
+fn CInt Date.valid_month (Date* self, DateMonth month) @extern ("g_date_valid_month");
+fn CInt Date.valid_weekday (Date* self, DateWeekday weekday) @extern ("g_date_valid_weekday");
+fn CInt Date.valid_year (Date* self, ushort year) @extern ("g_date_valid_year");
+
+enum DateDMY {
+	DAY,
+	MONTH,
+	YEAR
+}
+
+
+enum DateMonth {
+	BAD_MONTH,
+	JANUARY,
+	FEBRUARY,
+	MARCH,
+	APRIL,
+	MAY,
+	JUNE,
+	JULY,
+	AUGUST,
+	SEPTEMBER,
+	OCTOBER,
+	NOVEMBER,
+	DECEMBER
+}
+
+struct DateTime {
+	void* unused;
+}
+
+fn DateTime* DateTime.new (TimeZone* tz, int year, int month, int day, int hour, int minute, double seconds) @operator (construct) @extern ("g_date_time_new");
+fn DateTime* DateTime.new_from_iso8601 (ZString text, TimeZone* default_tz) @operator (construct) @extern ("g_date_time_new_from_iso8601");
+fn DateTime* DateTime.new_from_timeval_local (TimeVal* tv) @operator (construct) @extern ("g_date_time_new_from_timeval_local");
+fn DateTime* DateTime.new_from_timeval_utc (TimeVal* tv) @operator (construct) @extern ("g_date_time_new_from_timeval_utc");
+fn DateTime* DateTime.new_from_unix_local (long t) @operator (construct) @extern ("g_date_time_new_from_unix_local");
+fn DateTime* DateTime.new_from_unix_local_usec (long usecs) @operator (construct) @extern ("g_date_time_new_from_unix_local_usec");
+fn DateTime* DateTime.new_from_unix_utc (long t) @operator (construct) @extern ("g_date_time_new_from_unix_utc");
+fn DateTime* DateTime.new_from_unix_utc_usec (long usecs) @operator (construct) @extern ("g_date_time_new_from_unix_utc_usec");
+fn DateTime* DateTime.new_local (int year, int month, int day, int hour, int minute, double seconds) @operator (construct) @extern ("g_date_time_new_local");
+fn DateTime* DateTime.new_now (TimeZone* tz) @operator (construct) @extern ("g_date_time_new_now");
+fn DateTime* DateTime.new_now_local () @operator (construct) @extern ("g_date_time_new_now_local");
+fn DateTime* DateTime.new_now_utc () @operator (construct) @extern ("g_date_time_new_now_utc");
+fn DateTime* DateTime.new_utc (int year, int month, int day, int hour, int minute, double seconds) @operator (construct) @extern ("g_date_time_new_utc");
+fn DateTime* DateTime.add (DateTime* self, long timespan) @extern ("g_date_time_add");
+fn DateTime* DateTime.add_days (DateTime* self, int days) @extern ("g_date_time_add_days");
+fn DateTime* DateTime.add_full (DateTime* self, int years, int months, int days, int hours, int minutes, double seconds) @extern ("g_date_time_add_full");
+fn DateTime* DateTime.add_hours (DateTime* self, int hours) @extern ("g_date_time_add_hours");
+fn DateTime* DateTime.add_minutes (DateTime* self, int minutes) @extern ("g_date_time_add_minutes");
+fn DateTime* DateTime.add_months (DateTime* self, int months) @extern ("g_date_time_add_months");
+fn DateTime* DateTime.add_seconds (DateTime* self, double seconds) @extern ("g_date_time_add_seconds");
+fn DateTime* DateTime.add_weeks (DateTime* self, int weeks) @extern ("g_date_time_add_weeks");
+fn DateTime* DateTime.add_years (DateTime* self, int years) @extern ("g_date_time_add_years");
+fn int DateTime.compare (DateTime* self, DateTime* dt2) @extern ("g_date_time_compare");
+fn long DateTime.difference (DateTime* self, DateTime* begin) @extern ("g_date_time_difference");
+fn CInt DateTime.equal (DateTime* self, DateTime* dt2) @extern ("g_date_time_equal");
+fn ZString DateTime.format (DateTime* self, ZString format) @extern ("g_date_time_format");
+fn ZString DateTime.format_iso8601 (DateTime* self) @extern ("g_date_time_format_iso8601");
+fn int DateTime.get_day_of_month (DateTime* self) @extern ("g_date_time_get_day_of_month");
+fn int DateTime.get_day_of_week (DateTime* self) @extern ("g_date_time_get_day_of_week");
+fn int DateTime.get_day_of_year (DateTime* self) @extern ("g_date_time_get_day_of_year");
+fn int DateTime.get_hour (DateTime* self) @extern ("g_date_time_get_hour");
+fn int DateTime.get_microsecond (DateTime* self) @extern ("g_date_time_get_microsecond");
+fn int DateTime.get_minute (DateTime* self) @extern ("g_date_time_get_minute");
+fn int DateTime.get_month (DateTime* self) @extern ("g_date_time_get_month");
+fn int DateTime.get_second (DateTime* self) @extern ("g_date_time_get_second");
+fn double DateTime.get_seconds (DateTime* self) @extern ("g_date_time_get_seconds");
+fn TimeZone* DateTime.get_timezone (DateTime* self) @extern ("g_date_time_get_timezone");
+fn ZString DateTime.get_timezone_abbreviation (DateTime* self) @extern ("g_date_time_get_timezone_abbreviation");
+fn long DateTime.get_utc_offset (DateTime* self) @extern ("g_date_time_get_utc_offset");
+fn int DateTime.get_week_numbering_year (DateTime* self) @extern ("g_date_time_get_week_numbering_year");
+fn int DateTime.get_week_of_year (DateTime* self) @extern ("g_date_time_get_week_of_year");
+fn int DateTime.get_year (DateTime* self) @extern ("g_date_time_get_year");
+fn void DateTime.get_ymd (DateTime* self, int year, int month, int day) @extern ("g_date_time_get_ymd");
+fn uint DateTime.hash (DateTime* self) @extern ("g_date_time_hash");
+fn CInt DateTime.is_daylight_savings (DateTime* self) @extern ("g_date_time_is_daylight_savings");
+fn DateTime* DateTime.ref (DateTime* self) @extern ("g_date_time_ref");
+fn DateTime* DateTime.to_local (DateTime* self) @extern ("g_date_time_to_local");
+fn CInt DateTime.to_timeval (DateTime* self, TimeVal* tv) @extern ("g_date_time_to_timeval");
+fn DateTime* DateTime.to_timezone (DateTime* self, TimeZone* tz) @extern ("g_date_time_to_timezone");
+fn long DateTime.to_unix (DateTime* self) @extern ("g_date_time_to_unix");
+fn long DateTime.to_unix_usec (DateTime* self) @extern ("g_date_time_to_unix_usec");
+fn DateTime* DateTime.to_utc (DateTime* self) @extern ("g_date_time_to_utc");
+fn void DateTime.unref (DateTime* self) @extern ("g_date_time_unref");
+
+enum DateWeekday {
+	BAD_WEEKDAY,
+	MONDAY,
+	TUESDAY,
+	WEDNESDAY,
+	THURSDAY,
+	FRIDAY,
+	SATURDAY,
+	SUNDAY
+}
+
+struct DebugKey {
+	ZString key;
+	uint value;
+}
+
+def DestroyNotify = fn void (void* data) @export;
+struct Dir {
+	void* unused;
+}
+
+fn Dir* Dir.open (ZString path, uint flags) @operator (construct) @extern ("g_dir_open");
+fn void Dir.close (Dir* self) @extern ("g_dir_close");
+fn ZString* Dir.read_name (Dir* self) @extern ("g_dir_read_name");
+fn Dir* Dir.ref (Dir* self) @extern ("g_dir_ref");
+fn void Dir.rewind (Dir* self) @extern ("g_dir_rewind");
+fn void Dir.unref (Dir* self) @extern ("g_dir_unref");
+fn ZString* Dir.make_tmp (Dir* self, ZString* tmpl) @extern ("g_dir_make_tmp");
+union DoubleIEEE754 {
+	double v_double;
+}
+
+def DuplicateFunc = fn void* (void* data, void* user_data) @export;
+const double E = -0.000000;
+def EqualFunc = fn CInt (void* a, void* b) @export;
+def EqualFuncFull = fn CInt (void* a, void* b, void* user_data) @export;
+struct Error {
+	uint domain;
+	int code;
+	ZString message;
+}
+
+fn Error* Error.new_literal (uint domain, int code, ZString message) @operator (construct) @extern ("g_error_new_literal");
+fn Error* Error.copy (Error* self) @extern ("g_error_copy");
+fn void Error.free (Error* self) @extern ("g_error_free");
+fn CInt Error.matches (Error* self, uint domain, int code) @extern ("g_error_matches");
+fn uint Error.domain_register (Error* self, ZString error_type_name, ulong error_type_private_size, ErrorInitFunc error_type_init, ErrorCopyFunc error_type_copy, ErrorClearFunc error_type_clear) @extern ("g_error_domain_register");
+fn uint Error.domain_register_static (Error* self, ZString error_type_name, ulong error_type_private_size, ErrorInitFunc error_type_init, ErrorCopyFunc error_type_copy, ErrorClearFunc error_type_clear) @extern ("g_error_domain_register_static");
+def ErrorClearFunc = fn void (Error* error) @export;
+def ErrorCopyFunc = fn void (Error* src_error, Error* dest_error) @export;
+def ErrorInitFunc = fn void (Error* error) @export;
+
+enum ErrorType {
+	UNKNOWN,
+	UNEXP_EOF,
+	UNEXP_EOF_IN_STRING,
+	UNEXP_EOF_IN_COMMENT,
+	NON_DIGIT_IN_CONST,
+	DIGIT_RADIX,
+	FLOAT_RADIX,
+	FLOAT_MALFORMED
+}
+
+
+enum FileError {
+	EXIST,
+	ISDIR,
+	ACCES,
+	NAMETOOLONG,
+	NOENT,
+	NOTDIR,
+	NXIO,
+	NODEV,
+	ROFS,
+	TXTBSY,
+	FAULT,
+	LOOP,
+	NOSPC,
+	NOMEM,
+	MFILE,
+	NFILE,
+	BADF,
+	INVAL,
+	PIPE,
+	AGAIN,
+	INTR,
+	IO,
+	PERM,
+	NOSYS,
+	FAILED
+}
+
+enum FileSetContentsFlags: CInt (inline CInt bit) {
+	NONE = 0,
+	CONSISTENT = 1,
+	DURABLE = 2,
+	ONLY_EXISTING = 4
+}
+
+enum FileTest: CInt (inline CInt bit) {
+	IS_REGULAR = 1,
+	IS_SYMLINK = 2,
+	IS_DIR = 4,
+	IS_EXECUTABLE = 8,
+	EXISTS = 16
+}
+
+union FloatIEEE754 {
+	float v_float;
+}
+
+enum FormatSizeFlags: CInt (inline CInt bit) {
+	DEFAULT = 0,
+	LONG_FORMAT = 1,
+	IEC_UNITS = 2,
+	BITS = 4,
+	ONLY_VALUE = 8,
+	ONLY_UNIT = 16
+}
+
+def FreeFunc = fn void (void* data) @export;
+def Func = fn void (void* data, void* user_data) @export;
+const ZString GINT16_FORMAT = "hi";
+const ZString GINT16_MODIFIER = "h";
+const ZString GINT32_FORMAT = "i";
+const ZString GINT32_MODIFIER = "";
+const ZString GINT64_FORMAT = "li";
+const ZString GINT64_MODIFIER = "l";
+const ZString GINTPTR_FORMAT = "li";
+const ZString GINTPTR_MODIFIER = "l";
+const ZString GNUC_FUNCTION = "";
+const ZString GNUC_PRETTY_FUNCTION = "";
+const ZString GSIZE_FORMAT = "lu";
+const ZString GSIZE_MODIFIER = "l";
+const ZString GSSIZE_FORMAT = "li";
+const ZString GSSIZE_MODIFIER = "l";
+const ZString GUINT16_FORMAT = "hu";
+const ZString GUINT32_FORMAT = "u";
+const ZString GUINT64_FORMAT = "lu";
+const ZString GUINTPTR_FORMAT = "lu";
+const int HAVE_GINT64 = 1;
+const int HAVE_GNUC_VARARGS = 1;
+const int HAVE_GNUC_VISIBILITY = 1;
+const int HAVE_GROWING_STACK = 0;
+const int HAVE_ISO_VARARGS = 1;
+def HFunc = fn void (void* key, void* value, void* user_data) @export;
+const int HOOK_FLAG_USER_SHIFT = 4;
+def HRFunc = fn CInt (void* key, void* value, void* user_data) @export;
+def HashFunc = fn uint (void* key) @export;
+struct HashTable {
+	void* unused;
+}
+
+fn CInt HashTable.add (HashTable* self, HashTable* hash_table, void* key) @extern ("g_hash_table_add");
+fn CInt HashTable.contains (HashTable* self, HashTable* hash_table, void* key) @extern ("g_hash_table_contains");
+fn void HashTable.destroy (HashTable* self, HashTable* hash_table) @extern ("g_hash_table_destroy");
+fn void* HashTable.find (HashTable* self, HashTable* hash_table, HRFunc predicate, void* user_data) @extern ("g_hash_table_find");
+fn void HashTable.for_each (HashTable* self, HashTable* hash_table, HFunc func, void* user_data) @extern ("g_hash_table_foreach");
+fn uint HashTable.foreach_remove (HashTable* self, HashTable* hash_table, HRFunc func, void* user_data) @extern ("g_hash_table_foreach_remove");
+fn uint HashTable.foreach_steal (HashTable* self, HashTable* hash_table, HRFunc func, void* user_data) @extern ("g_hash_table_foreach_steal");
+fn CInt HashTable.insert (HashTable* self, HashTable* hash_table, void* key, void* value) @extern ("g_hash_table_insert");
+fn void* HashTable.lookup (HashTable* self, HashTable* hash_table, void* key) @extern ("g_hash_table_lookup");
+fn CInt HashTable.lookup_extended (HashTable* self, HashTable* hash_table, void* lookup_key, void* orig_key, void* value) @extern ("g_hash_table_lookup_extended");
+fn HashTable* HashTable.new_similar (HashTable* self, HashTable* other_hash_table) @extern ("g_hash_table_new_similar");
+fn HashTable* HashTable.ref (HashTable* self, HashTable* hash_table) @extern ("g_hash_table_ref");
+fn CInt HashTable.remove (HashTable* self, HashTable* hash_table, void* key) @extern ("g_hash_table_remove");
+fn void HashTable.remove_all (HashTable* self, HashTable* hash_table) @extern ("g_hash_table_remove_all");
+fn CInt HashTable.replace (HashTable* self, HashTable* hash_table, void* key, void* value) @extern ("g_hash_table_replace");
+fn uint HashTable.size (HashTable* self, HashTable* hash_table) @extern ("g_hash_table_size");
+fn CInt HashTable.steal (HashTable* self, HashTable* hash_table, void* key) @extern ("g_hash_table_steal");
+fn void HashTable.steal_all (HashTable* self, HashTable* hash_table) @extern ("g_hash_table_steal_all");
+fn CInt HashTable.steal_extended (HashTable* self, HashTable* hash_table, void* lookup_key, void* stolen_key, void* stolen_value) @extern ("g_hash_table_steal_extended");
+fn void HashTable.unref (HashTable* self, HashTable* hash_table) @extern ("g_hash_table_unref");
+struct HashTableIter {
+	void* dummy1;
+	void* dummy2;
+	void* dummy3;
+	int dummy4;
+	CInt dummy5;
+	void* dummy6;
+}
+
+fn HashTable* HashTableIter.get_hash_table (HashTableIter* self) @extern ("g_hash_table_iter_get_hash_table");
+fn void HashTableIter.init (HashTableIter* self, HashTable* hash_table) @extern ("g_hash_table_iter_init");
+fn CInt HashTableIter.next (HashTableIter* self, void* key, void* value) @extern ("g_hash_table_iter_next");
+fn void HashTableIter.remove (HashTableIter* self) @extern ("g_hash_table_iter_remove");
+fn void HashTableIter.replace (HashTableIter* self, void* value) @extern ("g_hash_table_iter_replace");
+fn void HashTableIter.steal (HashTableIter* self) @extern ("g_hash_table_iter_steal");
+struct Hmac {
+	void* unused;
+}
+
+fn Hmac* Hmac.new (ChecksumType digest_type, char** key, ulong key_len) @operator (construct) @extern ("g_hmac_new");
+fn Hmac* Hmac.copy (Hmac* self) @extern ("g_hmac_copy");
+fn void Hmac.get_digest (Hmac* self, char** buffer, ulong digest_len) @extern ("g_hmac_get_digest");
+fn ZString Hmac.get_string (Hmac* self) @extern ("g_hmac_get_string");
+fn Hmac* Hmac.ref (Hmac* self) @extern ("g_hmac_ref");
+fn void Hmac.unref (Hmac* self) @extern ("g_hmac_unref");
+fn void Hmac.update (Hmac* self, char** data, long length) @extern ("g_hmac_update");
+struct Hook {
+	void* data;
+	Hook* next;
+	Hook* prev;
+	uint ref_count;
+	ulong hook_id;
+	uint flags;
+	void* func;
+	DestroyNotify destroy;
+}
+
+fn int Hook.compare_ids (Hook* self, Hook* sibling) @extern ("g_hook_compare_ids");
+fn CInt Hook.destroy (Hook* self, HookList* hook_list, ulong hook_id) @extern ("g_hook_destroy");
+fn void Hook.destroy_link (Hook* self, HookList* hook_list, Hook* hook) @extern ("g_hook_destroy_link");
+fn void Hook.free (Hook* self, HookList* hook_list, Hook* hook) @extern ("g_hook_free");
+fn void Hook.insert_before (Hook* self, HookList* hook_list, Hook* sibling, Hook* hook) @extern ("g_hook_insert_before");
+fn void Hook.insert_sorted (Hook* self, HookList* hook_list, Hook* hook, HookCompareFunc func) @extern ("g_hook_insert_sorted");
+fn void Hook.prepend (Hook* self, HookList* hook_list, Hook* hook) @extern ("g_hook_prepend");
+fn void Hook.unref (Hook* self, HookList* hook_list, Hook* hook) @extern ("g_hook_unref");
+def HookCheckFunc = fn CInt (void* data) @export;
+def HookCheckMarshaller = fn CInt (Hook* hook, void* marshal_data) @export;
+def HookCompareFunc = fn int (Hook* new_hook, Hook* sibling) @export;
+def HookFinalizeFunc = fn void (HookList* hook_list, Hook* hook) @export;
+def HookFindFunc = fn CInt (Hook* hook, void* data) @export;
+enum HookFlagMask: CInt (inline CInt bit) {
+	ACTIVE = 1,
+	IN_CALL = 2,
+	MASK = 15
+}
+
+def HookFunc = fn void (void* data) @export;
+struct HookList {
+	ulong seq_id;
+	uint hook_size;
+	uint is_setup;
+	Hook* hooks;
+	void* dummy3;
+	HookFinalizeFunc finalize_hook;
+	char[2] dummy;
+}
+
+fn void HookList.clear (HookList* self) @extern ("g_hook_list_clear");
+fn void HookList.init (HookList* self, uint hook_size) @extern ("g_hook_list_init");
+fn void HookList.invoke (HookList* self, CInt may_recurse) @extern ("g_hook_list_invoke");
+fn void HookList.invoke_check (HookList* self, CInt may_recurse) @extern ("g_hook_list_invoke_check");
+fn void HookList.marshal (HookList* self, CInt may_recurse, HookMarshaller marshaller, void* marshal_data) @extern ("g_hook_list_marshal");
+fn void HookList.marshal_check (HookList* self, CInt may_recurse, HookCheckMarshaller marshaller, void* marshal_data) @extern ("g_hook_list_marshal_check");
+def HookMarshaller = fn void (Hook* hook, void* marshal_data) @export;
+const int IEEE754_DOUBLE_BIAS = 1023;
+const int IEEE754_FLOAT_BIAS = 127;
+struct IOChannel {
+	int ref_count;
+	IOFuncs* funcs;
+	ZString encoding;
+	void* read_cd;
+	void* write_cd;
+	ZString line_term;
+	uint line_term_len;
+	ulong buf_size;
+	String* read_buf;
+	String* encoded_read_buf;
+	String* write_buf;
+	char[6] partial_write_buf;
+	uint use_buffer;
+	uint do_encode;
+	uint close_on_unref;
+	uint is_readable;
+	uint is_writeable;
+	uint is_seekable;
+	void* reserved1;
+	void* reserved2;
+}
+
+fn IOChannel* IOChannel.new_file (ZString* filename, ZString mode) @operator (construct) @extern ("g_io_channel_new_file");
+fn IOChannel* IOChannel.unix_new (int fd) @operator (construct) @extern ("g_io_channel_unix_new");
+fn void IOChannel.close (IOChannel* self) @extern ("g_io_channel_close");
+fn IOStatus IOChannel.flush (IOChannel* self) @extern ("g_io_channel_flush");
+fn IOCondition IOChannel.get_buffer_condition (IOChannel* self) @extern ("g_io_channel_get_buffer_condition");
+fn ulong IOChannel.get_buffer_size (IOChannel* self) @extern ("g_io_channel_get_buffer_size");
+fn CInt IOChannel.get_buffered (IOChannel* self) @extern ("g_io_channel_get_buffered");
+fn CInt IOChannel.get_close_on_unref (IOChannel* self) @extern ("g_io_channel_get_close_on_unref");
+fn ZString IOChannel.get_encoding (IOChannel* self) @extern ("g_io_channel_get_encoding");
+fn IOFlags IOChannel.get_flags (IOChannel* self) @extern ("g_io_channel_get_flags");
+fn ZString IOChannel.get_line_term (IOChannel* self, int length) @extern ("g_io_channel_get_line_term");
+fn void IOChannel.init (IOChannel* self) @extern ("g_io_channel_init");
+fn IOError IOChannel.read (IOChannel* self, ZString buf, ulong count, ulong* bytes_read) @extern ("g_io_channel_read");
+fn IOStatus IOChannel.read_chars (IOChannel* self, char** buf, ulong count, ulong bytes_read) @extern ("g_io_channel_read_chars");
+fn IOStatus IOChannel.read_line (IOChannel* self, ZString str_return, ulong length, ulong terminator_pos) @extern ("g_io_channel_read_line");
+fn IOStatus IOChannel.read_line_string (IOChannel* self, String* buffer, ulong* terminator_pos) @extern ("g_io_channel_read_line_string");
+fn IOStatus IOChannel.read_to_end (IOChannel* self, char** str_return, ulong length) @extern ("g_io_channel_read_to_end");
+fn IOStatus IOChannel.read_unichar (IOChannel* self, WString thechar) @extern ("g_io_channel_read_unichar");
+fn IOChannel* IOChannel.ref (IOChannel* self) @extern ("g_io_channel_ref");
+fn IOError IOChannel.seek (IOChannel* self, long offset, SeekType type) @extern ("g_io_channel_seek");
+fn IOStatus IOChannel.seek_position (IOChannel* self, long offset, SeekType type) @extern ("g_io_channel_seek_position");
+fn void IOChannel.set_buffer_size (IOChannel* self, ulong size) @extern ("g_io_channel_set_buffer_size");
+fn void IOChannel.set_buffered (IOChannel* self, CInt buffered) @extern ("g_io_channel_set_buffered");
+fn void IOChannel.set_close_on_unref (IOChannel* self, CInt do_close) @extern ("g_io_channel_set_close_on_unref");
+fn IOStatus IOChannel.set_encoding (IOChannel* self, ZString encoding) @extern ("g_io_channel_set_encoding");
+fn IOStatus IOChannel.set_flags (IOChannel* self, IOFlags flags) @extern ("g_io_channel_set_flags");
+fn void IOChannel.set_line_term (IOChannel* self, ZString line_term, int length) @extern ("g_io_channel_set_line_term");
+fn IOStatus IOChannel.shutdown (IOChannel* self, CInt flush) @extern ("g_io_channel_shutdown");
+fn int IOChannel.unix_get_fd (IOChannel* self) @extern ("g_io_channel_unix_get_fd");
+fn void IOChannel.unref (IOChannel* self) @extern ("g_io_channel_unref");
+fn IOError IOChannel.write (IOChannel* self, ZString buf, ulong count, ulong* bytes_written) @extern ("g_io_channel_write");
+fn IOStatus IOChannel.write_chars (IOChannel* self, char** buf, long count, ulong bytes_written) @extern ("g_io_channel_write_chars");
+fn IOStatus IOChannel.write_unichar (IOChannel* self, WString thechar) @extern ("g_io_channel_write_unichar");
+fn IOChannelError IOChannel.error_from_errno (IOChannel* self, int en) @extern ("g_io_channel_error_from_errno");
+fn uint IOChannel.error_quark (IOChannel* self) @extern ("g_io_channel_error_quark");
+
+enum IOChannelError {
+	FBIG,
+	INVAL,
+	IO,
+	ISDIR,
+	NOSPC,
+	NXIO,
+	OVERFLOW,
+	PIPE,
+	FAILED
+}
+
+enum IOCondition: CInt (inline CInt bit) {
+	IN = 1,
+	OUT = 4,
+	PRI = 2,
+	ERR = 8,
+	HUP = 16,
+	NVAL = 32
+}
+
+
+enum IOError {
+	NONE,
+	AGAIN,
+	INVAL,
+	UNKNOWN
+}
+
+enum IOFlags: CInt (inline CInt bit) {
+	NONE = 0,
+	APPEND = 1,
+	NONBLOCK = 2,
+	IS_READABLE = 4,
+	IS_WRITABLE = 8,
+	IS_WRITEABLE = 8,
+	IS_SEEKABLE = 16,
+	MASK = 31,
+	GET_MASK = 31,
+	SET_MASK = 3
+}
+
+def IOFunc = fn CInt (IOChannel* source, IOCondition condition, void* data) @export;
+def IOFuncs_io_read = fn IOStatus (IOChannel* channel, ZString buf, ulong count, ulong* bytes_read) @export;
+def IOFuncs_io_write = fn IOStatus (IOChannel* channel, ZString buf, ulong count, ulong* bytes_written) @export;
+def IOFuncs_io_seek = fn IOStatus (IOChannel* channel, long offset, SeekType type) @export;
+def IOFuncs_io_close = fn IOStatus (IOChannel* channel) @export;
+def IOFuncs_io_create_watch = fn Source* (IOChannel* channel, IOCondition condition) @export;
+def IOFuncs_io_free = fn void (IOChannel* channel) @export;
+def IOFuncs_io_set_flags = fn IOStatus (IOChannel* channel, IOFlags flags) @export;
+def IOFuncs_io_get_flags = fn IOFlags (IOChannel* channel) @export;
+struct IOFuncs {
+	IOFuncs_io_read io_read;
+	IOFuncs_io_write io_write;
+	IOFuncs_io_seek io_seek;
+	IOFuncs_io_close io_close;
+	IOFuncs_io_create_watch io_create_watch;
+	IOFuncs_io_free io_free;
+	IOFuncs_io_set_flags io_set_flags;
+	IOFuncs_io_get_flags io_get_flags;
+}
+
+
+enum IOStatus {
+	ERROR,
+	NORMAL,
+	EOF,
+	AGAIN
+}
+
+const ZString KEY_FILE_DESKTOP_GROUP = "Desktop Entry";
+const ZString KEY_FILE_DESKTOP_KEY_ACTIONS = "Actions";
+const ZString KEY_FILE_DESKTOP_KEY_CATEGORIES = "Categories";
+const ZString KEY_FILE_DESKTOP_KEY_COMMENT = "Comment";
+const ZString KEY_FILE_DESKTOP_KEY_DBUS_ACTIVATABLE = "DBusActivatable";
+const ZString KEY_FILE_DESKTOP_KEY_EXEC = "Exec";
+const ZString KEY_FILE_DESKTOP_KEY_GENERIC_NAME = "GenericName";
+const ZString KEY_FILE_DESKTOP_KEY_HIDDEN = "Hidden";
+const ZString KEY_FILE_DESKTOP_KEY_ICON = "Icon";
+const ZString KEY_FILE_DESKTOP_KEY_MIME_TYPE = "MimeType";
+const ZString KEY_FILE_DESKTOP_KEY_NAME = "Name";
+const ZString KEY_FILE_DESKTOP_KEY_NOT_SHOW_IN = "NotShowIn";
+const ZString KEY_FILE_DESKTOP_KEY_NO_DISPLAY = "NoDisplay";
+const ZString KEY_FILE_DESKTOP_KEY_ONLY_SHOW_IN = "OnlyShowIn";
+const ZString KEY_FILE_DESKTOP_KEY_PATH = "Path";
+const ZString KEY_FILE_DESKTOP_KEY_STARTUP_NOTIFY = "StartupNotify";
+const ZString KEY_FILE_DESKTOP_KEY_STARTUP_WM_CLASS = "StartupWMClass";
+const ZString KEY_FILE_DESKTOP_KEY_TERMINAL = "Terminal";
+const ZString KEY_FILE_DESKTOP_KEY_TRY_EXEC = "TryExec";
+const ZString KEY_FILE_DESKTOP_KEY_TYPE = "Type";
+const ZString KEY_FILE_DESKTOP_KEY_URL = "URL";
+const ZString KEY_FILE_DESKTOP_KEY_VERSION = "Version";
+const ZString KEY_FILE_DESKTOP_TYPE_APPLICATION = "Application";
+const ZString KEY_FILE_DESKTOP_TYPE_DIRECTORY = "Directory";
+const ZString KEY_FILE_DESKTOP_TYPE_LINK = "Link";
+struct KeyFile {
+	void* unused;
+}
+
+fn KeyFile* KeyFile.new () @operator (construct) @extern ("g_key_file_new");
+fn CInt KeyFile.get_boolean (KeyFile* self, ZString group_name, ZString key) @extern ("g_key_file_get_boolean");
+fn char** KeyFile.get_boolean_list (KeyFile* self, ZString group_name, ZString key, ulong length) @extern ("g_key_file_get_boolean_list");
+fn ZString KeyFile.get_comment (KeyFile* self, ZString group_name, ZString key) @extern ("g_key_file_get_comment");
+fn double KeyFile.get_double (KeyFile* self, ZString group_name, ZString key) @extern ("g_key_file_get_double");
+fn char** KeyFile.get_double_list (KeyFile* self, ZString group_name, ZString key, ulong length) @extern ("g_key_file_get_double_list");
+fn char** KeyFile.get_groups (KeyFile* self, ulong length) @extern ("g_key_file_get_groups");
+fn long KeyFile.get_int64 (KeyFile* self, ZString group_name, ZString key) @extern ("g_key_file_get_int64");
+fn int KeyFile.get_integer (KeyFile* self, ZString group_name, ZString key) @extern ("g_key_file_get_integer");
+fn char** KeyFile.get_integer_list (KeyFile* self, ZString group_name, ZString key, ulong length) @extern ("g_key_file_get_integer_list");
+fn char** KeyFile.get_keys (KeyFile* self, ZString group_name, ulong length) @extern ("g_key_file_get_keys");
+fn ZString KeyFile.get_locale_for_key (KeyFile* self, ZString group_name, ZString key, ZString locale) @extern ("g_key_file_get_locale_for_key");
+fn ZString KeyFile.get_locale_string (KeyFile* self, ZString group_name, ZString key, ZString locale) @extern ("g_key_file_get_locale_string");
+fn char** KeyFile.get_locale_string_list (KeyFile* self, ZString group_name, ZString key, ZString locale, ulong length) @extern ("g_key_file_get_locale_string_list");
+fn ZString KeyFile.get_start_group (KeyFile* self) @extern ("g_key_file_get_start_group");
+fn ZString KeyFile.get_string (KeyFile* self, ZString group_name, ZString key) @extern ("g_key_file_get_string");
+fn char** KeyFile.get_string_list (KeyFile* self, ZString group_name, ZString key, ulong length) @extern ("g_key_file_get_string_list");
+fn ulong KeyFile.get_uint64 (KeyFile* self, ZString group_name, ZString key) @extern ("g_key_file_get_uint64");
+fn ZString KeyFile.get_value (KeyFile* self, ZString group_name, ZString key) @extern ("g_key_file_get_value");
+fn CInt KeyFile.has_group (KeyFile* self, ZString group_name) @extern ("g_key_file_has_group");
+fn CInt KeyFile.load_from_bytes (KeyFile* self, Bytes* bytes, KeyFileFlags flags) @extern ("g_key_file_load_from_bytes");
+fn CInt KeyFile.load_from_data (KeyFile* self, ZString data, ulong length, KeyFileFlags flags) @extern ("g_key_file_load_from_data");
+fn CInt KeyFile.load_from_data_dirs (KeyFile* self, ZString* file, ZString* full_path, KeyFileFlags flags) @extern ("g_key_file_load_from_data_dirs");
+fn CInt KeyFile.load_from_dirs (KeyFile* self, ZString* file, char** search_dirs, ZString* full_path, KeyFileFlags flags) @extern ("g_key_file_load_from_dirs");
+fn CInt KeyFile.load_from_file (KeyFile* self, ZString* file, KeyFileFlags flags) @extern ("g_key_file_load_from_file");
+fn CInt KeyFile.remove_comment (KeyFile* self, ZString group_name, ZString key) @extern ("g_key_file_remove_comment");
+fn CInt KeyFile.remove_group (KeyFile* self, ZString group_name) @extern ("g_key_file_remove_group");
+fn CInt KeyFile.remove_key (KeyFile* self, ZString group_name, ZString key) @extern ("g_key_file_remove_key");
+fn CInt KeyFile.save_to_file (KeyFile* self, ZString filename) @extern ("g_key_file_save_to_file");
+fn void KeyFile.set_boolean (KeyFile* self, ZString group_name, ZString key, CInt value) @extern ("g_key_file_set_boolean");
+fn void KeyFile.set_boolean_list (KeyFile* self, ZString group_name, ZString key, char** list, ulong length) @extern ("g_key_file_set_boolean_list");
+fn CInt KeyFile.set_comment (KeyFile* self, ZString group_name, ZString key, ZString comment) @extern ("g_key_file_set_comment");
+fn void KeyFile.set_double (KeyFile* self, ZString group_name, ZString key, double value) @extern ("g_key_file_set_double");
+fn void KeyFile.set_double_list (KeyFile* self, ZString group_name, ZString key, char** list, ulong length) @extern ("g_key_file_set_double_list");
+fn void KeyFile.set_int64 (KeyFile* self, ZString group_name, ZString key, long value) @extern ("g_key_file_set_int64");
+fn void KeyFile.set_integer (KeyFile* self, ZString group_name, ZString key, int value) @extern ("g_key_file_set_integer");
+fn void KeyFile.set_integer_list (KeyFile* self, ZString group_name, ZString key, char** list, ulong length) @extern ("g_key_file_set_integer_list");
+fn void KeyFile.set_list_separator (KeyFile* self, ichar separator) @extern ("g_key_file_set_list_separator");
+fn void KeyFile.set_locale_string (KeyFile* self, ZString group_name, ZString key, ZString locale, ZString string) @extern ("g_key_file_set_locale_string");
+fn void KeyFile.set_locale_string_list (KeyFile* self, ZString group_name, ZString key, ZString locale, char** list, ulong length) @extern ("g_key_file_set_locale_string_list");
+fn void KeyFile.set_string (KeyFile* self, ZString group_name, ZString key, ZString string) @extern ("g_key_file_set_string");
+fn void KeyFile.set_string_list (KeyFile* self, ZString group_name, ZString key, char** list, ulong length) @extern ("g_key_file_set_string_list");
+fn void KeyFile.set_uint64 (KeyFile* self, ZString group_name, ZString key, ulong value) @extern ("g_key_file_set_uint64");
+fn void KeyFile.set_value (KeyFile* self, ZString group_name, ZString key, ZString value) @extern ("g_key_file_set_value");
+fn ZString KeyFile.to_data (KeyFile* self, ulong length) @extern ("g_key_file_to_data");
+fn void KeyFile.unref (KeyFile* self) @extern ("g_key_file_unref");
+fn uint KeyFile.error_quark (KeyFile* self) @extern ("g_key_file_error_quark");
+
+enum KeyFileError {
+	UNKNOWN_ENCODING,
+	PARSE,
+	NOT_FOUND,
+	KEY_NOT_FOUND,
+	GROUP_NOT_FOUND,
+	INVALID_VALUE
+}
+
+enum KeyFileFlags: CInt (inline CInt bit) {
+	NONE = 0,
+	KEEP_COMMENTS = 1,
+	KEEP_TRANSLATIONS = 2
+}
+
+const int LITTLE_ENDIAN = 1234;
+const double LN10 = -0.000000;
+const double LN2 = -0.000000;
+const double LOG_2_BASE_10 = 13699387490304.000000;
+const ichar LOG_DOMAIN = '0';
+const int LOG_FATAL_MASK = 5;
+const int LOG_LEVEL_USER_SHIFT = 8;
+struct List {
+	void* data;
+	List* next;
+	List* prev;
+}
+
+fn void List.pop_allocator (List* self) @extern ("g_list_pop_allocator");
+fn void List.push_allocator (List* self, Allocator* allocator) @extern ("g_list_push_allocator");
+struct LogField {
+	ZString key;
+	void* value;
+	long length;
+}
+
+def LogFunc = fn void (ZString log_domain, LogLevelFlags log_level, ZString message, void* user_data) @export;
+enum LogLevelFlags: CInt (inline CInt bit) {
+	FLAG_RECURSION = 1,
+	FLAG_FATAL = 2,
+	LEVEL_ERROR = 4,
+	LEVEL_CRITICAL = 8,
+	LEVEL_WARNING = 16,
+	LEVEL_MESSAGE = 32,
+	LEVEL_INFO = 64,
+	LEVEL_DEBUG = 128,
+	LEVEL_MASK = -4
+}
+
+def LogWriterFunc = fn LogWriterOutput (LogLevelFlags log_level, char** fields, ulong n_fields, void* user_data) @export;
+
+enum LogWriterOutput: CInt (inline CInt value) {
+	HANDLED = 1,
+	UNHANDLED = 0
+}
+
+const int MAJOR_VERSION = 2;
+const short MAXINT16 = 32767;
+const int MAXINT32 = 2147483647;
+const long MAXINT64 = 9223372036854775807;
+const ichar MAXINT8 = '127';
+const ushort MAXUINT16 = 65535;
+const uint MAXUINT32 = 4294967295;
+const ulong MAXUINT64 = 18446744073709551615;
+const char MAXUINT8 = '255';
+const int MICRO_VERSION = 5;
+const short MININT16 = -32768;
+const int MININT32 = -2147483648;
+const long MININT64 = -9223372036854775808;
+const ichar MININT8 = '-128';
+const int MINOR_VERSION = 82;
+const ZString MODULE_SUFFIX = "so";
+struct MainContext {
+	void* unused;
+}
+
+fn MainContext* MainContext.new () @operator (construct) @extern ("g_main_context_new");
+fn MainContext* MainContext.new_with_flags (MainContextFlags flags) @operator (construct) @extern ("g_main_context_new_with_flags");
+fn CInt MainContext.acquire (MainContext* self) @extern ("g_main_context_acquire");
+fn void MainContext.add_poll (MainContext* self, PollFD* fd, int priority) @extern ("g_main_context_add_poll");
+fn CInt MainContext.check (MainContext* self, int max_priority, char** fds, int n_fds) @extern ("g_main_context_check");
+fn void MainContext.dispatch (MainContext* self) @extern ("g_main_context_dispatch");
+fn Source* MainContext.find_source_by_funcs_user_data (MainContext* self, SourceFuncs* funcs, void* user_data) @extern ("g_main_context_find_source_by_funcs_user_data");
+fn Source* MainContext.find_source_by_id (MainContext* self, uint source_id) @extern ("g_main_context_find_source_by_id");
+fn Source* MainContext.find_source_by_user_data (MainContext* self, void* user_data) @extern ("g_main_context_find_source_by_user_data");
+fn void MainContext.invoke_full (MainContext* self, int priority, SourceFunc function, void* data, DestroyNotify notify) @extern ("g_main_context_invoke_full");
+fn CInt MainContext.is_owner (MainContext* self) @extern ("g_main_context_is_owner");
+fn CInt MainContext.iteration (MainContext* self, CInt may_block) @extern ("g_main_context_iteration");
+fn CInt MainContext.pending (MainContext* self) @extern ("g_main_context_pending");
+fn void MainContext.pop_thread_default (MainContext* self) @extern ("g_main_context_pop_thread_default");
+fn CInt MainContext.prepare (MainContext* self, int priority) @extern ("g_main_context_prepare");
+fn void MainContext.push_thread_default (MainContext* self) @extern ("g_main_context_push_thread_default");
+fn int MainContext.query (MainContext* self, int max_priority, int timeout_, char** fds, int n_fds) @extern ("g_main_context_query");
+fn MainContext* MainContext.ref (MainContext* self) @extern ("g_main_context_ref");
+fn void MainContext.release (MainContext* self) @extern ("g_main_context_release");
+fn void MainContext.remove_poll (MainContext* self, PollFD* fd) @extern ("g_main_context_remove_poll");
+fn void MainContext.unref (MainContext* self) @extern ("g_main_context_unref");
+fn CInt MainContext.wait (MainContext* self, Cond* cond, Mutex* mutex) @extern ("g_main_context_wait");
+fn void MainContext.wakeup (MainContext* self) @extern ("g_main_context_wakeup");
+fn MainContext* MainContext.get_default (MainContext* self) @extern ("g_main_context_default");
+fn MainContext* MainContext.get_thread_default (MainContext* self) @extern ("g_main_context_get_thread_default");
+fn MainContext* MainContext.ref_thread_default (MainContext* self) @extern ("g_main_context_ref_thread_default");
+enum MainContextFlags: CInt (inline CInt bit) {
+	NONE = 0,
+	OWNERLESS_POLLING = 1
+}
+
+struct MainLoop {
+	void* unused;
+}
+
+fn MainLoop* MainLoop.new (MainContext* context, CInt is_running) @operator (construct) @extern ("g_main_loop_new");
+fn MainContext* MainLoop.get_context (MainLoop* self) @extern ("g_main_loop_get_context");
+fn CInt MainLoop.is_running (MainLoop* self) @extern ("g_main_loop_is_running");
+fn void MainLoop.quit (MainLoop* self) @extern ("g_main_loop_quit");
+fn MainLoop* MainLoop.ref (MainLoop* self) @extern ("g_main_loop_ref");
+fn void MainLoop.run (MainLoop* self) @extern ("g_main_loop_run");
+fn void MainLoop.unref (MainLoop* self) @extern ("g_main_loop_unref");
+struct MappedFile {
+	void* unused;
+}
+
+fn MappedFile* MappedFile.new (ZString* filename, CInt writable) @operator (construct) @extern ("g_mapped_file_new");
+fn MappedFile* MappedFile.new_from_fd (int fd, CInt writable) @operator (construct) @extern ("g_mapped_file_new_from_fd");
+fn void MappedFile.free (MappedFile* self) @extern ("g_mapped_file_free");
+fn Bytes* MappedFile.get_bytes (MappedFile* self) @extern ("g_mapped_file_get_bytes");
+fn ZString MappedFile.get_contents (MappedFile* self) @extern ("g_mapped_file_get_contents");
+fn ulong MappedFile.get_length (MappedFile* self) @extern ("g_mapped_file_get_length");
+fn MappedFile* MappedFile.ref (MappedFile* self) @extern ("g_mapped_file_ref");
+fn void MappedFile.unref (MappedFile* self) @extern ("g_mapped_file_unref");
+enum MarkupCollectType: CInt (inline CInt bit) {
+	INVALID = 0,
+	STRING = 1,
+	STRDUP = 2,
+	BOOLEAN = 3,
+	TRISTATE = 4,
+	OPTIONAL = 65536
+}
+
+
+enum MarkupError {
+	BAD_UTF8,
+	EMPTY,
+	PARSE,
+	UNKNOWN_ELEMENT,
+	UNKNOWN_ATTRIBUTE,
+	INVALID_CONTENT,
+	MISSING_ATTRIBUTE
+}
+
+struct MarkupParseContext {
+	void* unused;
+}
+
+fn MarkupParseContext* MarkupParseContext.new (MarkupParser* parser, MarkupParseFlags flags, void* user_data, DestroyNotify user_data_dnotify) @operator (construct) @extern ("g_markup_parse_context_new");
+fn CInt MarkupParseContext.end_parse (MarkupParseContext* self) @extern ("g_markup_parse_context_end_parse");
+fn void MarkupParseContext.free (MarkupParseContext* self) @extern ("g_markup_parse_context_free");
+fn ZString MarkupParseContext.get_element (MarkupParseContext* self) @extern ("g_markup_parse_context_get_element");
+fn SList* MarkupParseContext.get_element_stack (MarkupParseContext* self) @extern ("g_markup_parse_context_get_element_stack");
+fn void MarkupParseContext.get_position (MarkupParseContext* self, int line_number, int char_number) @extern ("g_markup_parse_context_get_position");
+fn void* MarkupParseContext.get_user_data (MarkupParseContext* self) @extern ("g_markup_parse_context_get_user_data");
+fn CInt MarkupParseContext.parse (MarkupParseContext* self, ZString text, long text_len) @extern ("g_markup_parse_context_parse");
+fn void* MarkupParseContext.pop (MarkupParseContext* self) @extern ("g_markup_parse_context_pop");
+fn void MarkupParseContext.push (MarkupParseContext* self, MarkupParser* parser, void* user_data) @extern ("g_markup_parse_context_push");
+fn MarkupParseContext* MarkupParseContext.ref (MarkupParseContext* self) @extern ("g_markup_parse_context_ref");
+fn void MarkupParseContext.unref (MarkupParseContext* self) @extern ("g_markup_parse_context_unref");
+enum MarkupParseFlags: CInt (inline CInt bit) {
+	DEFAULT_FLAGS = 0,
+	DO_NOT_USE_THIS_UNSUPPORTED_FLAG = 1,
+	TREAT_CDATA_AS_TEXT = 2,
+	PREFIX_ERROR_POSITION = 4,
+	IGNORE_QUALIFIED = 8
+}
+
+def MarkupParser_start_element = fn void (MarkupParseContext* context, ZString element_name, ZString attribute_names, ZString attribute_values, void* user_data) @export;
+def MarkupParser_end_element = fn void (MarkupParseContext* context, ZString element_name, void* user_data) @export;
+def MarkupParser_text = fn void (MarkupParseContext* context, ZString text, ulong text_len, void* user_data) @export;
+def MarkupParser_passthrough = fn void (MarkupParseContext* context, ZString passthrough_text, ulong text_len, void* user_data) @export;
+def MarkupParser_error = fn void (MarkupParseContext* context, Error* error, void* user_data) @export;
+struct MarkupParser {
+	MarkupParser_start_element start_element;
+	MarkupParser_end_element end_element;
+	MarkupParser_text text;
+	MarkupParser_passthrough passthrough;
+	MarkupParser_error error;
+}
+
+struct MatchInfo {
+	void* unused;
+}
+
+fn ZString MatchInfo.expand_references (MatchInfo* self, ZString string_to_expand) @extern ("g_match_info_expand_references");
+fn ZString MatchInfo.fetch (MatchInfo* self, int match_num) @extern ("g_match_info_fetch");
+fn char** MatchInfo.fetch_all (MatchInfo* self) @extern ("g_match_info_fetch_all");
+fn ZString MatchInfo.fetch_named (MatchInfo* self, ZString name) @extern ("g_match_info_fetch_named");
+fn CInt MatchInfo.fetch_named_pos (MatchInfo* self, ZString name, int start_pos, int end_pos) @extern ("g_match_info_fetch_named_pos");
+fn CInt MatchInfo.fetch_pos (MatchInfo* self, int match_num, int start_pos, int end_pos) @extern ("g_match_info_fetch_pos");
+fn void MatchInfo.free (MatchInfo* self) @extern ("g_match_info_free");
+fn int MatchInfo.get_match_count (MatchInfo* self) @extern ("g_match_info_get_match_count");
+fn Regex* MatchInfo.get_regex (MatchInfo* self) @extern ("g_match_info_get_regex");
+fn ZString MatchInfo.get_string (MatchInfo* self) @extern ("g_match_info_get_string");
+fn CInt MatchInfo.is_partial_match (MatchInfo* self) @extern ("g_match_info_is_partial_match");
+fn CInt MatchInfo.matches (MatchInfo* self) @extern ("g_match_info_matches");
+fn CInt MatchInfo.next (MatchInfo* self) @extern ("g_match_info_next");
+fn MatchInfo* MatchInfo.ref (MatchInfo* self) @extern ("g_match_info_ref");
+fn void MatchInfo.unref (MatchInfo* self) @extern ("g_match_info_unref");
+struct MemChunk {
+	void* unused;
+}
+
+fn void* MemChunk.alloc (MemChunk* self) @extern ("g_mem_chunk_alloc");
+fn void* MemChunk.alloc0 (MemChunk* self) @extern ("g_mem_chunk_alloc0");
+fn void MemChunk.clean (MemChunk* self) @extern ("g_mem_chunk_clean");
+fn void MemChunk.destroy (MemChunk* self) @extern ("g_mem_chunk_destroy");
+fn void MemChunk.free (MemChunk* self, void* mem) @extern ("g_mem_chunk_free");
+fn void MemChunk.print (MemChunk* self) @extern ("g_mem_chunk_print");
+fn void MemChunk.reset (MemChunk* self) @extern ("g_mem_chunk_reset");
+fn void MemChunk.info (MemChunk* self) @extern ("g_mem_chunk_info");
+def MemVTable_malloc = fn void* (ulong n_bytes) @export;
+def MemVTable_realloc = fn void* (void* mem, ulong n_bytes) @export;
+def MemVTable_free = fn void (void* mem) @export;
+def MemVTable_calloc = fn void* (ulong n_blocks, ulong n_block_bytes) @export;
+def MemVTable_try_malloc = fn void* (ulong n_bytes) @export;
+def MemVTable_try_realloc = fn void* (void* mem, ulong n_bytes) @export;
+struct MemVTable {
+	MemVTable_malloc malloc;
+	MemVTable_realloc realloc;
+	MemVTable_free free;
+	MemVTable_calloc calloc;
+	MemVTable_try_malloc try_malloc;
+	MemVTable_try_realloc try_realloc;
+}
+
+union Mutex {
+	void* p;
+	char[2] i;
+}
+
+struct Node {
+	void* data;
+	Node* next;
+	Node* prev;
+	Node* parent;
+	Node* children;
+}
+
+fn int Node.child_index (Node* self, void* data) @extern ("g_node_child_index");
+fn int Node.child_position (Node* self, Node* child) @extern ("g_node_child_position");
+fn void Node.children_foreach (Node* self, TraverseFlags flags, NodeForeachFunc func, void* data) @extern ("g_node_children_foreach");
+fn uint Node.depth (Node* self) @extern ("g_node_depth");
+fn void Node.destroy (Node* self) @extern ("g_node_destroy");
+fn CInt Node.is_ancestor (Node* self, Node* descendant) @extern ("g_node_is_ancestor");
+fn uint Node.max_height (Node* self) @extern ("g_node_max_height");
+fn uint Node.n_children (Node* self) @extern ("g_node_n_children");
+fn uint Node.n_nodes (Node* self, TraverseFlags flags) @extern ("g_node_n_nodes");
+fn void Node.reverse_children (Node* self) @extern ("g_node_reverse_children");
+fn void Node.traverse (Node* self, TraverseType order, TraverseFlags flags, int max_depth, NodeTraverseFunc func, void* data) @extern ("g_node_traverse");
+fn void Node.unlink (Node* self) @extern ("g_node_unlink");
+fn void Node.pop_allocator (Node* self) @extern ("g_node_pop_allocator");
+fn void Node.push_allocator (Node* self, Allocator* allocator) @extern ("g_node_push_allocator");
+def NodeForeachFunc = fn void (Node* node, void* data) @export;
+def NodeTraverseFunc = fn CInt (Node* node, void* data) @export;
+
+enum NormalizeMode: CInt (inline CInt value) {
+	DEFAULT = 0,
+	NFD = 0,
+	DEFAULT_COMPOSE = 1,
+	NFC = 1,
+	ALL = 2,
+	NFKD = 2,
+	ALL_COMPOSE = 3,
+	NFKC = 3
+}
+
+
+enum NumberParserError {
+	INVALID,
+	OUT_OF_BOUNDS
+}
+
+const ZString OPTION_REMAINING = "";
+struct Once {
+	OnceStatus status;
+	void* retval;
+}
+
+fn CInt Once.init_enter (Once* self, void* location) @extern ("g_once_init_enter");
+fn CInt Once.init_enter_impl (Once* self, ulong* location) @extern ("g_once_init_enter_impl");
+fn CInt Once.init_enter_pointer (Once* self, void* location) @extern ("g_once_init_enter_pointer");
+fn void Once.init_leave (Once* self, void* location, ulong result) @extern ("g_once_init_leave");
+fn void Once.init_leave_pointer (Once* self, void* location, void* result) @extern ("g_once_init_leave_pointer");
+
+enum OnceStatus {
+	NOTCALLED,
+	PROGRESS,
+	READY
+}
+
+
+enum OptionArg {
+	NONE,
+	STRING,
+	INT,
+	CALLBACK,
+	FILENAME,
+	STRING_ARRAY,
+	FILENAME_ARRAY,
+	DOUBLE,
+	INT64
+}
+
+def OptionArgFunc = fn CInt (ZString option_name, ZString value, void* data) @export;
+struct OptionContext {
+	void* unused;
+}
+
+fn void OptionContext.add_group (OptionContext* self, OptionGroup* group) @extern ("g_option_context_add_group");
+fn void OptionContext.add_main_entries (OptionContext* self, char** entries, ZString translation_domain) @extern ("g_option_context_add_main_entries");
+fn void OptionContext.free (OptionContext* self) @extern ("g_option_context_free");
+fn ZString OptionContext.get_description (OptionContext* self) @extern ("g_option_context_get_description");
+fn ZString OptionContext.get_help (OptionContext* self, CInt main_help, OptionGroup* group) @extern ("g_option_context_get_help");
+fn CInt OptionContext.get_help_enabled (OptionContext* self) @extern ("g_option_context_get_help_enabled");
+fn CInt OptionContext.get_ignore_unknown_options (OptionContext* self) @extern ("g_option_context_get_ignore_unknown_options");
+fn OptionGroup* OptionContext.get_main_group (OptionContext* self) @extern ("g_option_context_get_main_group");
+fn CInt OptionContext.get_strict_posix (OptionContext* self) @extern ("g_option_context_get_strict_posix");
+fn ZString OptionContext.get_summary (OptionContext* self) @extern ("g_option_context_get_summary");
+fn CInt OptionContext.parse (OptionContext* self, int argc, char** argv) @extern ("g_option_context_parse");
+fn CInt OptionContext.parse_strv (OptionContext* self, char** arguments) @extern ("g_option_context_parse_strv");
+fn void OptionContext.set_description (OptionContext* self, ZString description) @extern ("g_option_context_set_description");
+fn void OptionContext.set_help_enabled (OptionContext* self, CInt help_enabled) @extern ("g_option_context_set_help_enabled");
+fn void OptionContext.set_ignore_unknown_options (OptionContext* self, CInt ignore_unknown) @extern ("g_option_context_set_ignore_unknown_options");
+fn void OptionContext.set_main_group (OptionContext* self, OptionGroup* group) @extern ("g_option_context_set_main_group");
+fn void OptionContext.set_strict_posix (OptionContext* self, CInt strict_posix) @extern ("g_option_context_set_strict_posix");
+fn void OptionContext.set_summary (OptionContext* self, ZString summary) @extern ("g_option_context_set_summary");
+fn void OptionContext.set_translate_func (OptionContext* self, TranslateFunc func, void* data, DestroyNotify destroy_notify) @extern ("g_option_context_set_translate_func");
+fn void OptionContext.set_translation_domain (OptionContext* self, ZString domain) @extern ("g_option_context_set_translation_domain");
+struct OptionEntry {
+	ZString long_name;
+	ichar short_name;
+	int flags;
+	OptionArg arg;
+	void* arg_data;
+	ZString description;
+	ZString arg_description;
+}
+
+
+enum OptionError {
+	UNKNOWN_OPTION,
+	BAD_VALUE,
+	FAILED
+}
+
+def OptionErrorFunc = fn void (OptionContext* context, OptionGroup* group, void* data) @export;
+enum OptionFlags: CInt (inline CInt bit) {
+	NONE = 0,
+	HIDDEN = 1,
+	IN_MAIN = 2,
+	REVERSE = 4,
+	NO_ARG = 8,
+	FILENAME = 16,
+	OPTIONAL_ARG = 32,
+	NOALIAS = 64
+}
+
+struct OptionGroup {
+	void* unused;
+}
+
+fn OptionGroup* OptionGroup.new (ZString name, ZString description, ZString help_description, void* user_data, DestroyNotify destroy) @operator (construct) @extern ("g_option_group_new");
+fn void OptionGroup.add_entries (OptionGroup* self, char** entries) @extern ("g_option_group_add_entries");
+fn void OptionGroup.free (OptionGroup* self) @extern ("g_option_group_free");
+fn OptionGroup* OptionGroup.ref (OptionGroup* self) @extern ("g_option_group_ref");
+fn void OptionGroup.set_translate_func (OptionGroup* self, TranslateFunc func, void* data, DestroyNotify destroy_notify) @extern ("g_option_group_set_translate_func");
+fn void OptionGroup.set_translation_domain (OptionGroup* self, ZString domain) @extern ("g_option_group_set_translation_domain");
+fn void OptionGroup.unref (OptionGroup* self) @extern ("g_option_group_unref");
+def OptionParseFunc = fn CInt (OptionContext* context, OptionGroup* group, void* data) @export;
+const int PDP_ENDIAN = 3412;
+const double PI = -0.000000;
+const ZString PID_FORMAT = "i";
+const double PI_2 = -5773911433377342244919403216988274688.000000;
+const double PI_4 = -5773911433377342244919403216988274688.000000;
+const ZString POLLFD_FORMAT = "%d";
+const int PRIORITY_DEFAULT = 0;
+const int PRIORITY_DEFAULT_IDLE = 200;
+const int PRIORITY_HIGH = -100;
+const int PRIORITY_HIGH_IDLE = 100;
+const int PRIORITY_LOW = 300;
+struct PathBuf {
+	char[8] dummy;
+}
+
+fn void PathBuf.clear (PathBuf* self) @extern ("g_path_buf_clear");
+fn ZString* PathBuf.clear_to_path (PathBuf* self) @extern ("g_path_buf_clear_to_path");
+fn void PathBuf.free (PathBuf* self) @extern ("g_path_buf_free");
+fn ZString* PathBuf.free_to_path (PathBuf* self) @extern ("g_path_buf_free_to_path");
+fn PathBuf* PathBuf.init (PathBuf* self) @extern ("g_path_buf_init");
+fn PathBuf* PathBuf.init_from_path (PathBuf* self, ZString* path) @extern ("g_path_buf_init_from_path");
+fn CInt PathBuf.pop (PathBuf* self) @extern ("g_path_buf_pop");
+fn PathBuf* PathBuf.push (PathBuf* self, ZString* path) @extern ("g_path_buf_push");
+fn CInt PathBuf.set_extension (PathBuf* self, ZString* extension) @extern ("g_path_buf_set_extension");
+fn CInt PathBuf.set_filename (PathBuf* self, ZString* file_name) @extern ("g_path_buf_set_filename");
+fn ZString* PathBuf.to_path (PathBuf* self) @extern ("g_path_buf_to_path");
+fn CInt PathBuf.equal (PathBuf* self, void* v1, void* v2) @extern ("g_path_buf_equal");
+struct PatternSpec {
+	void* unused;
+}
+
+fn PatternSpec* PatternSpec.new (ZString pattern) @operator (construct) @extern ("g_pattern_spec_new");
+fn PatternSpec* PatternSpec.copy (PatternSpec* self) @extern ("g_pattern_spec_copy");
+fn CInt PatternSpec.equal (PatternSpec* self, PatternSpec* pspec2) @extern ("g_pattern_spec_equal");
+fn void PatternSpec.free (PatternSpec* self) @extern ("g_pattern_spec_free");
+fn CInt PatternSpec.match (PatternSpec* self, ulong string_length, ZString string, ZString string_reversed) @extern ("g_pattern_spec_match");
+fn CInt PatternSpec.match_string (PatternSpec* self, ZString string) @extern ("g_pattern_spec_match_string");
+struct PollFD {
+	int fd;
+	ushort events;
+	ushort revents;
+}
+
+def PollFunc = fn int (PollFD* ufds, uint nfsd, int timeout_) @export;
+def PrintFunc = fn void (ZString string) @export;
+struct Private {
+	void* p;
+	DestroyNotify notify;
+	char[2] future;
+}
+
+fn void* Private.get (Private* self) @extern ("g_private_get");
+fn void Private.replace (Private* self, void* value) @extern ("g_private_replace");
+fn void Private.set (Private* self, void* value) @extern ("g_private_set");
+struct PtrArray {
+	void* pdata;
+	uint len;
+}
+
+struct Queue {
+	List* head;
+	List* tail;
+	uint length;
+}
+
+fn void Queue.clear (Queue* self) @extern ("g_queue_clear");
+fn void Queue.clear_full (Queue* self, DestroyNotify free_func) @extern ("g_queue_clear_full");
+fn void Queue.for_each (Queue* self, Func func, void* user_data) @extern ("g_queue_foreach");
+fn void Queue.free (Queue* self) @extern ("g_queue_free");
+fn void Queue.free_full (Queue* self, DestroyNotify free_func) @extern ("g_queue_free_full");
+fn uint Queue.get_length (Queue* self) @extern ("g_queue_get_length");
+fn int Queue.index (Queue* self, void* data) @extern ("g_queue_index");
+fn void Queue.init (Queue* self) @extern ("g_queue_init");
+fn void Queue.insert_sorted (Queue* self, void* data, CompareDataFunc func, void* user_data) @extern ("g_queue_insert_sorted");
+fn CInt Queue.is_empty (Queue* self) @extern ("g_queue_is_empty");
+fn void* Queue.peek_head (Queue* self) @extern ("g_queue_peek_head");
+fn void* Queue.peek_nth (Queue* self, uint n) @extern ("g_queue_peek_nth");
+fn void* Queue.peek_tail (Queue* self) @extern ("g_queue_peek_tail");
+fn void* Queue.pop_head (Queue* self) @extern ("g_queue_pop_head");
+fn void* Queue.pop_nth (Queue* self, uint n) @extern ("g_queue_pop_nth");
+fn void* Queue.pop_tail (Queue* self) @extern ("g_queue_pop_tail");
+fn void Queue.push_head (Queue* self, void* data) @extern ("g_queue_push_head");
+fn void Queue.push_nth (Queue* self, void* data, int n) @extern ("g_queue_push_nth");
+fn void Queue.push_tail (Queue* self, void* data) @extern ("g_queue_push_tail");
+fn CInt Queue.remove (Queue* self, void* data) @extern ("g_queue_remove");
+fn uint Queue.remove_all (Queue* self, void* data) @extern ("g_queue_remove_all");
+fn void Queue.reverse (Queue* self) @extern ("g_queue_reverse");
+fn void Queue.sort (Queue* self, CompareDataFunc compare_func, void* user_data) @extern ("g_queue_sort");
+const int REF_COUNT_INIT = -1;
+struct RWLock {
+	void* p;
+	char[2] i;
+}
+
+fn void RWLock.clear (RWLock* self) @extern ("g_rw_lock_clear");
+fn void RWLock.init (RWLock* self) @extern ("g_rw_lock_init");
+fn void RWLock.reader_lock (RWLock* self) @extern ("g_rw_lock_reader_lock");
+fn CInt RWLock.reader_trylock (RWLock* self) @extern ("g_rw_lock_reader_trylock");
+fn void RWLock.reader_unlock (RWLock* self) @extern ("g_rw_lock_reader_unlock");
+fn void RWLock.writer_lock (RWLock* self) @extern ("g_rw_lock_writer_lock");
+fn CInt RWLock.writer_trylock (RWLock* self) @extern ("g_rw_lock_writer_trylock");
+fn void RWLock.writer_unlock (RWLock* self) @extern ("g_rw_lock_writer_unlock");
+struct Rand {
+	void* unused;
+}
+
+fn Rand* Rand.new () @operator (construct) @extern ("g_rand_new");
+fn Rand* Rand.new_with_seed (uint seed) @operator (construct) @extern ("g_rand_new_with_seed");
+fn Rand* Rand.new_with_seed_array (uint* seed, uint seed_length) @operator (construct) @extern ("g_rand_new_with_seed_array");
+fn Rand* Rand.copy (Rand* self) @extern ("g_rand_copy");
+fn double Rand.get_double (Rand* self) @extern ("g_rand_double");
+fn double Rand.double_range (Rand* self, double begin, double end) @extern ("g_rand_double_range");
+fn void Rand.free (Rand* self) @extern ("g_rand_free");
+fn uint Rand.get_int (Rand* self) @extern ("g_rand_int");
+fn int Rand.int_range (Rand* self, int begin, int end) @extern ("g_rand_int_range");
+fn void Rand.set_seed (Rand* self, uint seed) @extern ("g_rand_set_seed");
+fn void Rand.set_seed_array (Rand* self, uint* seed, uint seed_length) @extern ("g_rand_set_seed_array");
+struct RecMutex {
+	void* p;
+	char[2] i;
+}
+
+fn void RecMutex.clear (RecMutex* self) @extern ("g_rec_mutex_clear");
+fn void RecMutex.init (RecMutex* self) @extern ("g_rec_mutex_init");
+fn void RecMutex.lock (RecMutex* self) @extern ("g_rec_mutex_lock");
+fn CInt RecMutex.trylock (RecMutex* self) @extern ("g_rec_mutex_trylock");
+fn void RecMutex.unlock (RecMutex* self) @extern ("g_rec_mutex_unlock");
+struct Regex {
+	void* unused;
+}
+
+fn Regex* Regex.new (ZString pattern, RegexCompileFlags compile_options, RegexMatchFlags match_options) @operator (construct) @extern ("g_regex_new");
+fn int Regex.get_capture_count (Regex* self) @extern ("g_regex_get_capture_count");
+fn RegexCompileFlags Regex.get_compile_flags (Regex* self) @extern ("g_regex_get_compile_flags");
+fn CInt Regex.get_has_cr_or_lf (Regex* self) @extern ("g_regex_get_has_cr_or_lf");
+fn RegexMatchFlags Regex.get_match_flags (Regex* self) @extern ("g_regex_get_match_flags");
+fn int Regex.get_max_backref (Regex* self) @extern ("g_regex_get_max_backref");
+fn int Regex.get_max_lookbehind (Regex* self) @extern ("g_regex_get_max_lookbehind");
+fn ZString Regex.get_pattern (Regex* self) @extern ("g_regex_get_pattern");
+fn int Regex.get_string_number (Regex* self, ZString name) @extern ("g_regex_get_string_number");
+fn CInt Regex.match (Regex* self, ZString string, RegexMatchFlags match_options, MatchInfo* match_info) @extern ("g_regex_match");
+fn CInt Regex.match_all (Regex* self, ZString string, RegexMatchFlags match_options, MatchInfo* match_info) @extern ("g_regex_match_all");
+fn CInt Regex.match_all_full (Regex* self, char** string, long string_len, int start_position, RegexMatchFlags match_options, MatchInfo* match_info) @extern ("g_regex_match_all_full");
+fn CInt Regex.match_full (Regex* self, char** string, long string_len, int start_position, RegexMatchFlags match_options, MatchInfo* match_info) @extern ("g_regex_match_full");
+fn Regex* Regex.ref (Regex* self) @extern ("g_regex_ref");
+fn ZString Regex.replace (Regex* self, char** string, long string_len, int start_position, ZString replacement, RegexMatchFlags match_options) @extern ("g_regex_replace");
+fn ZString Regex.replace_eval (Regex* self, char** string, long string_len, int start_position, RegexMatchFlags match_options, RegexEvalCallback eval, void* user_data) @extern ("g_regex_replace_eval");
+fn ZString Regex.replace_literal (Regex* self, char** string, long string_len, int start_position, ZString replacement, RegexMatchFlags match_options) @extern ("g_regex_replace_literal");
+fn char** Regex.split (Regex* self, ZString string, RegexMatchFlags match_options) @extern ("g_regex_split");
+fn char** Regex.split_full (Regex* self, char** string, long string_len, int start_position, RegexMatchFlags match_options, int max_tokens) @extern ("g_regex_split_full");
+fn void Regex.unref (Regex* self) @extern ("g_regex_unref");
+fn CInt Regex.check_replacement (Regex* self, ZString replacement, CInt has_references) @extern ("g_regex_check_replacement");
+fn uint Regex.error_quark (Regex* self) @extern ("g_regex_error_quark");
+fn ZString Regex.escape_nul (Regex* self, ZString string, int length) @extern ("g_regex_escape_nul");
+fn ZString Regex.escape_string (Regex* self, ZString string, int length) @extern ("g_regex_escape_string");
+fn CInt Regex.match_simple (Regex* self, ZString pattern, ZString string, RegexCompileFlags compile_options, RegexMatchFlags match_options) @extern ("g_regex_match_simple");
+fn char** Regex.split_simple (Regex* self, ZString pattern, ZString string, RegexCompileFlags compile_options, RegexMatchFlags match_options) @extern ("g_regex_split_simple");
+enum RegexCompileFlags: CInt (inline CInt bit) {
+	DEFAULT = 0,
+	CASELESS = 1,
+	MULTILINE = 2,
+	DOTALL = 4,
+	EXTENDED = 8,
+	ANCHORED = 16,
+	DOLLAR_ENDONLY = 32,
+	UNGREEDY = 512,
+	RAW = 2048,
+	NO_AUTO_CAPTURE = 4096,
+	OPTIMIZE = 8192,
+	FIRSTLINE = 262144,
+	DUPNAMES = 524288,
+	NEWLINE_CR = 1048576,
+	NEWLINE_LF = 2097152,
+	NEWLINE_CRLF = 3145728,
+	NEWLINE_ANYCRLF = 5242880,
+	BSR_ANYCRLF = 8388608,
+	JAVASCRIPT_COMPAT = 33554432
+}
+
+
+enum RegexError: CInt (inline CInt value) {
+	COMPILE = 0,
+	OPTIMIZE = 1,
+	REPLACE = 2,
+	MATCH = 3,
+	INTERNAL = 4,
+	STRAY_BACKSLASH = 101,
+	MISSING_CONTROL_CHAR = 102,
+	UNRECOGNIZED_ESCAPE = 103,
+	QUANTIFIERS_OUT_OF_ORDER = 104,
+	QUANTIFIER_TOO_BIG = 105,
+	UNTERMINATED_CHARACTER_CLASS = 106,
+	INVALID_ESCAPE_IN_CHARACTER_CLASS = 107,
+	RANGE_OUT_OF_ORDER = 108,
+	NOTHING_TO_REPEAT = 109,
+	UNRECOGNIZED_CHARACTER = 112,
+	POSIX_NAMED_CLASS_OUTSIDE_CLASS = 113,
+	UNMATCHED_PARENTHESIS = 114,
+	INEXISTENT_SUBPATTERN_REFERENCE = 115,
+	UNTERMINATED_COMMENT = 118,
+	EXPRESSION_TOO_LARGE = 120,
+	MEMORY_ERROR = 121,
+	VARIABLE_LENGTH_LOOKBEHIND = 125,
+	MALFORMED_CONDITION = 126,
+	TOO_MANY_CONDITIONAL_BRANCHES = 127,
+	ASSERTION_EXPECTED = 128,
+	UNKNOWN_POSIX_CLASS_NAME = 130,
+	POSIX_COLLATING_ELEMENTS_NOT_SUPPORTED = 131,
+	HEX_CODE_TOO_LARGE = 134,
+	INVALID_CONDITION = 135,
+	SINGLE_BYTE_MATCH_IN_LOOKBEHIND = 136,
+	INFINITE_LOOP = 140,
+	MISSING_SUBPATTERN_NAME_TERMINATOR = 142,
+	DUPLICATE_SUBPATTERN_NAME = 143,
+	MALFORMED_PROPERTY = 146,
+	UNKNOWN_PROPERTY = 147,
+	SUBPATTERN_NAME_TOO_LONG = 148,
+	TOO_MANY_SUBPATTERNS = 149,
+	INVALID_OCTAL_VALUE = 151,
+	TOO_MANY_BRANCHES_IN_DEFINE = 154,
+	DEFINE_REPETION = 155,
+	INCONSISTENT_NEWLINE_OPTIONS = 156,
+	MISSING_BACK_REFERENCE = 157,
+	INVALID_RELATIVE_REFERENCE = 158,
+	BACKTRACKING_CONTROL_VERB_ARGUMENT_FORBIDDEN = 159,
+	UNKNOWN_BACKTRACKING_CONTROL_VERB = 160,
+	NUMBER_TOO_BIG = 161,
+	MISSING_SUBPATTERN_NAME = 162,
+	MISSING_DIGIT = 163,
+	INVALID_DATA_CHARACTER = 164,
+	EXTRA_SUBPATTERN_NAME = 165,
+	BACKTRACKING_CONTROL_VERB_ARGUMENT_REQUIRED = 166,
+	INVALID_CONTROL_CHAR = 168,
+	MISSING_NAME = 169,
+	NOT_SUPPORTED_IN_CLASS = 171,
+	TOO_MANY_FORWARD_REFERENCES = 172,
+	NAME_TOO_LONG = 175,
+	CHARACTER_VALUE_TOO_LARGE = 176
+}
+
+def RegexEvalCallback = fn CInt (MatchInfo* match_info, String* result, void* user_data) @export;
+enum RegexMatchFlags: CInt (inline CInt bit) {
+	DEFAULT = 0,
+	ANCHORED = 16,
+	NOTBOL = 128,
+	NOTEOL = 256,
+	NOTEMPTY = 1024,
+	PARTIAL = 32768,
+	NEWLINE_CR = 1048576,
+	NEWLINE_LF = 2097152,
+	NEWLINE_CRLF = 3145728,
+	NEWLINE_ANY = 4194304,
+	NEWLINE_ANYCRLF = 5242880,
+	BSR_ANYCRLF = 8388608,
+	BSR_ANY = 16777216,
+	PARTIAL_SOFT = 32768,
+	PARTIAL_HARD = 134217728,
+	NOTEMPTY_ATSTART = 268435456
+}
+
+struct Relation {
+	void* unused;
+}
+
+fn int Relation.count (Relation* self, void* key, int field) @extern ("g_relation_count");
+fn int Relation.delete (Relation* self, void* key, int field) @extern ("g_relation_delete");
+fn void Relation.destroy (Relation* self) @extern ("g_relation_destroy");
+fn void Relation.print (Relation* self) @extern ("g_relation_print");
+const int SEARCHPATH_SEPARATOR = 58;
+const ZString SEARCHPATH_SEPARATOR_S = ":";
+const int SIZEOF_LONG = 8;
+const int SIZEOF_SIZE_T = 8;
+const int SIZEOF_SSIZE_T = 8;
+const int SIZEOF_VOID_P = 8;
+struct SList {
+	void* data;
+	SList* next;
+}
+
+fn void SList.pop_allocator (SList* self) @extern ("g_slist_pop_allocator");
+fn void SList.push_allocator (SList* self, Allocator* allocator) @extern ("g_slist_push_allocator");
+const CInt SOURCE_CONTINUE = 1;
+const CInt SOURCE_REMOVE = 0;
+const double SQRT2 = -140020014068531200.000000;
+const ZString STR_DELIMITERS = "_-|> <.";
+const int SYSDEF_AF_INET = 2;
+const int SYSDEF_AF_INET6 = 10;
+const int SYSDEF_AF_UNIX = 1;
+const int SYSDEF_MSG_DONTROUTE = 4;
+const int SYSDEF_MSG_OOB = 1;
+const int SYSDEF_MSG_PEEK = 2;
+struct Scanner {
+	void* user_data;
+	uint max_parse_errors;
+	uint parse_errors;
+	ZString input_name;
+	Data* qdata;
+	ScannerConfig* config;
+	TokenType token;
+	TokenValue value;
+	uint line;
+	uint position;
+	TokenType next_token;
+	TokenValue next_value;
+	uint next_line;
+	uint next_position;
+	HashTable* symbol_table;
+	int input_fd;
+	ZString text;
+	ZString text_end;
+	ZString buffer;
+	uint scope_id;
+	ScannerMsgFunc msg_handler;
+}
+
+fn uint Scanner.cur_line (Scanner* self) @extern ("g_scanner_cur_line");
+fn uint Scanner.cur_position (Scanner* self) @extern ("g_scanner_cur_position");
+fn TokenType Scanner.cur_token (Scanner* self) @extern ("g_scanner_cur_token");
+fn void Scanner.destroy (Scanner* self) @extern ("g_scanner_destroy");
+fn CInt Scanner.eof (Scanner* self) @extern ("g_scanner_eof");
+fn TokenType Scanner.get_next_token (Scanner* self) @extern ("g_scanner_get_next_token");
+fn void Scanner.input_file (Scanner* self, int input_fd) @extern ("g_scanner_input_file");
+fn void Scanner.input_text (Scanner* self, ZString text, uint text_len) @extern ("g_scanner_input_text");
+fn void* Scanner.lookup_symbol (Scanner* self, ZString symbol) @extern ("g_scanner_lookup_symbol");
+fn TokenType Scanner.peek_next_token (Scanner* self) @extern ("g_scanner_peek_next_token");
+fn void Scanner.scope_add_symbol (Scanner* self, uint scope_id, ZString symbol, void* value) @extern ("g_scanner_scope_add_symbol");
+fn void Scanner.scope_foreach_symbol (Scanner* self, uint scope_id, HFunc func, void* user_data) @extern ("g_scanner_scope_foreach_symbol");
+fn void* Scanner.scope_lookup_symbol (Scanner* self, uint scope_id, ZString symbol) @extern ("g_scanner_scope_lookup_symbol");
+fn void Scanner.scope_remove_symbol (Scanner* self, uint scope_id, ZString symbol) @extern ("g_scanner_scope_remove_symbol");
+fn uint Scanner.set_scope (Scanner* self, uint scope_id) @extern ("g_scanner_set_scope");
+fn void Scanner.sync_file_offset (Scanner* self) @extern ("g_scanner_sync_file_offset");
+fn void Scanner.unexp_token (Scanner* self, TokenType expected_token, ZString identifier_spec, ZString symbol_spec, ZString symbol_name, ZString message, int is_error) @extern ("g_scanner_unexp_token");
+struct ScannerConfig {
+	ZString cset_skip_characters;
+	ZString cset_identifier_first;
+	ZString cset_identifier_nth;
+	ZString cpair_comment_single;
+	uint case_sensitive;
+	uint skip_comment_multi;
+	uint skip_comment_single;
+	uint scan_comment_multi;
+	uint scan_identifier;
+	uint scan_identifier_1char;
+	uint scan_identifier_NULL;
+	uint scan_symbols;
+	uint scan_binary;
+	uint scan_octal;
+	uint scan_float;
+	uint scan_hex;
+	uint scan_hex_dollar;
+	uint scan_string_sq;
+	uint scan_string_dq;
+	uint numbers_2_int;
+	uint int_2_float;
+	uint identifier_2_string;
+	uint char_2_token;
+	uint symbol_2_token;
+	uint scope_0_fallback;
+	uint store_int64;
+	uint padding_dummy;
+}
+
+def ScannerMsgFunc = fn void (Scanner* scanner, ZString message, CInt error) @export;
+
+enum SeekType {
+	CUR,
+	SET,
+	END
+}
+
+struct Sequence {
+	void* unused;
+}
+
+fn SequenceIter* Sequence.append (Sequence* self, void* data) @extern ("g_sequence_append");
+fn void Sequence.for_each (Sequence* self, Func func, void* user_data) @extern ("g_sequence_foreach");
+fn void Sequence.free (Sequence* self) @extern ("g_sequence_free");
+fn SequenceIter* Sequence.get_begin_iter (Sequence* self) @extern ("g_sequence_get_begin_iter");
+fn SequenceIter* Sequence.get_end_iter (Sequence* self) @extern ("g_sequence_get_end_iter");
+fn SequenceIter* Sequence.get_iter_at_pos (Sequence* self, int pos) @extern ("g_sequence_get_iter_at_pos");
+fn int Sequence.get_length (Sequence* self) @extern ("g_sequence_get_length");
+fn SequenceIter* Sequence.insert_sorted (Sequence* self, void* data, CompareDataFunc cmp_func, void* cmp_data) @extern ("g_sequence_insert_sorted");
+fn SequenceIter* Sequence.insert_sorted_iter (Sequence* self, void* data, SequenceIterCompareFunc iter_cmp, void* cmp_data) @extern ("g_sequence_insert_sorted_iter");
+fn CInt Sequence.is_empty (Sequence* self) @extern ("g_sequence_is_empty");
+fn SequenceIter* Sequence.lookup (Sequence* self, void* data, CompareDataFunc cmp_func, void* cmp_data) @extern ("g_sequence_lookup");
+fn SequenceIter* Sequence.lookup_iter (Sequence* self, void* data, SequenceIterCompareFunc iter_cmp, void* cmp_data) @extern ("g_sequence_lookup_iter");
+fn SequenceIter* Sequence.prepend (Sequence* self, void* data) @extern ("g_sequence_prepend");
+fn SequenceIter* Sequence.search (Sequence* self, void* data, CompareDataFunc cmp_func, void* cmp_data) @extern ("g_sequence_search");
+fn SequenceIter* Sequence.search_iter (Sequence* self, void* data, SequenceIterCompareFunc iter_cmp, void* cmp_data) @extern ("g_sequence_search_iter");
+fn void Sequence.sort (Sequence* self, CompareDataFunc cmp_func, void* cmp_data) @extern ("g_sequence_sort");
+fn void Sequence.sort_iter (Sequence* self, SequenceIterCompareFunc cmp_func, void* cmp_data) @extern ("g_sequence_sort_iter");
+fn void Sequence.foreach_range (Sequence* self, SequenceIter* begin, SequenceIter* end, Func func, void* user_data) @extern ("g_sequence_foreach_range");
+fn void* Sequence.get (Sequence* self, SequenceIter* iter) @extern ("g_sequence_get");
+fn SequenceIter* Sequence.insert_before (Sequence* self, SequenceIter* iter, void* data) @extern ("g_sequence_insert_before");
+fn void Sequence.move (Sequence* self, SequenceIter* src, SequenceIter* dest) @extern ("g_sequence_move");
+fn void Sequence.move_range (Sequence* self, SequenceIter* dest, SequenceIter* begin, SequenceIter* end) @extern ("g_sequence_move_range");
+fn SequenceIter* Sequence.range_get_midpoint (Sequence* self, SequenceIter* begin, SequenceIter* end) @extern ("g_sequence_range_get_midpoint");
+fn void Sequence.remove (Sequence* self, SequenceIter* iter) @extern ("g_sequence_remove");
+fn void Sequence.remove_range (Sequence* self, SequenceIter* begin, SequenceIter* end) @extern ("g_sequence_remove_range");
+fn void Sequence.set (Sequence* self, SequenceIter* iter, void* data) @extern ("g_sequence_set");
+fn void Sequence.sort_changed (Sequence* self, SequenceIter* iter, CompareDataFunc cmp_func, void* cmp_data) @extern ("g_sequence_sort_changed");
+fn void Sequence.sort_changed_iter (Sequence* self, SequenceIter* iter, SequenceIterCompareFunc iter_cmp, void* cmp_data) @extern ("g_sequence_sort_changed_iter");
+fn void Sequence.swap (Sequence* self, SequenceIter* a, SequenceIter* b) @extern ("g_sequence_swap");
+struct SequenceIter {
+	void* unused;
+}
+
+fn int SequenceIter.compare (SequenceIter* self, SequenceIter* b) @extern ("g_sequence_iter_compare");
+fn int SequenceIter.get_position (SequenceIter* self) @extern ("g_sequence_iter_get_position");
+fn Sequence* SequenceIter.get_sequence (SequenceIter* self) @extern ("g_sequence_iter_get_sequence");
+fn CInt SequenceIter.is_begin (SequenceIter* self) @extern ("g_sequence_iter_is_begin");
+fn CInt SequenceIter.is_end (SequenceIter* self) @extern ("g_sequence_iter_is_end");
+fn SequenceIter* SequenceIter.move (SequenceIter* self, int delta) @extern ("g_sequence_iter_move");
+fn SequenceIter* SequenceIter.next (SequenceIter* self) @extern ("g_sequence_iter_next");
+fn SequenceIter* SequenceIter.prev (SequenceIter* self) @extern ("g_sequence_iter_prev");
+def SequenceIterCompareFunc = fn int (SequenceIter* a, SequenceIter* b, void* data) @export;
+
+enum ShellError {
+	BAD_QUOTING,
+	EMPTY_STRING,
+	FAILED
+}
+
+
+enum SliceConfig: CInt (inline CInt value) {
+	ALWAYS_MALLOC = 1,
+	BYPASS_MAGAZINES = 2,
+	WORKING_SET_MSECS = 3,
+	COLOR_INCREMENT = 4,
+	CHUNK_SIZES = 5,
+	CONTENTION_COUNTER = 6
+}
+
+struct Source {
+	void* callback_data;
+	SourceCallbackFuncs* callback_funcs;
+	SourceFuncs* source_funcs;
+	uint ref_count;
+	MainContext* context;
+	int priority;
+	uint flags;
+	uint source_id;
+	SList* poll_fds;
+	Source* prev;
+	Source* next;
+	ZString name;
+	SourcePrivate* priv;
+}
+
+fn Source* Source.new (SourceFuncs* source_funcs, uint struct_size) @operator (construct) @extern ("g_source_new");
+fn void Source.add_child_source (Source* self, Source* child_source) @extern ("g_source_add_child_source");
+fn void Source.add_poll (Source* self, PollFD* fd) @extern ("g_source_add_poll");
+fn void* Source.add_unix_fd (Source* self, int fd, IOCondition events) @extern ("g_source_add_unix_fd");
+fn uint Source.attach (Source* self, MainContext* context) @extern ("g_source_attach");
+fn void Source.destroy (Source* self) @extern ("g_source_destroy");
+fn CInt Source.get_can_recurse (Source* self) @extern ("g_source_get_can_recurse");
+fn MainContext* Source.get_context (Source* self) @extern ("g_source_get_context");
+fn void Source.get_current_time (Source* self, TimeVal* timeval) @extern ("g_source_get_current_time");
+fn uint Source.get_id (Source* self) @extern ("g_source_get_id");
+fn ZString Source.get_name (Source* self) @extern ("g_source_get_name");
+fn int Source.get_priority (Source* self) @extern ("g_source_get_priority");
+fn long Source.get_ready_time (Source* self) @extern ("g_source_get_ready_time");
+fn long Source.get_time (Source* self) @extern ("g_source_get_time");
+fn CInt Source.is_destroyed (Source* self) @extern ("g_source_is_destroyed");
+fn void Source.modify_unix_fd (Source* self, void* tag, IOCondition new_events) @extern ("g_source_modify_unix_fd");
+fn IOCondition Source.query_unix_fd (Source* self, void* tag) @extern ("g_source_query_unix_fd");
+fn Source* Source.ref (Source* self) @extern ("g_source_ref");
+fn void Source.remove_child_source (Source* self, Source* child_source) @extern ("g_source_remove_child_source");
+fn void Source.remove_poll (Source* self, PollFD* fd) @extern ("g_source_remove_poll");
+fn void Source.remove_unix_fd (Source* self, void* tag) @extern ("g_source_remove_unix_fd");
+fn void Source.set_callback (Source* self, SourceFunc func, void* data, DestroyNotify notify) @extern ("g_source_set_callback");
+fn void Source.set_callback_indirect (Source* self, void* callback_data, SourceCallbackFuncs* callback_funcs) @extern ("g_source_set_callback_indirect");
+fn void Source.set_can_recurse (Source* self, CInt can_recurse) @extern ("g_source_set_can_recurse");
+fn void Source.set_funcs (Source* self, SourceFuncs* funcs) @extern ("g_source_set_funcs");
+fn void Source.set_name (Source* self, ZString name) @extern ("g_source_set_name");
+fn void Source.set_priority (Source* self, int priority) @extern ("g_source_set_priority");
+fn void Source.set_ready_time (Source* self, long ready_time) @extern ("g_source_set_ready_time");
+fn void Source.set_static_name (Source* self, ZString name) @extern ("g_source_set_static_name");
+fn void Source.unref (Source* self) @extern ("g_source_unref");
+fn CInt Source.remove (Source* self, uint tag) @extern ("g_source_remove");
+fn CInt Source.remove_by_funcs_user_data (Source* self, SourceFuncs* funcs, void* user_data) @extern ("g_source_remove_by_funcs_user_data");
+fn CInt Source.remove_by_user_data (Source* self, void* user_data) @extern ("g_source_remove_by_user_data");
+fn void Source.set_name_by_id (Source* self, uint tag, ZString name) @extern ("g_source_set_name_by_id");
+def SourceCallbackFuncs_ref = fn void (void* cb_data) @export;
+def SourceCallbackFuncs_unref = fn void (void* cb_data) @export;
+struct SourceCallbackFuncs {
+	SourceCallbackFuncs_ref ref;
+	SourceCallbackFuncs_unref unref;
+	void* get;
+}
+
+def SourceDisposeFunc = fn void (Source* source) @export;
+def SourceDummyMarshal = fn void () @export;
+def SourceFunc = fn CInt (void* user_data) @export;
+struct SourceFuncs {
+	SourceFuncsPrepareFunc prepare;
+	SourceFuncsCheckFunc check;
+	void* dispatch;
+	SourceFuncsFinalizeFunc finalize;
+	SourceFunc closure_callback;
+	SourceDummyMarshal closure_marshal;
+}
+
+def SourceFuncsCheckFunc = fn CInt (Source* source) @export;
+def SourceFuncsFinalizeFunc = fn void (Source* source) @export;
+def SourceFuncsPrepareFunc = fn CInt (Source* source, int timeout_) @export;
+def SourceOnceFunc = fn void (void* user_data) @export;
+def SourcePrivate = void;
+
+def SpawnChildSetupFunc = fn void (void* data) @export;
+
+enum SpawnError: CInt (inline CInt value) {
+	FORK = 0,
+	READ = 1,
+	CHDIR = 2,
+	ACCES = 3,
+	PERM = 4,
+	TOO_BIG = 5,
+	2BIG = 5,
+	NOEXEC = 6,
+	NAMETOOLONG = 7,
+	NOENT = 8,
+	NOMEM = 9,
+	NOTDIR = 10,
+	LOOP = 11,
+	TXTBUSY = 12,
+	IO = 13,
+	NFILE = 14,
+	MFILE = 15,
+	INVAL = 16,
+	ISDIR = 17,
+	LIBBAD = 18,
+	FAILED = 19
+}
+
+enum SpawnFlags: CInt (inline CInt bit) {
+	DEFAULT = 0,
+	LEAVE_DESCRIPTORS_OPEN = 1,
+	DO_NOT_REAP_CHILD = 2,
+	SEARCH_PATH = 4,
+	STDOUT_TO_DEV_NULL = 8,
+	STDERR_TO_DEV_NULL = 16,
+	CHILD_INHERITS_STDIN = 32,
+	FILE_AND_ARGV_ZERO = 64,
+	SEARCH_PATH_FROM_ENVP = 128,
+	CLOEXEC_PIPES = 256,
+	CHILD_INHERITS_STDOUT = 512,
+	CHILD_INHERITS_STDERR = 1024,
+	STDIN_FROM_DEV_NULL = 2048
+}
+
+def StatBuf = void;
+
+struct String {
+	ZString str;
+	ulong len;
+	ulong allocated_len;
+}
+
+fn String* String.new (ZString init) @operator (construct) @extern ("g_string_new");
+fn String* String.new_len (ZString init, long len) @operator (construct) @extern ("g_string_new_len");
+fn String* String.new_take (ZString init) @operator (construct) @extern ("g_string_new_take");
+fn String* String.sized_new (ulong dfl_size) @operator (construct) @extern ("g_string_sized_new");
+fn String* String.append (String* self, ZString val) @extern ("g_string_append");
+fn String* String.append_c (String* self, ichar c) @extern ("g_string_append_c");
+fn String* String.append_len (String* self, ZString val, long len) @extern ("g_string_append_len");
+fn String* String.append_unichar (String* self, WString wc) @extern ("g_string_append_unichar");
+fn String* String.append_uri_escaped (String* self, ZString unescaped, ZString reserved_chars_allowed, CInt allow_utf8) @extern ("g_string_append_uri_escaped");
+fn String* String.ascii_down (String* self) @extern ("g_string_ascii_down");
+fn String* String.ascii_up (String* self) @extern ("g_string_ascii_up");
+fn String* String.assign (String* self, ZString rval) @extern ("g_string_assign");
+fn String* String.down (String* self) @extern ("g_string_down");
+fn CInt String.equal (String* self, String* v2) @extern ("g_string_equal");
+fn String* String.erase (String* self, long pos, long len) @extern ("g_string_erase");
+fn ZString String.free (String* self, CInt free_segment) @extern ("g_string_free");
+fn ZString String.free_and_steal (String* self) @extern ("g_string_free_and_steal");
+fn Bytes* String.free_to_bytes (String* self) @extern ("g_string_free_to_bytes");
+fn uint String.hash (String* self) @extern ("g_string_hash");
+fn String* String.insert (String* self, long pos, ZString val) @extern ("g_string_insert");
+fn String* String.insert_c (String* self, long pos, ichar c) @extern ("g_string_insert_c");
+fn String* String.insert_len (String* self, long pos, ZString val, long len) @extern ("g_string_insert_len");
+fn String* String.insert_unichar (String* self, long pos, WString wc) @extern ("g_string_insert_unichar");
+fn String* String.overwrite (String* self, ulong pos, ZString val) @extern ("g_string_overwrite");
+fn String* String.overwrite_len (String* self, ulong pos, ZString val, long len) @extern ("g_string_overwrite_len");
+fn String* String.prepend (String* self, ZString val) @extern ("g_string_prepend");
+fn String* String.prepend_c (String* self, ichar c) @extern ("g_string_prepend_c");
+fn String* String.prepend_len (String* self, ZString val, long len) @extern ("g_string_prepend_len");
+fn String* String.prepend_unichar (String* self, WString wc) @extern ("g_string_prepend_unichar");
+fn uint String.replace (String* self, ZString find, ZString replace, uint limit) @extern ("g_string_replace");
+fn String* String.set_size (String* self, ulong len) @extern ("g_string_set_size");
+fn String* String.truncate (String* self, ulong len) @extern ("g_string_truncate");
+fn String* String.up (String* self) @extern ("g_string_up");
+struct StringChunk {
+	void* unused;
+}
+
+fn void StringChunk.clear (StringChunk* self) @extern ("g_string_chunk_clear");
+fn void StringChunk.free (StringChunk* self) @extern ("g_string_chunk_free");
+fn ZString StringChunk.insert (StringChunk* self, ZString string) @extern ("g_string_chunk_insert");
+fn ZString StringChunk.insert_const (StringChunk* self, ZString string) @extern ("g_string_chunk_insert_const");
+fn ZString StringChunk.insert_len (StringChunk* self, ZString string, long len) @extern ("g_string_chunk_insert_len");
+struct StrvBuilder {
+	void* unused;
+}
+
+fn StrvBuilder* StrvBuilder.new () @operator (construct) @extern ("g_strv_builder_new");
+fn void StrvBuilder.add (StrvBuilder* self, ZString value) @extern ("g_strv_builder_add");
+fn void StrvBuilder.addv (StrvBuilder* self, char** value) @extern ("g_strv_builder_addv");
+fn char** StrvBuilder.end (StrvBuilder* self) @extern ("g_strv_builder_end");
+fn StrvBuilder* StrvBuilder.ref (StrvBuilder* self) @extern ("g_strv_builder_ref");
+fn void StrvBuilder.take (StrvBuilder* self, ZString value) @extern ("g_strv_builder_take");
+fn void StrvBuilder.unref (StrvBuilder* self) @extern ("g_strv_builder_unref");
+fn char** StrvBuilder.unref_to_strv (StrvBuilder* self) @extern ("g_strv_builder_unref_to_strv");
+const ZString TEST_OPTION_ISOLATE_DIRS = "isolate_dirs";
+const long TIME_SPAN_DAY = 86400000000;
+const long TIME_SPAN_HOUR = 3600000000;
+const long TIME_SPAN_MILLISECOND = 1000;
+const long TIME_SPAN_MINUTE = 60000000;
+const long TIME_SPAN_SECOND = 1000000;
+struct TestCase {
+	void* unused;
+}
+
+fn void TestCase.free (TestCase* self) @extern ("g_test_case_free");
+struct TestConfig {
+	CInt test_initialized;
+	CInt test_quick;
+	CInt test_perf;
+	CInt test_verbose;
+	CInt test_quiet;
+	CInt test_undefined;
+}
+
+def TestDataFunc = fn void (void* user_data) @export;
+
+enum TestFileType {
+	DIST,
+	BUILT
+}
+
+def TestFixtureFunc = fn void (void* fixture, void* user_data) @export;
+def TestFunc = fn void () @export;
+struct TestLogBuffer {
+	String* data;
+	SList* msgs;
+}
+
+fn void TestLogBuffer.free (TestLogBuffer* self) @extern ("g_test_log_buffer_free");
+fn void TestLogBuffer.push (TestLogBuffer* self, uint n_bytes, char* bytes) @extern ("g_test_log_buffer_push");
+def TestLogFatalFunc = fn CInt (ZString log_domain, LogLevelFlags log_level, ZString message, void* user_data) @export;
+struct TestLogMsg {
+	TestLogType log_type;
+	uint n_strings;
+	ZString strings;
+	uint n_nums;
+	void* nums;
+}
+
+fn void TestLogMsg.free (TestLogMsg* self) @extern ("g_test_log_msg_free");
+
+enum TestLogType {
+	NONE,
+	ERROR,
+	START_BINARY,
+	LIST_CASE,
+	SKIP_CASE,
+	START_CASE,
+	STOP_CASE,
+	MIN_RESULT,
+	MAX_RESULT,
+	MESSAGE,
+	START_SUITE,
+	STOP_SUITE
+}
+
+
+enum TestResult {
+	SUCCESS,
+	SKIPPED,
+	FAILURE,
+	INCOMPLETE
+}
+
+enum TestSubprocessFlags: CInt (inline CInt bit) {
+	DEFAULT = 0,
+	INHERIT_STDIN = 1,
+	INHERIT_STDOUT = 2,
+	INHERIT_STDERR = 4
+}
+
+struct TestSuite {
+	void* unused;
+}
+
+fn void TestSuite.add (TestSuite* self, TestCase* test_case) @extern ("g_test_suite_add");
+fn void TestSuite.add_suite (TestSuite* self, TestSuite* nestedsuite) @extern ("g_test_suite_add_suite");
+fn void TestSuite.free (TestSuite* self) @extern ("g_test_suite_free");
+enum TestTrapFlags: CInt (inline CInt bit) {
+	DEFAULT = 0,
+	SILENCE_STDOUT = 128,
+	SILENCE_STDERR = 256,
+	INHERIT_STDIN = 512
+}
+
+struct Thread {
+	ThreadFunc func;
+	void* data;
+	CInt joinable;
+	void* priority;
+}
+
+fn Thread* Thread.new (ZString name, ThreadFunc func, void* data) @operator (construct) @extern ("g_thread_new");
+fn Thread* Thread.try_new (ZString name, ThreadFunc func, void* data) @operator (construct) @extern ("g_thread_try_new");
+fn void* Thread.join (Thread* self) @extern ("g_thread_join");
+fn Thread* Thread.ref (Thread* self) @extern ("g_thread_ref");
+fn void Thread.unref (Thread* self) @extern ("g_thread_unref");
+fn uint Thread.error_quark (Thread* self) @extern ("g_thread_error_quark");
+fn void Thread.exit (Thread* self, void* retval) @extern ("g_thread_exit");
+fn Thread* Thread.self (Thread* self) @extern ("g_thread_self");
+fn void Thread.yield (Thread* self) @extern ("g_thread_yield");
+
+enum ThreadError {
+	THREAD_ERROR_AGAIN
+}
+
+def ThreadFunc = fn void* (void* data) @export;
+struct ThreadPool {
+	Func func;
+	void* user_data;
+	CInt exclusive;
+}
+
+fn void ThreadPool.free (ThreadPool* self, CInt immediate, CInt wait_) @extern ("g_thread_pool_free");
+fn int ThreadPool.get_max_threads (ThreadPool* self) @extern ("g_thread_pool_get_max_threads");
+fn uint ThreadPool.get_num_threads (ThreadPool* self) @extern ("g_thread_pool_get_num_threads");
+fn CInt ThreadPool.move_to_front (ThreadPool* self, void* data) @extern ("g_thread_pool_move_to_front");
+fn CInt ThreadPool.push (ThreadPool* self, void* data) @extern ("g_thread_pool_push");
+fn CInt ThreadPool.set_max_threads (ThreadPool* self, int max_threads) @extern ("g_thread_pool_set_max_threads");
+fn uint ThreadPool.unprocessed (ThreadPool* self) @extern ("g_thread_pool_unprocessed");
+fn uint ThreadPool.get_max_idle_time (ThreadPool* self) @extern ("g_thread_pool_get_max_idle_time");
+fn int ThreadPool.get_max_unused_threads (ThreadPool* self) @extern ("g_thread_pool_get_max_unused_threads");
+fn uint ThreadPool.get_num_unused_threads (ThreadPool* self) @extern ("g_thread_pool_get_num_unused_threads");
+fn void ThreadPool.set_max_idle_time (ThreadPool* self, uint interval) @extern ("g_thread_pool_set_max_idle_time");
+fn void ThreadPool.set_max_unused_threads (ThreadPool* self, int max_threads) @extern ("g_thread_pool_set_max_unused_threads");
+fn void ThreadPool.stop_unused_threads (ThreadPool* self) @extern ("g_thread_pool_stop_unused_threads");
+
+enum TimeType {
+	STANDARD,
+	DAYLIGHT,
+	UNIVERSAL
+}
+
+struct TimeVal {
+	long tv_sec;
+	long tv_usec;
+}
+
+fn void TimeVal.add (TimeVal* self, long microseconds) @extern ("g_time_val_add");
+fn ZString TimeVal.to_iso8601 (TimeVal* self) @extern ("g_time_val_to_iso8601");
+fn CInt TimeVal.from_iso8601 (TimeVal* self, ZString iso_date, TimeVal time_) @extern ("g_time_val_from_iso8601");
+struct TimeZone {
+	void* unused;
+}
+
+fn TimeZone* TimeZone.new (ZString identifier) @operator (construct) @extern ("g_time_zone_new");
+fn TimeZone* TimeZone.new_identifier (ZString identifier) @operator (construct) @extern ("g_time_zone_new_identifier");
+fn TimeZone* TimeZone.new_local () @operator (construct) @extern ("g_time_zone_new_local");
+fn TimeZone* TimeZone.new_offset (int seconds) @operator (construct) @extern ("g_time_zone_new_offset");
+fn TimeZone* TimeZone.new_utc () @operator (construct) @extern ("g_time_zone_new_utc");
+fn int TimeZone.adjust_time (TimeZone* self, TimeType type, long time_) @extern ("g_time_zone_adjust_time");
+fn int TimeZone.find_interval (TimeZone* self, TimeType type, long time_) @extern ("g_time_zone_find_interval");
+fn ZString TimeZone.get_abbreviation (TimeZone* self, int interval) @extern ("g_time_zone_get_abbreviation");
+fn ZString TimeZone.get_identifier (TimeZone* self) @extern ("g_time_zone_get_identifier");
+fn int TimeZone.get_offset (TimeZone* self, int interval) @extern ("g_time_zone_get_offset");
+fn CInt TimeZone.is_dst (TimeZone* self, int interval) @extern ("g_time_zone_is_dst");
+fn TimeZone* TimeZone.ref (TimeZone* self) @extern ("g_time_zone_ref");
+fn void TimeZone.unref (TimeZone* self) @extern ("g_time_zone_unref");
+struct Timer {
+	void* unused;
+}
+
+fn void Timer.resume (Timer* self) @extern ("g_timer_continue");
+fn void Timer.destroy (Timer* self) @extern ("g_timer_destroy");
+fn double Timer.elapsed (Timer* self, ulong* microseconds) @extern ("g_timer_elapsed");
+fn CInt Timer.is_active (Timer* self) @extern ("g_timer_is_active");
+fn void Timer.reset (Timer* self) @extern ("g_timer_reset");
+fn void Timer.start (Timer* self) @extern ("g_timer_start");
+fn void Timer.stop (Timer* self) @extern ("g_timer_stop");
+
+enum TokenType: CInt (inline CInt value) {
+	EOF = 0,
+	LEFT_PAREN = 40,
+	RIGHT_PAREN = 41,
+	LEFT_CURLY = 123,
+	RIGHT_CURLY = 125,
+	LEFT_BRACE = 91,
+	RIGHT_BRACE = 93,
+	EQUAL_SIGN = 61,
+	COMMA = 44,
+	NONE = 256,
+	ERROR = 257,
+	CHAR = 258,
+	BINARY = 259,
+	OCTAL = 260,
+	INT = 261,
+	HEX = 262,
+	FLOAT = 263,
+	STRING = 264,
+	SYMBOL = 265,
+	IDENTIFIER = 266,
+	IDENTIFIER_NULL = 267,
+	COMMENT_SINGLE = 268,
+	COMMENT_MULTI = 269
+}
+
+union TokenValue {
+	void* v_symbol;
+	ZString v_identifier;
+	ulong v_binary;
+	ulong v_octal;
+	ulong v_int;
+	ulong v_int64;
+	double v_float;
+	ulong v_hex;
+	ZString v_string;
+	ZString v_comment;
+	char v_char;
+	uint v_error;
+}
+
+def TranslateFunc = fn ZString (ZString str, void* data) @export;
+struct TrashStack {
+	TrashStack* next;
+}
+
+fn uint TrashStack.height (TrashStack* self, TrashStack* stack_p) @extern ("g_trash_stack_height");
+fn void* TrashStack.peek (TrashStack* self, TrashStack* stack_p) @extern ("g_trash_stack_peek");
+fn void* TrashStack.pop (TrashStack* self, TrashStack* stack_p) @extern ("g_trash_stack_pop");
+fn void TrashStack.push (TrashStack* self, TrashStack* stack_p, void* data_p) @extern ("g_trash_stack_push");
+enum TraverseFlags: CInt (inline CInt bit) {
+	LEAVES = 1,
+	NON_LEAVES = 2,
+	ALL = 3,
+	MASK = 3,
+	LEAFS = 1,
+	NON_LEAFS = 2
+}
+
+def TraverseFunc = fn CInt (void* key, void* value, void* data) @export;
+def TraverseNodeFunc = fn CInt (TreeNode* node, void* data) @export;
+
+enum TraverseType {
+	IN_ORDER,
+	PRE_ORDER,
+	POST_ORDER,
+	LEVEL_ORDER
+}
+
+struct Tree {
+	void* unused;
+}
+
+fn Tree* Tree.new_full (CompareDataFunc key_compare_func, void* key_compare_data, DestroyNotify key_destroy_func, DestroyNotify value_destroy_func) @operator (construct) @extern ("g_tree_new_full");
+fn void Tree.destroy (Tree* self) @extern ("g_tree_destroy");
+fn void Tree.for_each (Tree* self, TraverseFunc func, void* user_data) @extern ("g_tree_foreach");
+fn void Tree.foreach_node (Tree* self, TraverseNodeFunc func, void* user_data) @extern ("g_tree_foreach_node");
+fn int Tree.height (Tree* self) @extern ("g_tree_height");
+fn void Tree.insert (Tree* self, void* key, void* value) @extern ("g_tree_insert");
+fn TreeNode* Tree.insert_node (Tree* self, void* key, void* value) @extern ("g_tree_insert_node");
+fn void* Tree.lookup (Tree* self, void* key) @extern ("g_tree_lookup");
+fn CInt Tree.lookup_extended (Tree* self, void* lookup_key, void* orig_key, void* value) @extern ("g_tree_lookup_extended");
+fn TreeNode* Tree.lookup_node (Tree* self, void* key) @extern ("g_tree_lookup_node");
+fn TreeNode* Tree.lower_bound (Tree* self, void* key) @extern ("g_tree_lower_bound");
+fn int Tree.nnodes (Tree* self) @extern ("g_tree_nnodes");
+fn TreeNode* Tree.node_first (Tree* self) @extern ("g_tree_node_first");
+fn TreeNode* Tree.node_last (Tree* self) @extern ("g_tree_node_last");
+fn Tree* Tree.ref (Tree* self) @extern ("g_tree_ref");
+fn CInt Tree.remove (Tree* self, void* key) @extern ("g_tree_remove");
+fn void Tree.remove_all (Tree* self) @extern ("g_tree_remove_all");
+fn void Tree.replace (Tree* self, void* key, void* value) @extern ("g_tree_replace");
+fn TreeNode* Tree.replace_node (Tree* self, void* key, void* value) @extern ("g_tree_replace_node");
+fn void* Tree.search (Tree* self, CompareFunc search_func, void* user_data) @extern ("g_tree_search");
+fn TreeNode* Tree.search_node (Tree* self, CompareFunc search_func, void* user_data) @extern ("g_tree_search_node");
+fn CInt Tree.steal (Tree* self, void* key) @extern ("g_tree_steal");
+fn void Tree.traverse (Tree* self, TraverseFunc traverse_func, TraverseType traverse_type, void* user_data) @extern ("g_tree_traverse");
+fn void Tree.unref (Tree* self) @extern ("g_tree_unref");
+fn TreeNode* Tree.upper_bound (Tree* self, void* key) @extern ("g_tree_upper_bound");
+struct TreeNode {
+	void* unused;
+}
+
+fn void* TreeNode.key (TreeNode* self) @extern ("g_tree_node_key");
+fn TreeNode* TreeNode.next (TreeNode* self) @extern ("g_tree_node_next");
+fn TreeNode* TreeNode.previous (TreeNode* self) @extern ("g_tree_node_previous");
+fn void* TreeNode.value (TreeNode* self) @extern ("g_tree_node_value");
+struct Tuples {
+	uint len;
+}
+
+fn void Tuples.destroy (Tuples* self) @extern ("g_tuples_destroy");
+fn void* Tuples.index (Tuples* self, int index_, int field) @extern ("g_tuples_index");
+const int UNICHAR_MAX_DECOMPOSITION_LENGTH = 18;
+const ZString URI_RESERVED_CHARS_GENERIC_DELIMITERS = ":/?#[]@";
+const ZString URI_RESERVED_CHARS_SUBCOMPONENT_DELIMITERS = "!$&'()*+,;=";
+const int USEC_PER_SEC = 1000000;
+
+enum UnicodeBreakType: CInt (inline CInt value) {
+	MANDATORY = 0,
+	CARRIAGE_RETURN = 1,
+	LINE_FEED = 2,
+	COMBINING_MARK = 3,
+	SURROGATE = 4,
+	ZERO_WIDTH_SPACE = 5,
+	INSEPARABLE = 6,
+	NON_BREAKING_GLUE = 7,
+	CONTINGENT = 8,
+	SPACE = 9,
+	AFTER = 10,
+	BEFORE = 11,
+	BEFORE_AND_AFTER = 12,
+	HYPHEN = 13,
+	NON_STARTER = 14,
+	OPEN_PUNCTUATION = 15,
+	CLOSE_PUNCTUATION = 16,
+	QUOTATION = 17,
+	EXCLAMATION = 18,
+	IDEOGRAPHIC = 19,
+	NUMERIC = 20,
+	INFIX_SEPARATOR = 21,
+	SYMBOL = 22,
+	ALPHABETIC = 23,
+	PREFIX = 24,
+	POSTFIX = 25,
+	COMPLEX_CONTEXT = 26,
+	AMBIGUOUS = 27,
+	UNKNOWN = 28,
+	NEXT_LINE = 29,
+	WORD_JOINER = 30,
+	HANGUL_L_JAMO = 31,
+	HANGUL_V_JAMO = 32,
+	HANGUL_T_JAMO = 33,
+	HANGUL_LV_SYLLABLE = 34,
+	HANGUL_LVT_SYLLABLE = 35,
+	CLOSE_PARANTHESIS = 36,
+	CLOSE_PARENTHESIS = 36,
+	CONDITIONAL_JAPANESE_STARTER = 37,
+	HEBREW_LETTER = 38,
+	REGIONAL_INDICATOR = 39,
+	EMOJI_BASE = 40,
+	EMOJI_MODIFIER = 41,
+	ZERO_WIDTH_JOINER = 42,
+	AKSARA = 43,
+	AKSARA_PRE_BASE = 44,
+	AKSARA_START = 45,
+	VIRAMA_FINAL = 46,
+	VIRAMA = 47
+}
+
+
+enum UnicodeScript: CInt (inline CInt value) {
+	INVALID_CODE = -1,
+	COMMON = 0,
+	INHERITED = 1,
+	ARABIC = 2,
+	ARMENIAN = 3,
+	BENGALI = 4,
+	BOPOMOFO = 5,
+	CHEROKEE = 6,
+	COPTIC = 7,
+	CYRILLIC = 8,
+	DESERET = 9,
+	DEVANAGARI = 10,
+	ETHIOPIC = 11,
+	GEORGIAN = 12,
+	GOTHIC = 13,
+	GREEK = 14,
+	GUJARATI = 15,
+	GURMUKHI = 16,
+	HAN = 17,
+	HANGUL = 18,
+	HEBREW = 19,
+	HIRAGANA = 20,
+	KANNADA = 21,
+	KATAKANA = 22,
+	KHMER = 23,
+	LAO = 24,
+	LATIN = 25,
+	MALAYALAM = 26,
+	MONGOLIAN = 27,
+	MYANMAR = 28,
+	OGHAM = 29,
+	OLD_ITALIC = 30,
+	ORIYA = 31,
+	RUNIC = 32,
+	SINHALA = 33,
+	SYRIAC = 34,
+	TAMIL = 35,
+	TELUGU = 36,
+	THAANA = 37,
+	THAI = 38,
+	TIBETAN = 39,
+	CANADIAN_ABORIGINAL = 40,
+	YI = 41,
+	TAGALOG = 42,
+	HANUNOO = 43,
+	BUHID = 44,
+	TAGBANWA = 45,
+	BRAILLE = 46,
+	CYPRIOT = 47,
+	LIMBU = 48,
+	OSMANYA = 49,
+	SHAVIAN = 50,
+	LINEAR_B = 51,
+	TAI_LE = 52,
+	UGARITIC = 53,
+	NEW_TAI_LUE = 54,
+	BUGINESE = 55,
+	GLAGOLITIC = 56,
+	TIFINAGH = 57,
+	SYLOTI_NAGRI = 58,
+	OLD_PERSIAN = 59,
+	KHAROSHTHI = 60,
+	UNKNOWN = 61,
+	BALINESE = 62,
+	CUNEIFORM = 63,
+	PHOENICIAN = 64,
+	PHAGS_PA = 65,
+	NKO = 66,
+	KAYAH_LI = 67,
+	LEPCHA = 68,
+	REJANG = 69,
+	SUNDANESE = 70,
+	SAURASHTRA = 71,
+	CHAM = 72,
+	OL_CHIKI = 73,
+	VAI = 74,
+	CARIAN = 75,
+	LYCIAN = 76,
+	LYDIAN = 77,
+	AVESTAN = 78,
+	BAMUM = 79,
+	EGYPTIAN_HIEROGLYPHS = 80,
+	IMPERIAL_ARAMAIC = 81,
+	INSCRIPTIONAL_PAHLAVI = 82,
+	INSCRIPTIONAL_PARTHIAN = 83,
+	JAVANESE = 84,
+	KAITHI = 85,
+	LISU = 86,
+	MEETEI_MAYEK = 87,
+	OLD_SOUTH_ARABIAN = 88,
+	OLD_TURKIC = 89,
+	SAMARITAN = 90,
+	TAI_THAM = 91,
+	TAI_VIET = 92,
+	BATAK = 93,
+	BRAHMI = 94,
+	MANDAIC = 95,
+	CHAKMA = 96,
+	MEROITIC_CURSIVE = 97,
+	MEROITIC_HIEROGLYPHS = 98,
+	MIAO = 99,
+	SHARADA = 100,
+	SORA_SOMPENG = 101,
+	TAKRI = 102,
+	BASSA_VAH = 103,
+	CAUCASIAN_ALBANIAN = 104,
+	DUPLOYAN = 105,
+	ELBASAN = 106,
+	GRANTHA = 107,
+	KHOJKI = 108,
+	KHUDAWADI = 109,
+	LINEAR_A = 110,
+	MAHAJANI = 111,
+	MANICHAEAN = 112,
+	MENDE_KIKAKUI = 113,
+	MODI = 114,
+	MRO = 115,
+	NABATAEAN = 116,
+	OLD_NORTH_ARABIAN = 117,
+	OLD_PERMIC = 118,
+	PAHAWH_HMONG = 119,
+	PALMYRENE = 120,
+	PAU_CIN_HAU = 121,
+	PSALTER_PAHLAVI = 122,
+	SIDDHAM = 123,
+	TIRHUTA = 124,
+	WARANG_CITI = 125,
+	AHOM = 126,
+	ANATOLIAN_HIEROGLYPHS = 127,
+	HATRAN = 128,
+	MULTANI = 129,
+	OLD_HUNGARIAN = 130,
+	SIGNWRITING = 131,
+	ADLAM = 132,
+	BHAIKSUKI = 133,
+	MARCHEN = 134,
+	NEWA = 135,
+	OSAGE = 136,
+	TANGUT = 137,
+	MASARAM_GONDI = 138,
+	NUSHU = 139,
+	SOYOMBO = 140,
+	ZANABAZAR_SQUARE = 141,
+	DOGRA = 142,
+	GUNJALA_GONDI = 143,
+	HANIFI_ROHINGYA = 144,
+	MAKASAR = 145,
+	MEDEFAIDRIN = 146,
+	OLD_SOGDIAN = 147,
+	SOGDIAN = 148,
+	ELYMAIC = 149,
+	NANDINAGARI = 150,
+	NYIAKENG_PUACHUE_HMONG = 151,
+	WANCHO = 152,
+	CHORASMIAN = 153,
+	DIVES_AKURU = 154,
+	KHITAN_SMALL_SCRIPT = 155,
+	YEZIDI = 156,
+	CYPRO_MINOAN = 157,
+	OLD_UYGHUR = 158,
+	TANGSA = 159,
+	TOTO = 160,
+	VITHKUQI = 161,
+	MATH = 162,
+	KAWI = 163,
+	NAG_MUNDARI = 164
+}
+
+
+enum UnicodeType {
+	CONTROL,
+	FORMAT,
+	UNASSIGNED,
+	PRIVATE_USE,
+	SURROGATE,
+	LOWERCASE_LETTER,
+	MODIFIER_LETTER,
+	OTHER_LETTER,
+	TITLECASE_LETTER,
+	UPPERCASE_LETTER,
+	SPACING_MARK,
+	ENCLOSING_MARK,
+	NON_SPACING_MARK,
+	DECIMAL_NUMBER,
+	LETTER_NUMBER,
+	OTHER_NUMBER,
+	CONNECT_PUNCTUATION,
+	DASH_PUNCTUATION,
+	CLOSE_PUNCTUATION,
+	FINAL_PUNCTUATION,
+	INITIAL_PUNCTUATION,
+	OTHER_PUNCTUATION,
+	OPEN_PUNCTUATION,
+	CURRENCY_SYMBOL,
+	MODIFIER_SYMBOL,
+	MATH_SYMBOL,
+	OTHER_SYMBOL,
+	LINE_SEPARATOR,
+	PARAGRAPH_SEPARATOR,
+	SPACE_SEPARATOR
+}
+
+def UnixFDSourceFunc = fn CInt (int fd, IOCondition condition, void* user_data) @export;
+struct UnixPipe {
+	char[2] fds;
+}
+
+
+enum UnixPipeEnd {
+	READ,
+	WRITE
+}
+
+struct Uri {
+	void* unused;
+}
+
+fn ZString Uri.get_auth_params (Uri* self) @extern ("g_uri_get_auth_params");
+fn UriFlags Uri.get_flags (Uri* self) @extern ("g_uri_get_flags");
+fn ZString Uri.get_fragment (Uri* self) @extern ("g_uri_get_fragment");
+fn ZString Uri.get_host (Uri* self) @extern ("g_uri_get_host");
+fn ZString Uri.get_password (Uri* self) @extern ("g_uri_get_password");
+fn ZString Uri.get_path (Uri* self) @extern ("g_uri_get_path");
+fn int Uri.get_port (Uri* self) @extern ("g_uri_get_port");
+fn ZString Uri.get_query (Uri* self) @extern ("g_uri_get_query");
+fn ZString Uri.get_scheme (Uri* self) @extern ("g_uri_get_scheme");
+fn ZString Uri.get_user (Uri* self) @extern ("g_uri_get_user");
+fn ZString Uri.get_userinfo (Uri* self) @extern ("g_uri_get_userinfo");
+fn Uri* Uri.parse_relative (Uri* self, ZString uri_ref, UriFlags flags) @extern ("g_uri_parse_relative");
+fn ZString Uri.to_string (Uri* self) @extern ("g_uri_to_string");
+fn ZString Uri.to_string_partial (Uri* self, UriHideFlags flags) @extern ("g_uri_to_string_partial");
+fn Uri* Uri.build (Uri* self, UriFlags flags, ZString scheme, ZString userinfo, ZString host, int port, ZString path, ZString query, ZString fragment) @extern ("g_uri_build");
+fn Uri* Uri.build_with_user (Uri* self, UriFlags flags, ZString scheme, ZString user, ZString password, ZString auth_params, ZString host, int port, ZString path, ZString query, ZString fragment) @extern ("g_uri_build_with_user");
+fn uint Uri.error_quark (Uri* self) @extern ("g_uri_error_quark");
+fn ZString Uri.escape_bytes (Uri* self, char** unescaped, ulong length, ZString reserved_chars_allowed) @extern ("g_uri_escape_bytes");
+fn ZString Uri.escape_string (Uri* self, ZString unescaped, ZString reserved_chars_allowed, CInt allow_utf8) @extern ("g_uri_escape_string");
+fn CInt Uri.is_valid (Uri* self, ZString uri_string, UriFlags flags) @extern ("g_uri_is_valid");
+fn ZString Uri.join (Uri* self, UriFlags flags, ZString scheme, ZString userinfo, ZString host, int port, ZString path, ZString query, ZString fragment) @extern ("g_uri_join");
+fn ZString Uri.join_with_user (Uri* self, UriFlags flags, ZString scheme, ZString user, ZString password, ZString auth_params, ZString host, int port, ZString path, ZString query, ZString fragment) @extern ("g_uri_join_with_user");
+fn char** Uri.list_extract_uris (Uri* self, ZString uri_list) @extern ("g_uri_list_extract_uris");
+fn Uri* Uri.parse (Uri* self, ZString uri_string, UriFlags flags) @extern ("g_uri_parse");
+fn HashTable* Uri.parse_params (Uri* self, ZString params, long length, ZString separators, UriParamsFlags flags) @extern ("g_uri_parse_params");
+fn ZString Uri.parse_scheme (Uri* self, ZString uri) @extern ("g_uri_parse_scheme");
+fn ZString Uri.peek_scheme (Uri* self, ZString uri) @extern ("g_uri_peek_scheme");
+fn ZString Uri.resolve_relative (Uri* self, ZString base_uri_string, ZString uri_ref, UriFlags flags) @extern ("g_uri_resolve_relative");
+fn CInt Uri.split (Uri* self, ZString uri_ref, UriFlags flags, ZString scheme, ZString userinfo, ZString host, int port, ZString path, ZString query, ZString fragment) @extern ("g_uri_split");
+fn CInt Uri.split_network (Uri* self, ZString uri_string, UriFlags flags, ZString scheme, ZString host, int port) @extern ("g_uri_split_network");
+fn CInt Uri.split_with_user (Uri* self, ZString uri_ref, UriFlags flags, ZString scheme, ZString user, ZString password, ZString auth_params, ZString host, int port, ZString path, ZString query, ZString fragment) @extern ("g_uri_split_with_user");
+fn Bytes* Uri.unescape_bytes (Uri* self, ZString escaped_string, long length, ZString illegal_characters) @extern ("g_uri_unescape_bytes");
+fn ZString Uri.unescape_segment (Uri* self, ZString escaped_string, ZString escaped_string_end, ZString illegal_characters) @extern ("g_uri_unescape_segment");
+fn ZString Uri.unescape_string (Uri* self, ZString escaped_string, ZString illegal_characters) @extern ("g_uri_unescape_string");
+
+enum UriError {
+	FAILED,
+	BAD_SCHEME,
+	BAD_USER,
+	BAD_PASSWORD,
+	BAD_AUTH_PARAMS,
+	BAD_HOST,
+	BAD_PORT,
+	BAD_PATH,
+	BAD_QUERY,
+	BAD_FRAGMENT
+}
+
+enum UriFlags: CInt (inline CInt bit) {
+	NONE = 0,
+	PARSE_RELAXED = 1,
+	HAS_PASSWORD = 2,
+	HAS_AUTH_PARAMS = 4,
+	ENCODED = 8,
+	NON_DNS = 16,
+	ENCODED_QUERY = 32,
+	ENCODED_PATH = 64,
+	ENCODED_FRAGMENT = 128,
+	SCHEME_NORMALIZE = 256
+}
+
+enum UriHideFlags: CInt (inline CInt bit) {
+	NONE = 0,
+	USERINFO = 1,
+	PASSWORD = 2,
+	AUTH_PARAMS = 4,
+	QUERY = 8,
+	FRAGMENT = 16
+}
+
+enum UriParamsFlags: CInt (inline CInt bit) {
+	NONE = 0,
+	CASE_INSENSITIVE = 1,
+	WWW_FORM = 2,
+	PARSE_RELAXED = 4
+}
+
+struct UriParamsIter {
+	int dummy0;
+	void* dummy1;
+	void* dummy2;
+	char[256] dummy3;
+}
+
+fn void UriParamsIter.init (UriParamsIter* self, ZString params, long length, ZString separators, UriParamsFlags flags) @extern ("g_uri_params_iter_init");
+fn CInt UriParamsIter.next (UriParamsIter* self, ZString attribute, ZString value) @extern ("g_uri_params_iter_next");
+
+enum UserDirectory {
+	DIRECTORY_DESKTOP,
+	DIRECTORY_DOCUMENTS,
+	DIRECTORY_DOWNLOAD,
+	DIRECTORY_MUSIC,
+	DIRECTORY_PICTURES,
+	DIRECTORY_PUBLIC_SHARE,
+	DIRECTORY_TEMPLATES,
+	DIRECTORY_VIDEOS,
+	N_DIRECTORIES
+}
+
+const int VA_COPY_AS_ARRAY = 1;
+const int VERSION_MIN_REQUIRED = 2;
+struct Variant {
+	void* unused;
+}
+
+fn Variant* Variant.new_array (VariantType* child_type, char** children, ulong n_children) @operator (construct) @extern ("g_variant_new_array");
+fn Variant* Variant.new_boolean (CInt value) @operator (construct) @extern ("g_variant_new_boolean");
+fn Variant* Variant.new_byte (char value) @operator (construct) @extern ("g_variant_new_byte");
+fn Variant* Variant.new_bytestring (char** string) @operator (construct) @extern ("g_variant_new_bytestring");
+fn Variant* Variant.new_bytestring_array (char** strv, long length) @operator (construct) @extern ("g_variant_new_bytestring_array");
+fn Variant* Variant.new_dict_entry (Variant* key, Variant* value) @operator (construct) @extern ("g_variant_new_dict_entry");
+fn Variant* Variant.new_double (double value) @operator (construct) @extern ("g_variant_new_double");
+fn Variant* Variant.new_fixed_array (VariantType* element_type, void* elements, ulong n_elements, ulong element_size) @operator (construct) @extern ("g_variant_new_fixed_array");
+fn Variant* Variant.new_from_bytes (VariantType* type, Bytes* bytes, CInt trusted) @operator (construct) @extern ("g_variant_new_from_bytes");
+fn Variant* Variant.new_from_data (VariantType* type, char** data, ulong size, CInt trusted, DestroyNotify notify, void* user_data) @operator (construct) @extern ("g_variant_new_from_data");
+fn Variant* Variant.new_handle (int value) @operator (construct) @extern ("g_variant_new_handle");
+fn Variant* Variant.new_int16 (short value) @operator (construct) @extern ("g_variant_new_int16");
+fn Variant* Variant.new_int32 (int value) @operator (construct) @extern ("g_variant_new_int32");
+fn Variant* Variant.new_int64 (long value) @operator (construct) @extern ("g_variant_new_int64");
+fn Variant* Variant.new_maybe (VariantType* child_type, Variant* child) @operator (construct) @extern ("g_variant_new_maybe");
+fn Variant* Variant.new_object_path (ZString object_path) @operator (construct) @extern ("g_variant_new_object_path");
+fn Variant* Variant.new_objv (char** strv, long length) @operator (construct) @extern ("g_variant_new_objv");
+fn Variant* Variant.new_signature (ZString signature) @operator (construct) @extern ("g_variant_new_signature");
+fn Variant* Variant.new_string (ZString string) @operator (construct) @extern ("g_variant_new_string");
+fn Variant* Variant.new_strv (char** strv, long length) @operator (construct) @extern ("g_variant_new_strv");
+fn Variant* Variant.new_tuple (char** children, ulong n_children) @operator (construct) @extern ("g_variant_new_tuple");
+fn Variant* Variant.new_uint16 (ushort value) @operator (construct) @extern ("g_variant_new_uint16");
+fn Variant* Variant.new_uint32 (uint value) @operator (construct) @extern ("g_variant_new_uint32");
+fn Variant* Variant.new_uint64 (ulong value) @operator (construct) @extern ("g_variant_new_uint64");
+fn Variant* Variant.new_variant (Variant* value) @operator (construct) @extern ("g_variant_new_variant");
+fn Variant* Variant.byteswap (Variant* self) @extern ("g_variant_byteswap");
+fn CInt Variant.check_format_string (Variant* self, ZString format_string, CInt copy_only) @extern ("g_variant_check_format_string");
+fn VariantClass Variant.classify (Variant* self) @extern ("g_variant_classify");
+fn int Variant.compare (Variant* self, Variant* two) @extern ("g_variant_compare");
+fn char** Variant.dup_bytestring (Variant* self, ulong length) @extern ("g_variant_dup_bytestring");
+fn char** Variant.dup_bytestring_array (Variant* self, ulong length) @extern ("g_variant_dup_bytestring_array");
+fn char** Variant.dup_objv (Variant* self, ulong length) @extern ("g_variant_dup_objv");
+fn ZString Variant.dup_string (Variant* self, ulong length) @extern ("g_variant_dup_string");
+fn char** Variant.dup_strv (Variant* self, ulong length) @extern ("g_variant_dup_strv");
+fn CInt Variant.equal (Variant* self, Variant* two) @extern ("g_variant_equal");
+fn CInt Variant.get_boolean (Variant* self) @extern ("g_variant_get_boolean");
+fn char Variant.get_byte (Variant* self) @extern ("g_variant_get_byte");
+fn char** Variant.get_bytestring (Variant* self) @extern ("g_variant_get_bytestring");
+fn char** Variant.get_bytestring_array (Variant* self, ulong length) @extern ("g_variant_get_bytestring_array");
+fn Variant* Variant.get_child_value (Variant* self, ulong index_) @extern ("g_variant_get_child_value");
+fn void* Variant.get_data (Variant* self) @extern ("g_variant_get_data");
+fn Bytes* Variant.get_data_as_bytes (Variant* self) @extern ("g_variant_get_data_as_bytes");
+fn double Variant.get_double (Variant* self) @extern ("g_variant_get_double");
+fn int Variant.get_handle (Variant* self) @extern ("g_variant_get_handle");
+fn short Variant.get_int16 (Variant* self) @extern ("g_variant_get_int16");
+fn int Variant.get_int32 (Variant* self) @extern ("g_variant_get_int32");
+fn long Variant.get_int64 (Variant* self) @extern ("g_variant_get_int64");
+fn Variant* Variant.get_maybe (Variant* self) @extern ("g_variant_get_maybe");
+fn Variant* Variant.get_normal_form (Variant* self) @extern ("g_variant_get_normal_form");
+fn char** Variant.get_objv (Variant* self, ulong length) @extern ("g_variant_get_objv");
+fn ulong Variant.get_size (Variant* self) @extern ("g_variant_get_size");
+fn ZString Variant.get_string (Variant* self, ulong length) @extern ("g_variant_get_string");
+fn char** Variant.get_strv (Variant* self, ulong length) @extern ("g_variant_get_strv");
+fn VariantType* Variant.get_type (Variant* self) @extern ("g_variant_get_type");
+fn ZString Variant.get_type_string (Variant* self) @extern ("g_variant_get_type_string");
+fn ushort Variant.get_uint16 (Variant* self) @extern ("g_variant_get_uint16");
+fn uint Variant.get_uint32 (Variant* self) @extern ("g_variant_get_uint32");
+fn ulong Variant.get_uint64 (Variant* self) @extern ("g_variant_get_uint64");
+fn Variant* Variant.get_variant (Variant* self) @extern ("g_variant_get_variant");
+fn uint Variant.hash (Variant* self) @extern ("g_variant_hash");
+fn CInt Variant.is_container (Variant* self) @extern ("g_variant_is_container");
+fn CInt Variant.is_floating (Variant* self) @extern ("g_variant_is_floating");
+fn CInt Variant.is_normal_form (Variant* self) @extern ("g_variant_is_normal_form");
+fn CInt Variant.is_of_type (Variant* self, VariantType* type) @extern ("g_variant_is_of_type");
+fn Variant* Variant.lookup_value (Variant* self, ZString key, VariantType* expected_type) @extern ("g_variant_lookup_value");
+fn ulong Variant.n_children (Variant* self) @extern ("g_variant_n_children");
+fn ZString Variant.print (Variant* self, CInt type_annotate) @extern ("g_variant_print");
+fn Variant* Variant.ref (Variant* self) @extern ("g_variant_ref");
+fn Variant* Variant.ref_sink (Variant* self) @extern ("g_variant_ref_sink");
+fn void Variant.store (Variant* self, void* data) @extern ("g_variant_store");
+fn Variant* Variant.take_ref (Variant* self) @extern ("g_variant_take_ref");
+fn void Variant.unref (Variant* self) @extern ("g_variant_unref");
+fn CInt Variant.is_object_path (Variant* self, ZString string) @extern ("g_variant_is_object_path");
+fn CInt Variant.is_signature (Variant* self, ZString string) @extern ("g_variant_is_signature");
+fn Variant* Variant.parse (Variant* self, VariantType* type, ZString text, ZString limit, ZString endptr) @extern ("g_variant_parse");
+fn ZString Variant.parse_error_print_context (Variant* self, Error* error, ZString source_str) @extern ("g_variant_parse_error_print_context");
+fn uint Variant.parse_error_quark (Variant* self) @extern ("g_variant_parse_error_quark");
+fn uint Variant.parser_get_error_quark (Variant* self) @extern ("g_variant_parser_get_error_quark");
+struct VariantBuilder {
+	void* unused;
+}
+
+fn VariantBuilder* VariantBuilder.new (VariantType* type) @operator (construct) @extern ("g_variant_builder_new");
+fn void VariantBuilder.add_value (VariantBuilder* self, Variant* value) @extern ("g_variant_builder_add_value");
+fn void VariantBuilder.close (VariantBuilder* self) @extern ("g_variant_builder_close");
+fn Variant* VariantBuilder.end (VariantBuilder* self) @extern ("g_variant_builder_end");
+fn void VariantBuilder.open (VariantBuilder* self, VariantType* type) @extern ("g_variant_builder_open");
+fn VariantBuilder* VariantBuilder.ref (VariantBuilder* self) @extern ("g_variant_builder_ref");
+fn void VariantBuilder.unref (VariantBuilder* self) @extern ("g_variant_builder_unref");
+
+enum VariantClass: CInt (inline CInt value) {
+	BOOLEAN = 98,
+	BYTE = 121,
+	INT16 = 110,
+	UINT16 = 113,
+	INT32 = 105,
+	UINT32 = 117,
+	INT64 = 120,
+	UINT64 = 116,
+	HANDLE = 104,
+	DOUBLE = 100,
+	STRING = 115,
+	OBJECT_PATH = 111,
+	SIGNATURE = 103,
+	VARIANT = 118,
+	MAYBE = 109,
+	ARRAY = 97,
+	TUPLE = 40,
+	DICT_ENTRY = 123
+}
+
+struct VariantDict {
+	void* unused;
+}
+
+fn VariantDict* VariantDict.new (Variant* from_asv) @operator (construct) @extern ("g_variant_dict_new");
+fn void VariantDict.clear (VariantDict* self) @extern ("g_variant_dict_clear");
+fn CInt VariantDict.contains (VariantDict* self, ZString key) @extern ("g_variant_dict_contains");
+fn Variant* VariantDict.end (VariantDict* self) @extern ("g_variant_dict_end");
+fn void VariantDict.insert_value (VariantDict* self, ZString key, Variant* value) @extern ("g_variant_dict_insert_value");
+fn Variant* VariantDict.lookup_value (VariantDict* self, ZString key, VariantType* expected_type) @extern ("g_variant_dict_lookup_value");
+fn VariantDict* VariantDict.ref (VariantDict* self) @extern ("g_variant_dict_ref");
+fn CInt VariantDict.remove (VariantDict* self, ZString key) @extern ("g_variant_dict_remove");
+fn void VariantDict.unref (VariantDict* self) @extern ("g_variant_dict_unref");
+
+enum VariantParseError {
+	FAILED,
+	BASIC_TYPE_EXPECTED,
+	CANNOT_INFER_TYPE,
+	DEFINITE_TYPE_EXPECTED,
+	INPUT_NOT_AT_END,
+	INVALID_CHARACTER,
+	INVALID_FORMAT_STRING,
+	INVALID_OBJECT_PATH,
+	INVALID_SIGNATURE,
+	INVALID_TYPE_STRING,
+	NO_COMMON_TYPE,
+	NUMBER_OUT_OF_RANGE,
+	NUMBER_TOO_BIG,
+	TYPE_ERROR,
+	UNEXPECTED_TOKEN,
+	UNKNOWN_KEYWORD,
+	UNTERMINATED_STRING_CONSTANT,
+	VALUE_EXPECTED,
+	RECURSION
+}
+
+struct VariantType {
+	void* unused;
+}
+
+fn VariantType* VariantType.new (ZString type_string) @operator (construct) @extern ("g_variant_type_new");
+fn VariantType* VariantType.new_array (VariantType* element) @operator (construct) @extern ("g_variant_type_new_array");
+fn VariantType* VariantType.new_dict_entry (VariantType* key, VariantType* value) @operator (construct) @extern ("g_variant_type_new_dict_entry");
+fn VariantType* VariantType.new_maybe (VariantType* element) @operator (construct) @extern ("g_variant_type_new_maybe");
+fn VariantType* VariantType.new_tuple (char** items, int length) @operator (construct) @extern ("g_variant_type_new_tuple");
+fn VariantType* VariantType.copy (VariantType* self) @extern ("g_variant_type_copy");
+fn ZString VariantType.dup_string (VariantType* self) @extern ("g_variant_type_dup_string");
+fn VariantType* VariantType.element (VariantType* self) @extern ("g_variant_type_element");
+fn CInt VariantType.equal (VariantType* self, VariantType* type2) @extern ("g_variant_type_equal");
+fn VariantType* VariantType.first (VariantType* self) @extern ("g_variant_type_first");
+fn void VariantType.free (VariantType* self) @extern ("g_variant_type_free");
+fn ulong VariantType.get_string_length (VariantType* self) @extern ("g_variant_type_get_string_length");
+fn uint VariantType.hash (VariantType* self) @extern ("g_variant_type_hash");
+fn CInt VariantType.is_array (VariantType* self) @extern ("g_variant_type_is_array");
+fn CInt VariantType.is_basic (VariantType* self) @extern ("g_variant_type_is_basic");
+fn CInt VariantType.is_container (VariantType* self) @extern ("g_variant_type_is_container");
+fn CInt VariantType.is_definite (VariantType* self) @extern ("g_variant_type_is_definite");
+fn CInt VariantType.is_dict_entry (VariantType* self) @extern ("g_variant_type_is_dict_entry");
+fn CInt VariantType.is_maybe (VariantType* self) @extern ("g_variant_type_is_maybe");
+fn CInt VariantType.is_subtype_of (VariantType* self, VariantType* supertype) @extern ("g_variant_type_is_subtype_of");
+fn CInt VariantType.is_tuple (VariantType* self) @extern ("g_variant_type_is_tuple");
+fn CInt VariantType.is_variant (VariantType* self) @extern ("g_variant_type_is_variant");
+fn VariantType* VariantType.key (VariantType* self) @extern ("g_variant_type_key");
+fn ulong VariantType.n_items (VariantType* self) @extern ("g_variant_type_n_items");
+fn VariantType* VariantType.next (VariantType* self) @extern ("g_variant_type_next");
+fn VariantType* VariantType.value (VariantType* self) @extern ("g_variant_type_value");
+fn VariantType* VariantType.checked_ (VariantType* self, ZString type_string) @extern ("g_variant_type_checked_");
+fn ulong VariantType.string_get_depth_ (VariantType* self, ZString type_string) @extern ("g_variant_type_string_get_depth_");
+fn CInt VariantType.string_is_valid (VariantType* self, ZString type_string) @extern ("g_variant_type_string_is_valid");
+fn CInt VariantType.string_scan (VariantType* self, ZString string, ZString limit, ZString endptr) @extern ("g_variant_type_string_scan");
+def VoidFunc = fn void () @export;
+const int WIN32_MSG_HANDLE = 19981206;
+extern fn int access (ZString* filename, int mode) @extern ("g_access");
+extern fn void* aligned_alloc (ulong n_blocks, ulong n_block_bytes, ulong alignment) @extern ("g_aligned_alloc");
+extern fn void* aligned_alloc0 (ulong n_blocks, ulong n_block_bytes, ulong alignment) @extern ("g_aligned_alloc0");
+extern fn void aligned_free (void* mem) @extern ("g_aligned_free");
+extern fn void aligned_free_sized (void* mem, ulong alignment, ulong size) @extern ("g_aligned_free_sized");
+extern fn int ascii_digit_value (ichar c) @extern ("g_ascii_digit_value");
+extern fn ZString ascii_dtostr (ZString buffer, int buf_len, double d) @extern ("g_ascii_dtostr");
+extern fn ZString ascii_formatd (ZString buffer, int buf_len, ZString format, double d) @extern ("g_ascii_formatd");
+extern fn int ascii_strcasecmp (ZString s1, ZString s2) @extern ("g_ascii_strcasecmp");
+extern fn ZString ascii_strdown (ZString str, long len) @extern ("g_ascii_strdown");
+extern fn CInt ascii_string_to_signed (ZString str, uint base, long min, long max, long out_num) @extern ("g_ascii_string_to_signed");
+extern fn CInt ascii_string_to_unsigned (ZString str, uint base, ulong min, ulong max, ulong out_num) @extern ("g_ascii_string_to_unsigned");
+extern fn int ascii_strncasecmp (ZString s1, ZString s2, ulong n) @extern ("g_ascii_strncasecmp");
+extern fn double ascii_strtod (ZString nptr, ZString endptr) @extern ("g_ascii_strtod");
+extern fn long ascii_strtoll (ZString nptr, ZString endptr, uint base) @extern ("g_ascii_strtoll");
+extern fn ulong ascii_strtoull (ZString nptr, ZString endptr, uint base) @extern ("g_ascii_strtoull");
+extern fn ZString ascii_strup (ZString str, long len) @extern ("g_ascii_strup");
+extern fn ichar ascii_tolower (ichar c) @extern ("g_ascii_tolower");
+extern fn ichar ascii_toupper (ichar c) @extern ("g_ascii_toupper");
+extern fn int ascii_xdigit_value (ichar c) @extern ("g_ascii_xdigit_value");
+extern fn void assert_warning (ZString log_domain, ZString file, int line, ZString pretty_function, ZString expression) @extern ("g_assert_warning");
+extern fn void assertion_message (ZString domain, ZString file, int line, ZString func, ZString message) @extern ("g_assertion_message");
+extern fn void assertion_message_cmpint (ZString domain, ZString file, int line, ZString func, ZString expr, ulong arg1, ZString cmp, ulong arg2, ichar numtype) @extern ("g_assertion_message_cmpint");
+extern fn void assertion_message_cmpstr (ZString domain, ZString file, int line, ZString func, ZString expr, ZString arg1, ZString cmp, ZString arg2) @extern ("g_assertion_message_cmpstr");
+extern fn void assertion_message_cmpstrv (ZString domain, ZString file, int line, ZString func, ZString expr, ZString arg1, ZString arg2, ulong first_wrong_idx) @extern ("g_assertion_message_cmpstrv");
+extern fn void assertion_message_error (ZString domain, ZString file, int line, ZString func, ZString expr, Error* error, uint error_domain, int error_code) @extern ("g_assertion_message_error");
+extern fn AsyncQueue* async_queue_new () @extern ("g_async_queue_new");
+extern fn AsyncQueue* async_queue_new_full (DestroyNotify item_free_func) @extern ("g_async_queue_new_full");
+extern fn void atexit (VoidFunc func) @extern ("g_atexit");
+extern fn int atomic_int_add (int* atomic, int val) @extern ("g_atomic_int_add");
+extern fn uint atomic_int_and (uint* atomic, uint val) @extern ("g_atomic_int_and");
+extern fn CInt atomic_int_compare_and_exchange (int* atomic, int oldval, int newval) @extern ("g_atomic_int_compare_and_exchange");
+extern fn CInt atomic_int_compare_and_exchange_full (int* atomic, int oldval, int newval, int preval) @extern ("g_atomic_int_compare_and_exchange_full");
+extern fn CInt atomic_int_dec_and_test (int* atomic) @extern ("g_atomic_int_dec_and_test");
+extern fn int atomic_int_exchange (int* atomic, int newval) @extern ("g_atomic_int_exchange");
+extern fn int atomic_int_exchange_and_add (int* atomic, int val) @extern ("g_atomic_int_exchange_and_add");
+extern fn int atomic_int_get (int* atomic) @extern ("g_atomic_int_get");
+extern fn void atomic_int_inc (int* atomic) @extern ("g_atomic_int_inc");
+extern fn uint atomic_int_or (uint* atomic, uint val) @extern ("g_atomic_int_or");
+extern fn void atomic_int_set (int* atomic, int newval) @extern ("g_atomic_int_set");
+extern fn uint atomic_int_xor (uint* atomic, uint val) @extern ("g_atomic_int_xor");
+extern fn long atomic_pointer_add (void* atomic, long val) @extern ("g_atomic_pointer_add");
+extern fn ulong atomic_pointer_and (void* atomic, ulong val) @extern ("g_atomic_pointer_and");
+extern fn CInt atomic_pointer_compare_and_exchange (void* atomic, void* oldval, void* newval) @extern ("g_atomic_pointer_compare_and_exchange");
+extern fn CInt atomic_pointer_compare_and_exchange_full (void* atomic, void* oldval, void* newval, void* preval) @extern ("g_atomic_pointer_compare_and_exchange_full");
+extern fn void* atomic_pointer_exchange (void* atomic, void* newval) @extern ("g_atomic_pointer_exchange");
+extern fn void* atomic_pointer_get (void* atomic) @extern ("g_atomic_pointer_get");
+extern fn ulong atomic_pointer_or (void* atomic, ulong val) @extern ("g_atomic_pointer_or");
+extern fn void atomic_pointer_set (void* atomic, void* newval) @extern ("g_atomic_pointer_set");
+extern fn ulong atomic_pointer_xor (void* atomic, ulong val) @extern ("g_atomic_pointer_xor");
+extern fn void* atomic_rc_box_acquire (void* mem_block) @extern ("g_atomic_rc_box_acquire");
+extern fn void* atomic_rc_box_alloc (ulong block_size) @extern ("g_atomic_rc_box_alloc");
+extern fn void* atomic_rc_box_alloc0 (ulong block_size) @extern ("g_atomic_rc_box_alloc0");
+extern fn void* atomic_rc_box_dup (ulong block_size, void* mem_block) @extern ("g_atomic_rc_box_dup");
+extern fn ulong atomic_rc_box_get_size (void* mem_block) @extern ("g_atomic_rc_box_get_size");
+extern fn void atomic_rc_box_release (void* mem_block) @extern ("g_atomic_rc_box_release");
+extern fn void atomic_rc_box_release_full (void* mem_block, DestroyNotify clear_func) @extern ("g_atomic_rc_box_release_full");
+extern fn CInt atomic_ref_count_compare (int* arc, int val) @extern ("g_atomic_ref_count_compare");
+extern fn CInt atomic_ref_count_dec (int* arc) @extern ("g_atomic_ref_count_dec");
+extern fn void atomic_ref_count_inc (int* arc) @extern ("g_atomic_ref_count_inc");
+extern fn void atomic_ref_count_init (int* arc) @extern ("g_atomic_ref_count_init");
+extern fn char** base64_decode (ZString text, ulong out_len) @extern ("g_base64_decode");
+extern fn char* base64_decode_inplace (char** text, ulong out_len) @extern ("g_base64_decode_inplace");
+extern fn ZString base64_encode (char** data, ulong len) @extern ("g_base64_encode");
+extern fn ulong base64_encode_close (CInt break_lines, char** out, int state, int save) @extern ("g_base64_encode_close");
+extern fn ulong base64_encode_step (char** in, ulong len, CInt break_lines, char** out, int state, int save) @extern ("g_base64_encode_step");
+extern fn ZString* basename (ZString* file_name) @extern ("g_basename");
+extern fn void bit_lock (int* address, int lock_bit) @extern ("g_bit_lock");
+extern fn int bit_nth_lsf (ulong mask, int nth_bit) @extern ("g_bit_nth_lsf");
+extern fn int bit_nth_msf (ulong mask, int nth_bit) @extern ("g_bit_nth_msf");
+extern fn uint bit_storage (ulong number) @extern ("g_bit_storage");
+extern fn CInt bit_trylock (int* address, int lock_bit) @extern ("g_bit_trylock");
+extern fn void bit_unlock (int* address, int lock_bit) @extern ("g_bit_unlock");
+extern fn void blow_chunks () @extern ("g_blow_chunks");
+extern fn uint bookmark_file_error_quark () @extern ("g_bookmark_file_error_quark");
+extern fn ZString* build_filenamev (char** args) @extern ("g_build_filenamev");
+extern fn ZString* build_pathv (ZString separator, char** args) @extern ("g_build_pathv");
+extern fn ByteArray** byte_array_append (ByteArray** array, char* data, uint len) @extern ("g_byte_array_append");
+extern fn char* byte_array_free (ByteArray** array, CInt free_segment) @extern ("g_byte_array_free");
+extern fn Bytes* byte_array_free_to_bytes (ByteArray** array) @extern ("g_byte_array_free_to_bytes");
+extern fn ByteArray** byte_array_new () @extern ("g_byte_array_new");
+extern fn ByteArray** byte_array_new_take (char** data, ulong len) @extern ("g_byte_array_new_take");
+extern fn ByteArray** byte_array_prepend (ByteArray** array, char* data, uint len) @extern ("g_byte_array_prepend");
+extern fn ByteArray** byte_array_ref (ByteArray** array) @extern ("g_byte_array_ref");
+extern fn ByteArray** byte_array_remove_index (ByteArray** array, uint index_) @extern ("g_byte_array_remove_index");
+extern fn ByteArray** byte_array_remove_index_fast (ByteArray** array, uint index_) @extern ("g_byte_array_remove_index_fast");
+extern fn ByteArray** byte_array_remove_range (ByteArray** array, uint index_, uint length) @extern ("g_byte_array_remove_range");
+extern fn ByteArray** byte_array_set_size (ByteArray** array, uint length) @extern ("g_byte_array_set_size");
+extern fn ByteArray** byte_array_sized_new (uint reserved_size) @extern ("g_byte_array_sized_new");
+extern fn void byte_array_sort (ByteArray** array, CompareFunc compare_func) @extern ("g_byte_array_sort");
+extern fn void byte_array_sort_with_data (ByteArray** array, CompareDataFunc compare_func, void* user_data) @extern ("g_byte_array_sort_with_data");
+extern fn char* byte_array_steal (ByteArray** array, ulong len) @extern ("g_byte_array_steal");
+extern fn void byte_array_unref (ByteArray** array) @extern ("g_byte_array_unref");
+extern fn ZString* canonicalize_filename (ZString* filename, ZString* relative_to) @extern ("g_canonicalize_filename");
+extern fn int chdir (ZString* path) @extern ("g_chdir");
+extern fn ZString glib_check_version (uint required_major, uint required_minor, uint required_micro) @extern ("glib_check_version");
+extern fn long checksum_type_get_length (ChecksumType checksum_type) @extern ("g_checksum_type_get_length");
+extern fn uint child_watch_add_full (int priority, int pid, ChildWatchFunc function, void* data, DestroyNotify notify) @extern ("g_child_watch_add_full");
+extern fn Source* child_watch_source_new (int pid) @extern ("g_child_watch_source_new");
+extern fn int chmod (ZString* filename, int mode) @extern ("g_chmod");
+extern fn void clear_error () @extern ("g_clear_error");
+extern fn CInt close (int fd) @extern ("g_close");
+extern fn int closefrom (int lowfd) @extern ("g_closefrom");
+extern fn ZString compute_checksum_for_bytes (ChecksumType checksum_type, Bytes* data) @extern ("g_compute_checksum_for_bytes");
+extern fn ZString compute_checksum_for_data (ChecksumType checksum_type, char** data, ulong length) @extern ("g_compute_checksum_for_data");
+extern fn ZString compute_checksum_for_string (ChecksumType checksum_type, ZString str, long length) @extern ("g_compute_checksum_for_string");
+extern fn ZString compute_hmac_for_bytes (ChecksumType digest_type, Bytes* key, Bytes* data) @extern ("g_compute_hmac_for_bytes");
+extern fn ZString compute_hmac_for_data (ChecksumType digest_type, char** key, ulong key_len, char** data, ulong length) @extern ("g_compute_hmac_for_data");
+extern fn ZString compute_hmac_for_string (ChecksumType digest_type, char** key, ulong key_len, ZString str, long length) @extern ("g_compute_hmac_for_string");
+extern fn char** convert (char** str, long len, ZString to_codeset, ZString from_codeset, ulong bytes_read, ulong bytes_written) @extern ("g_convert");
+extern fn uint convert_error_quark () @extern ("g_convert_error_quark");
+extern fn char** convert_with_fallback (char** str, long len, ZString to_codeset, ZString from_codeset, ZString fallback, ulong bytes_read, ulong bytes_written) @extern ("g_convert_with_fallback");
+extern fn int creat (ZString* filename, int mode) @extern ("g_creat");
+extern fn void datalist_foreach (Data* datalist, DataForeachFunc func, void* user_data) @extern ("g_datalist_foreach");
+extern fn void* datalist_get_data (Data* datalist, ZString key) @extern ("g_datalist_get_data");
+extern fn uint datalist_get_flags (Data* datalist) @extern ("g_datalist_get_flags");
+extern fn void* datalist_id_get_data (Data* datalist, uint key_id) @extern ("g_datalist_id_get_data");
+extern fn void datalist_id_remove_multiple (Data* datalist, char** keys, ulong n_keys) @extern ("g_datalist_id_remove_multiple");
+extern fn void datalist_set_flags (Data* datalist, uint flags) @extern ("g_datalist_set_flags");
+extern fn void datalist_unset_flags (Data* datalist, uint flags) @extern ("g_datalist_unset_flags");
+extern fn void dataset_destroy (void* dataset_location) @extern ("g_dataset_destroy");
+extern fn void dataset_foreach (void* dataset_location, DataForeachFunc func, void* user_data) @extern ("g_dataset_foreach");
+extern fn void* dataset_id_get_data (void* dataset_location, uint key_id) @extern ("g_dataset_id_get_data");
+extern fn char date_get_days_in_month (DateMonth month, ushort year) @extern ("g_date_get_days_in_month");
+extern fn char date_get_monday_weeks_in_year (ushort year) @extern ("g_date_get_monday_weeks_in_year");
+extern fn char date_get_sunday_weeks_in_year (ushort year) @extern ("g_date_get_sunday_weeks_in_year");
+extern fn CInt date_is_leap_year (ushort year) @extern ("g_date_is_leap_year");
+extern fn ulong date_strftime (ZString s, ulong slen, ZString format, Date* date) @extern ("g_date_strftime");
+extern fn CInt date_valid_day (char day) @extern ("g_date_valid_day");
+extern fn CInt date_valid_dmy (char day, DateMonth month, ushort year) @extern ("g_date_valid_dmy");
+extern fn CInt date_valid_julian (uint julian_date) @extern ("g_date_valid_julian");
+extern fn CInt date_valid_month (DateMonth month) @extern ("g_date_valid_month");
+extern fn CInt date_valid_weekday (DateWeekday weekday) @extern ("g_date_valid_weekday");
+extern fn CInt date_valid_year (ushort year) @extern ("g_date_valid_year");
+extern fn ZString dcgettext (ZString domain, ZString msgid, int category) @extern ("g_dcgettext");
+extern fn ZString dgettext (ZString domain, ZString msgid) @extern ("g_dgettext");
+extern fn ZString* dir_make_tmp (ZString* tmpl) @extern ("g_dir_make_tmp");
+extern fn CInt direct_equal (void* v1, void* v2) @extern ("g_direct_equal");
+extern fn uint direct_hash (void* v) @extern ("g_direct_hash");
+extern fn ZString dngettext (ZString domain, ZString msgid, ZString msgid_plural, ulong n) @extern ("g_dngettext");
+extern fn CInt double_equal (void* v1, void* v2) @extern ("g_double_equal");
+extern fn uint double_hash (void* v) @extern ("g_double_hash");
+extern fn ZString dpgettext (ZString domain, ZString msgctxtid, ulong msgidoffset) @extern ("g_dpgettext");
+extern fn ZString dpgettext2 (ZString domain, ZString context, ZString msgid) @extern ("g_dpgettext2");
+extern fn ZString* environ_getenv (char** envp, ZString* variable) @extern ("g_environ_getenv");
+extern fn char** environ_setenv (char** envp, ZString* variable, ZString* value, CInt overwrite) @extern ("g_environ_setenv");
+extern fn char** environ_unsetenv (char** envp, ZString* variable) @extern ("g_environ_unsetenv");
+extern fn uint error_domain_register (ZString error_type_name, ulong error_type_private_size, ErrorInitFunc error_type_init, ErrorCopyFunc error_type_copy, ErrorClearFunc error_type_clear) @extern ("g_error_domain_register");
+extern fn uint error_domain_register_static (ZString error_type_name, ulong error_type_private_size, ErrorInitFunc error_type_init, ErrorCopyFunc error_type_copy, ErrorClearFunc error_type_clear) @extern ("g_error_domain_register_static");
+extern fn int fdwalk_set_cloexec (int lowfd) @extern ("g_fdwalk_set_cloexec");
+extern fn FileError file_error_from_errno (int err_no) @extern ("g_file_error_from_errno");
+extern fn uint file_error_quark () @extern ("g_file_error_quark");
+extern fn CInt file_get_contents (ZString* filename, char** contents, ulong length) @extern ("g_file_get_contents");
+extern fn int file_open_tmp (ZString* tmpl, ZString* name_used) @extern ("g_file_open_tmp");
+extern fn ZString* file_read_link (ZString* filename) @extern ("g_file_read_link");
+extern fn CInt file_set_contents (ZString* filename, char** contents, long length) @extern ("g_file_set_contents");
+extern fn CInt file_set_contents_full (ZString* filename, char** contents, long length, FileSetContentsFlags flags, int mode) @extern ("g_file_set_contents_full");
+extern fn CInt file_test (ZString* filename, FileTest test) @extern ("g_file_test");
+extern fn ZString filename_display_basename (ZString* filename) @extern ("g_filename_display_basename");
+extern fn ZString filename_display_name (ZString* filename) @extern ("g_filename_display_name");
+extern fn ZString* filename_from_uri (ZString uri, ZString hostname) @extern ("g_filename_from_uri");
+extern fn ZString* filename_from_utf8 (ZString utf8string, long len, ulong bytes_read, ulong bytes_written) @extern ("g_filename_from_utf8");
+extern fn ZString filename_to_uri (ZString* filename, ZString hostname) @extern ("g_filename_to_uri");
+extern fn ZString filename_to_utf8 (ZString* opsysstring, long len, ulong bytes_read, ulong bytes_written) @extern ("g_filename_to_utf8");
+extern fn ZString* find_program_in_path (ZString* program) @extern ("g_find_program_in_path");
+extern fn void* fopen (ZString* filename, ZString mode) @extern ("g_fopen");
+extern fn ZString format_size (ulong size) @extern ("g_format_size");
+extern fn ZString format_size_for_display (long size) @extern ("g_format_size_for_display");
+extern fn ZString format_size_full (ulong size, FormatSizeFlags flags) @extern ("g_format_size_full");
+extern fn void free (void* mem) @extern ("g_free");
+extern fn void free_sized (void* mem, ulong size) @extern ("g_free_sized");
+extern fn void* freopen (ZString* filename, ZString mode, void* stream) @extern ("g_freopen");
+extern fn int fsync (int fd) @extern ("g_fsync");
+extern fn ZString get_application_name () @extern ("g_get_application_name");
+extern fn CInt get_charset (ZString charset) @extern ("g_get_charset");
+extern fn ZString get_codeset () @extern ("g_get_codeset");
+extern fn CInt get_console_charset (ZString charset) @extern ("g_get_console_charset");
+extern fn ZString* get_current_dir () @extern ("g_get_current_dir");
+extern fn void get_current_time (TimeVal* result) @extern ("g_get_current_time");
+extern fn char** get_environ () @extern ("g_get_environ");
+extern fn CInt get_filename_charsets (char** filename_charsets) @extern ("g_get_filename_charsets");
+extern fn ZString* get_home_dir () @extern ("g_get_home_dir");
+extern fn ZString get_host_name () @extern ("g_get_host_name");
+extern fn char** get_language_names () @extern ("g_get_language_names");
+extern fn char** get_language_names_with_category (ZString category_name) @extern ("g_get_language_names_with_category");
+extern fn char** get_locale_variants (ZString locale) @extern ("g_get_locale_variants");
+extern fn long get_monotonic_time () @extern ("g_get_monotonic_time");
+extern fn uint get_num_processors () @extern ("g_get_num_processors");
+extern fn ZString get_os_info (ZString key_name) @extern ("g_get_os_info");
+extern fn ZString get_prgname () @extern ("g_get_prgname");
+extern fn ZString* get_real_name () @extern ("g_get_real_name");
+extern fn long get_real_time () @extern ("g_get_real_time");
+extern fn char** get_system_config_dirs () @extern ("g_get_system_config_dirs");
+extern fn char** get_system_data_dirs () @extern ("g_get_system_data_dirs");
+extern fn ZString* get_tmp_dir () @extern ("g_get_tmp_dir");
+extern fn ZString* get_user_cache_dir () @extern ("g_get_user_cache_dir");
+extern fn ZString* get_user_config_dir () @extern ("g_get_user_config_dir");
+extern fn ZString* get_user_data_dir () @extern ("g_get_user_data_dir");
+extern fn ZString* get_user_name () @extern ("g_get_user_name");
+extern fn ZString* get_user_runtime_dir () @extern ("g_get_user_runtime_dir");
+extern fn ZString* get_user_special_dir (UserDirectory directory) @extern ("g_get_user_special_dir");
+extern fn ZString* get_user_state_dir () @extern ("g_get_user_state_dir");
+extern fn ZString* getenv (ZString* variable) @extern ("g_getenv");
+extern fn CInt hash_table_add (HashTable* hash_table, void* key) @extern ("g_hash_table_add");
+extern fn CInt hash_table_contains (HashTable* hash_table, void* key) @extern ("g_hash_table_contains");
+extern fn void hash_table_destroy (HashTable* hash_table) @extern ("g_hash_table_destroy");
+extern fn void* hash_table_find (HashTable* hash_table, HRFunc predicate, void* user_data) @extern ("g_hash_table_find");
+extern fn void hash_table_foreach (HashTable* hash_table, HFunc func, void* user_data) @extern ("g_hash_table_foreach");
+extern fn uint hash_table_foreach_remove (HashTable* hash_table, HRFunc func, void* user_data) @extern ("g_hash_table_foreach_remove");
+extern fn uint hash_table_foreach_steal (HashTable* hash_table, HRFunc func, void* user_data) @extern ("g_hash_table_foreach_steal");
+extern fn CInt hash_table_insert (HashTable* hash_table, void* key, void* value) @extern ("g_hash_table_insert");
+extern fn void* hash_table_lookup (HashTable* hash_table, void* key) @extern ("g_hash_table_lookup");
+extern fn CInt hash_table_lookup_extended (HashTable* hash_table, void* lookup_key, void* orig_key, void* value) @extern ("g_hash_table_lookup_extended");
+extern fn HashTable* hash_table_new_similar (HashTable* other_hash_table) @extern ("g_hash_table_new_similar");
+extern fn HashTable* hash_table_ref (HashTable* hash_table) @extern ("g_hash_table_ref");
+extern fn CInt hash_table_remove (HashTable* hash_table, void* key) @extern ("g_hash_table_remove");
+extern fn void hash_table_remove_all (HashTable* hash_table) @extern ("g_hash_table_remove_all");
+extern fn CInt hash_table_replace (HashTable* hash_table, void* key, void* value) @extern ("g_hash_table_replace");
+extern fn uint hash_table_size (HashTable* hash_table) @extern ("g_hash_table_size");
+extern fn CInt hash_table_steal (HashTable* hash_table, void* key) @extern ("g_hash_table_steal");
+extern fn void hash_table_steal_all (HashTable* hash_table) @extern ("g_hash_table_steal_all");
+extern fn CInt hash_table_steal_extended (HashTable* hash_table, void* lookup_key, void* stolen_key, void* stolen_value) @extern ("g_hash_table_steal_extended");
+extern fn void hash_table_unref (HashTable* hash_table) @extern ("g_hash_table_unref");
+extern fn CInt hook_destroy (HookList* hook_list, ulong hook_id) @extern ("g_hook_destroy");
+extern fn void hook_destroy_link (HookList* hook_list, Hook* hook) @extern ("g_hook_destroy_link");
+extern fn void hook_free (HookList* hook_list, Hook* hook) @extern ("g_hook_free");
+extern fn void hook_insert_before (HookList* hook_list, Hook* sibling, Hook* hook) @extern ("g_hook_insert_before");
+extern fn void hook_insert_sorted (HookList* hook_list, Hook* hook, HookCompareFunc func) @extern ("g_hook_insert_sorted");
+extern fn void hook_prepend (HookList* hook_list, Hook* hook) @extern ("g_hook_prepend");
+extern fn void hook_unref (HookList* hook_list, Hook* hook) @extern ("g_hook_unref");
+extern fn CInt hostname_is_ascii_encoded (ZString hostname) @extern ("g_hostname_is_ascii_encoded");
+extern fn CInt hostname_is_ip_address (ZString hostname) @extern ("g_hostname_is_ip_address");
+extern fn CInt hostname_is_non_ascii (ZString hostname) @extern ("g_hostname_is_non_ascii");
+extern fn ZString hostname_to_ascii (ZString hostname) @extern ("g_hostname_to_ascii");
+extern fn ZString hostname_to_unicode (ZString hostname) @extern ("g_hostname_to_unicode");
+extern fn uint idle_add_full (int priority, SourceFunc function, void* data, DestroyNotify notify) @extern ("g_idle_add_full");
+extern fn CInt idle_remove_by_data (void* data) @extern ("g_idle_remove_by_data");
+extern fn Source* idle_source_new () @extern ("g_idle_source_new");
+extern fn CInt int64_equal (void* v1, void* v2) @extern ("g_int64_equal");
+extern fn uint int64_hash (void* v) @extern ("g_int64_hash");
+extern fn CInt int_equal (void* v1, void* v2) @extern ("g_int_equal");
+extern fn uint int_hash (void* v) @extern ("g_int_hash");
+extern fn ZString intern_static_string (ZString string) @extern ("g_intern_static_string");
+extern fn ZString intern_string (ZString string) @extern ("g_intern_string");
+extern fn uint io_add_watch_full (IOChannel* channel, int priority, IOCondition condition, IOFunc func, void* user_data, DestroyNotify notify) @extern ("g_io_add_watch_full");
+extern fn IOChannelError io_channel_error_from_errno (int en) @extern ("g_io_channel_error_from_errno");
+extern fn uint io_channel_error_quark () @extern ("g_io_channel_error_quark");
+extern fn Source* io_create_watch (IOChannel* channel, IOCondition condition) @extern ("g_io_create_watch");
+extern fn uint key_file_error_quark () @extern ("g_key_file_error_quark");
+extern fn void list_pop_allocator () @extern ("g_list_pop_allocator");
+extern fn void list_push_allocator (Allocator* allocator) @extern ("g_list_push_allocator");
+extern fn char** listenv () @extern ("g_listenv");
+extern fn char** locale_from_utf8 (ZString utf8string, long len, ulong bytes_read, ulong bytes_written) @extern ("g_locale_from_utf8");
+extern fn ZString locale_to_utf8 (char** opsysstring, long len, ulong bytes_read, ulong bytes_written) @extern ("g_locale_to_utf8");
+extern fn void log_default_handler (ZString log_domain, LogLevelFlags log_level, ZString message, void* unused_data) @extern ("g_log_default_handler");
+extern fn CInt log_get_debug_enabled () @extern ("g_log_get_debug_enabled");
+extern fn void log_remove_handler (ZString log_domain, uint handler_id) @extern ("g_log_remove_handler");
+extern fn LogLevelFlags log_set_always_fatal (LogLevelFlags fatal_mask) @extern ("g_log_set_always_fatal");
+extern fn void log_set_debug_enabled (CInt enabled) @extern ("g_log_set_debug_enabled");
+extern fn LogLevelFlags log_set_fatal_mask (ZString log_domain, LogLevelFlags fatal_mask) @extern ("g_log_set_fatal_mask");
+extern fn uint log_set_handler_full (ZString log_domain, LogLevelFlags log_levels, LogFunc log_func, void* user_data, DestroyNotify destroy) @extern ("g_log_set_handler_full");
+extern fn void log_set_writer_func (LogWriterFunc func, void* user_data, DestroyNotify user_data_free) @extern ("g_log_set_writer_func");
+extern fn void log_structured_array (LogLevelFlags log_level, char** fields, ulong n_fields) @extern ("g_log_structured_array");
+extern fn void log_variant (ZString log_domain, LogLevelFlags log_level, Variant* fields) @extern ("g_log_variant");
+extern fn LogWriterOutput log_writer_default (LogLevelFlags log_level, char** fields, ulong n_fields, void* user_data) @extern ("g_log_writer_default");
+extern fn void log_writer_default_set_debug_domains (ZString domains) @extern ("g_log_writer_default_set_debug_domains");
+extern fn void log_writer_default_set_use_stderr (CInt use_stderr) @extern ("g_log_writer_default_set_use_stderr");
+extern fn CInt log_writer_default_would_drop (LogLevelFlags log_level, ZString log_domain) @extern ("g_log_writer_default_would_drop");
+extern fn ZString log_writer_format_fields (LogLevelFlags log_level, char** fields, ulong n_fields, CInt use_color) @extern ("g_log_writer_format_fields");
+extern fn CInt log_writer_is_journald (int output_fd) @extern ("g_log_writer_is_journald");
+extern fn LogWriterOutput log_writer_journald (LogLevelFlags log_level, char** fields, ulong n_fields, void* user_data) @extern ("g_log_writer_journald");
+extern fn LogWriterOutput log_writer_standard_streams (LogLevelFlags log_level, char** fields, ulong n_fields, void* user_data) @extern ("g_log_writer_standard_streams");
+extern fn CInt log_writer_supports_color (int output_fd) @extern ("g_log_writer_supports_color");
+extern fn LogWriterOutput log_writer_syslog (LogLevelFlags log_level, char** fields, ulong n_fields, void* user_data) @extern ("g_log_writer_syslog");
+extern fn int lstat (ZString* filename, StatBuf* buf) @extern ("g_lstat");
+const int MACRO__HAS_ATTRIBUTE___NORETURN__ = 0;
+extern fn MainContext* main_context_default () @extern ("g_main_context_default");
+extern fn MainContext* main_context_get_thread_default () @extern ("g_main_context_get_thread_default");
+extern fn MainContext* main_context_ref_thread_default () @extern ("g_main_context_ref_thread_default");
+extern fn Source* main_current_source () @extern ("g_main_current_source");
+extern fn int main_depth () @extern ("g_main_depth");
+extern fn void* malloc (ulong n_bytes) @extern ("g_malloc");
+extern fn void* malloc0 (ulong n_bytes) @extern ("g_malloc0");
+extern fn void* malloc0_n (ulong n_blocks, ulong n_block_bytes) @extern ("g_malloc0_n");
+extern fn void* malloc_n (ulong n_blocks, ulong n_block_bytes) @extern ("g_malloc_n");
+extern fn uint markup_error_quark () @extern ("g_markup_error_quark");
+extern fn ZString markup_escape_text (ZString text, long length) @extern ("g_markup_escape_text");
+extern fn void mem_chunk_info () @extern ("g_mem_chunk_info");
+extern fn CInt mem_is_system_malloc () @extern ("g_mem_is_system_malloc");
+extern fn void mem_profile () @extern ("g_mem_profile");
+extern fn void mem_set_vtable (MemVTable* vtable) @extern ("g_mem_set_vtable");
+extern fn void* memdup (void* mem, uint byte_size) @extern ("g_memdup");
+extern fn void* memdup2 (void* mem, ulong byte_size) @extern ("g_memdup2");
+extern fn int mkdir (ZString* filename, int mode) @extern ("g_mkdir");
+extern fn int mkdir_with_parents (ZString* pathname, int mode) @extern ("g_mkdir_with_parents");
+extern fn void node_pop_allocator () @extern ("g_node_pop_allocator");
+extern fn void node_push_allocator (Allocator* allocator) @extern ("g_node_push_allocator");
+extern fn void nullify_pointer (void* nullify_location) @extern ("g_nullify_pointer");
+extern fn uint number_parser_error_quark () @extern ("g_number_parser_error_quark");
+extern fn void on_error_query (ZString prg_name) @extern ("g_on_error_query");
+extern fn void on_error_stack_trace (ZString prg_name) @extern ("g_on_error_stack_trace");
+extern fn CInt once_init_enter (void* location) @extern ("g_once_init_enter");
+extern fn CInt once_init_enter_impl (ulong* location) @extern ("g_once_init_enter_impl");
+extern fn CInt once_init_enter_pointer (void* location) @extern ("g_once_init_enter_pointer");
+extern fn void once_init_leave (void* location, ulong result) @extern ("g_once_init_leave");
+extern fn void once_init_leave_pointer (void* location, void* result) @extern ("g_once_init_leave_pointer");
+extern fn int open (ZString* filename, int flags, int mode) @extern ("g_open");
+extern fn uint option_error_quark () @extern ("g_option_error_quark");
+extern fn uint parse_debug_string (ZString string, char** keys, uint nkeys) @extern ("g_parse_debug_string");
+extern fn CInt path_buf_equal (void* v1, void* v2) @extern ("g_path_buf_equal");
+extern fn ZString* path_get_basename (ZString* file_name) @extern ("g_path_get_basename");
+extern fn ZString* path_get_dirname (ZString* file_name) @extern ("g_path_get_dirname");
+extern fn CInt path_is_absolute (ZString* file_name) @extern ("g_path_is_absolute");
+extern fn ZString* path_skip_root (ZString* file_name) @extern ("g_path_skip_root");
+extern fn CInt pattern_match_simple (ZString pattern, ZString string) @extern ("g_pattern_match_simple");
+extern fn void pointer_bit_lock (void* address, int lock_bit) @extern ("g_pointer_bit_lock");
+extern fn void pointer_bit_lock_and_get (void* address, uint lock_bit, ulong out_ptr) @extern ("g_pointer_bit_lock_and_get");
+extern fn void* pointer_bit_lock_mask_ptr (void* ptr, uint lock_bit, CInt set, ulong preserve_mask, void* preserve_ptr) @extern ("g_pointer_bit_lock_mask_ptr");
+extern fn CInt pointer_bit_trylock (void* address, int lock_bit) @extern ("g_pointer_bit_trylock");
+extern fn void pointer_bit_unlock (void* address, int lock_bit) @extern ("g_pointer_bit_unlock");
+extern fn void pointer_bit_unlock_and_set (void* address, uint lock_bit, void* ptr, ulong preserve_mask) @extern ("g_pointer_bit_unlock_and_set");
+extern fn int poll (PollFD* fds, uint nfds, int timeout) @extern ("g_poll");
+extern fn void prefix_error_literal (Error* err, ZString prefix) @extern ("g_prefix_error_literal");
+extern fn void propagate_error (Error* dest, Error* src) @extern ("g_propagate_error");
+extern fn void qsort_with_data (void* pbase, int total_elems, ulong size, CompareDataFunc compare_func, void* user_data) @extern ("g_qsort_with_data");
+extern fn uint quark_from_static_string (ZString string) @extern ("g_quark_from_static_string");
+extern fn uint quark_from_string (ZString string) @extern ("g_quark_from_string");
+extern fn ZString quark_to_string (uint quark) @extern ("g_quark_to_string");
+extern fn uint quark_try_string (ZString string) @extern ("g_quark_try_string");
+extern fn double random_double () @extern ("g_random_double");
+extern fn double random_double_range (double begin, double end) @extern ("g_random_double_range");
+extern fn uint random_int () @extern ("g_random_int");
+extern fn int random_int_range (int begin, int end) @extern ("g_random_int_range");
+extern fn void random_set_seed (uint seed) @extern ("g_random_set_seed");
+extern fn void* rc_box_acquire (void* mem_block) @extern ("g_rc_box_acquire");
+extern fn void* rc_box_alloc (ulong block_size) @extern ("g_rc_box_alloc");
+extern fn void* rc_box_alloc0 (ulong block_size) @extern ("g_rc_box_alloc0");
+extern fn void* rc_box_dup (ulong block_size, void* mem_block) @extern ("g_rc_box_dup");
+extern fn ulong rc_box_get_size (void* mem_block) @extern ("g_rc_box_get_size");
+extern fn void rc_box_release (void* mem_block) @extern ("g_rc_box_release");
+extern fn void rc_box_release_full (void* mem_block, DestroyNotify clear_func) @extern ("g_rc_box_release_full");
+extern fn void* realloc (void* mem, ulong n_bytes) @extern ("g_realloc");
+extern fn void* realloc_n (void* mem, ulong n_blocks, ulong n_block_bytes) @extern ("g_realloc_n");
+extern fn CInt ref_count_compare (int* rc, int val) @extern ("g_ref_count_compare");
+extern fn CInt ref_count_dec (int* rc) @extern ("g_ref_count_dec");
+extern fn void ref_count_inc (int* rc) @extern ("g_ref_count_inc");
+extern fn void ref_count_init (int* rc) @extern ("g_ref_count_init");
+extern fn ZString ref_string_acquire (ZString str) @extern ("g_ref_string_acquire");
+extern fn ulong ref_string_length (ZString str) @extern ("g_ref_string_length");
+extern fn ZString ref_string_new (ZString str) @extern ("g_ref_string_new");
+extern fn ZString ref_string_new_intern (ZString str) @extern ("g_ref_string_new_intern");
+extern fn ZString ref_string_new_len (ZString str, long len) @extern ("g_ref_string_new_len");
+extern fn void ref_string_release (ZString str) @extern ("g_ref_string_release");
+extern fn CInt regex_check_replacement (ZString replacement, CInt has_references) @extern ("g_regex_check_replacement");
+extern fn uint regex_error_quark () @extern ("g_regex_error_quark");
+extern fn ZString regex_escape_nul (ZString string, int length) @extern ("g_regex_escape_nul");
+extern fn ZString regex_escape_string (ZString string, int length) @extern ("g_regex_escape_string");
+extern fn CInt regex_match_simple (ZString pattern, ZString string, RegexCompileFlags compile_options, RegexMatchFlags match_options) @extern ("g_regex_match_simple");
+extern fn char** regex_split_simple (ZString pattern, ZString string, RegexCompileFlags compile_options, RegexMatchFlags match_options) @extern ("g_regex_split_simple");
+extern fn void reload_user_special_dirs_cache () @extern ("g_reload_user_special_dirs_cache");
+extern fn int remove (ZString* filename) @extern ("g_remove");
+extern fn int rename (ZString* oldfilename, ZString* newfilename) @extern ("g_rename");
+extern fn int rmdir (ZString* filename) @extern ("g_rmdir");
+extern fn void sequence_foreach_range (SequenceIter* begin, SequenceIter* end, Func func, void* user_data) @extern ("g_sequence_foreach_range");
+extern fn void* sequence_get (SequenceIter* iter) @extern ("g_sequence_get");
+extern fn SequenceIter* sequence_insert_before (SequenceIter* iter, void* data) @extern ("g_sequence_insert_before");
+extern fn void sequence_move (SequenceIter* src, SequenceIter* dest) @extern ("g_sequence_move");
+extern fn void sequence_move_range (SequenceIter* dest, SequenceIter* begin, SequenceIter* end) @extern ("g_sequence_move_range");
+extern fn SequenceIter* sequence_range_get_midpoint (SequenceIter* begin, SequenceIter* end) @extern ("g_sequence_range_get_midpoint");
+extern fn void sequence_remove (SequenceIter* iter) @extern ("g_sequence_remove");
+extern fn void sequence_remove_range (SequenceIter* begin, SequenceIter* end) @extern ("g_sequence_remove_range");
+extern fn void sequence_set (SequenceIter* iter, void* data) @extern ("g_sequence_set");
+extern fn void sequence_sort_changed (SequenceIter* iter, CompareDataFunc cmp_func, void* cmp_data) @extern ("g_sequence_sort_changed");
+extern fn void sequence_sort_changed_iter (SequenceIter* iter, SequenceIterCompareFunc iter_cmp, void* cmp_data) @extern ("g_sequence_sort_changed_iter");
+extern fn void sequence_swap (SequenceIter* a, SequenceIter* b) @extern ("g_sequence_swap");
+extern fn void set_application_name (ZString application_name) @extern ("g_set_application_name");
+extern fn void set_error_literal (Error* err, uint domain, int code, ZString message) @extern ("g_set_error_literal");
+extern fn void set_prgname (ZString prgname) @extern ("g_set_prgname");
+extern fn CInt setenv (ZString* variable, ZString* value, CInt overwrite) @extern ("g_setenv");
+extern fn uint shell_error_quark () @extern ("g_shell_error_quark");
+extern fn CInt shell_parse_argv (ZString* command_line, int argcp, char** argvp) @extern ("g_shell_parse_argv");
+extern fn ZString* shell_quote (ZString* unquoted_string) @extern ("g_shell_quote");
+extern fn ZString* shell_unquote (ZString* quoted_string) @extern ("g_shell_unquote");
+extern fn void* slice_alloc (ulong block_size) @extern ("g_slice_alloc");
+extern fn void* slice_alloc0 (ulong block_size) @extern ("g_slice_alloc0");
+extern fn void* slice_copy (ulong block_size, void* mem_block) @extern ("g_slice_copy");
+extern fn void slice_free1 (ulong block_size, void* mem_block) @extern ("g_slice_free1");
+extern fn void slice_free_chain_with_offset (ulong block_size, void* mem_chain, ulong next_offset) @extern ("g_slice_free_chain_with_offset");
+extern fn long slice_get_config (SliceConfig ckey) @extern ("g_slice_get_config");
+extern fn long* slice_get_config_state (SliceConfig ckey, long address, uint* n_values) @extern ("g_slice_get_config_state");
+extern fn void slice_set_config (SliceConfig ckey, long value) @extern ("g_slice_set_config");
+extern fn void slist_pop_allocator () @extern ("g_slist_pop_allocator");
+extern fn void slist_push_allocator (Allocator* allocator) @extern ("g_slist_push_allocator");
+extern fn CInt source_remove (uint tag) @extern ("g_source_remove");
+extern fn CInt source_remove_by_funcs_user_data (SourceFuncs* funcs, void* user_data) @extern ("g_source_remove_by_funcs_user_data");
+extern fn CInt source_remove_by_user_data (void* user_data) @extern ("g_source_remove_by_user_data");
+extern fn void source_set_name_by_id (uint tag, ZString name) @extern ("g_source_set_name_by_id");
+extern fn uint spaced_primes_closest (uint num) @extern ("g_spaced_primes_closest");
+extern fn CInt spawn_async (ZString* working_directory, char** argv, char** envp, SpawnFlags flags, SpawnChildSetupFunc child_setup, void* user_data, int child_pid) @extern ("g_spawn_async");
+extern fn CInt spawn_async_with_fds (ZString* working_directory, char** argv, char** envp, SpawnFlags flags, SpawnChildSetupFunc child_setup, void* user_data, int child_pid, int stdin_fd, int stdout_fd, int stderr_fd) @extern ("g_spawn_async_with_fds");
+extern fn CInt spawn_async_with_pipes (ZString* working_directory, char** argv, char** envp, SpawnFlags flags, SpawnChildSetupFunc child_setup, void* user_data, int child_pid, int standard_input, int standard_output, int standard_error) @extern ("g_spawn_async_with_pipes");
+extern fn CInt spawn_async_with_pipes_and_fds (ZString* working_directory, char** argv, char** envp, SpawnFlags flags, SpawnChildSetupFunc child_setup, void* user_data, int stdin_fd, int stdout_fd, int stderr_fd, char** source_fds, char** target_fds, ulong n_fds, int child_pid_out, int stdin_pipe_out, int stdout_pipe_out, int stderr_pipe_out) @extern ("g_spawn_async_with_pipes_and_fds");
+extern fn CInt spawn_check_exit_status (int wait_status) @extern ("g_spawn_check_exit_status");
+extern fn CInt spawn_check_wait_status (int wait_status) @extern ("g_spawn_check_wait_status");
+extern fn void spawn_close_pid (int pid) @extern ("g_spawn_close_pid");
+extern fn CInt spawn_command_line_async (ZString* command_line) @extern ("g_spawn_command_line_async");
+extern fn CInt spawn_command_line_sync (ZString* command_line, char** standard_output, char** standard_error, int wait_status) @extern ("g_spawn_command_line_sync");
+extern fn uint spawn_error_quark () @extern ("g_spawn_error_quark");
+extern fn uint spawn_exit_error_quark () @extern ("g_spawn_exit_error_quark");
+extern fn CInt spawn_sync (ZString* working_directory, char** argv, char** envp, SpawnFlags flags, SpawnChildSetupFunc child_setup, void* user_data, char** standard_output, char** standard_error, int wait_status) @extern ("g_spawn_sync");
+extern fn int stat (ZString* filename, StatBuf* buf) @extern ("g_stat");
+extern fn ZString stpcpy (ZString dest, ZString src) @extern ("g_stpcpy");
+extern fn CInt str_equal (void* v1, void* v2) @extern ("g_str_equal");
+extern fn CInt str_has_prefix (ZString str, ZString prefix) @extern ("g_str_has_prefix");
+extern fn CInt str_has_suffix (ZString str, ZString suffix) @extern ("g_str_has_suffix");
+extern fn uint str_hash (void* v) @extern ("g_str_hash");
+extern fn CInt str_is_ascii (ZString str) @extern ("g_str_is_ascii");
+extern fn CInt str_match_string (ZString search_term, ZString potential_hit, CInt accept_alternates) @extern ("g_str_match_string");
+extern fn ZString str_to_ascii (ZString str, ZString from_locale) @extern ("g_str_to_ascii");
+extern fn char** str_tokenize_and_fold (ZString string, ZString translit_locale, char** ascii_alternates) @extern ("g_str_tokenize_and_fold");
+extern fn ZString strcanon (ZString string, ZString valid_chars, ichar substitutor) @extern ("g_strcanon");
+extern fn int strcasecmp (ZString s1, ZString s2) @extern ("g_strcasecmp");
+extern fn ZString strchomp (ZString string) @extern ("g_strchomp");
+extern fn ZString strchug (ZString string) @extern ("g_strchug");
+extern fn int strcmp0 (ZString str1, ZString str2) @extern ("g_strcmp0");
+extern fn ZString strcompress (ZString source) @extern ("g_strcompress");
+extern fn ZString strdelimit (ZString string, ZString delimiters, ichar new_delimiter) @extern ("g_strdelimit");
+extern fn ZString strdown (ZString string) @extern ("g_strdown");
+extern fn ZString strdup (ZString str) @extern ("g_strdup");
+extern fn char** strdupv (char** str_array) @extern ("g_strdupv");
+extern fn ZString strerror (int errnum) @extern ("g_strerror");
+extern fn ZString strescape (ZString source, ZString exceptions) @extern ("g_strescape");
+extern fn void strfreev (char** str_array) @extern ("g_strfreev");
+extern fn ZString strip_context (ZString msgid, ZString msgval) @extern ("g_strip_context");
+extern fn ZString strjoinv (ZString separator, char** str_array) @extern ("g_strjoinv");
+extern fn ulong strlcat (ZString dest, ZString src, ulong dest_size) @extern ("g_strlcat");
+extern fn ulong strlcpy (ZString dest, ZString src, ulong dest_size) @extern ("g_strlcpy");
+extern fn int strncasecmp (ZString s1, ZString s2, uint n) @extern ("g_strncasecmp");
+extern fn ZString strndup (ZString str, ulong n) @extern ("g_strndup");
+extern fn ZString strnfill (ulong length, ichar fill_char) @extern ("g_strnfill");
+extern fn ZString strreverse (ZString string) @extern ("g_strreverse");
+extern fn ZString strrstr (ZString haystack, ZString needle) @extern ("g_strrstr");
+extern fn ZString strrstr_len (ZString haystack, long haystack_len, ZString needle) @extern ("g_strrstr_len");
+extern fn ZString strsignal (int signum) @extern ("g_strsignal");
+extern fn char** strsplit (ZString string, ZString delimiter, int max_tokens) @extern ("g_strsplit");
+extern fn char** strsplit_set (ZString string, ZString delimiters, int max_tokens) @extern ("g_strsplit_set");
+extern fn ZString strstr_len (ZString haystack, long haystack_len, ZString needle) @extern ("g_strstr_len");
+extern fn double strtod (ZString nptr, ZString endptr) @extern ("g_strtod");
+extern fn ZString strup (ZString string) @extern ("g_strup");
+extern fn CInt strv_contains (char** strv, ZString str) @extern ("g_strv_contains");
+extern fn CInt strv_equal (char** strv1, char** strv2) @extern ("g_strv_equal");
+extern fn GType strv_get_type () @extern ("g_strv_get_type");
+extern fn uint strv_length (char** str_array) @extern ("g_strv_length");
+extern fn void test_add_data_func (ZString testpath, void* test_data, TestDataFunc test_func) @extern ("g_test_add_data_func");
+extern fn void test_add_data_func_full (ZString testpath, void* test_data, TestDataFunc test_func, DestroyNotify data_free_func) @extern ("g_test_add_data_func_full");
+extern fn void test_add_func (ZString testpath, TestFunc test_func) @extern ("g_test_add_func");
+extern fn void test_assert_expected_messages_internal (ZString domain, ZString file, int line, ZString func) @extern ("g_test_assert_expected_messages_internal");
+extern fn void test_bug (ZString bug_uri_snippet) @extern ("g_test_bug");
+extern fn void test_bug_base (ZString uri_pattern) @extern ("g_test_bug_base");
+extern fn void test_disable_crash_reporting () @extern ("g_test_disable_crash_reporting");
+extern fn void test_expect_message (ZString log_domain, LogLevelFlags log_level, ZString pattern) @extern ("g_test_expect_message");
+extern fn void test_fail () @extern ("g_test_fail");
+extern fn CInt test_failed () @extern ("g_test_failed");
+extern fn ZString* test_get_dir (TestFileType file_type) @extern ("g_test_get_dir");
+extern fn ZString test_get_path () @extern ("g_test_get_path");
+extern fn void test_incomplete (ZString msg) @extern ("g_test_incomplete");
+extern fn ZString test_log_type_name (TestLogType log_type) @extern ("g_test_log_type_name");
+extern fn void test_queue_destroy (DestroyNotify destroy_func, void* destroy_data) @extern ("g_test_queue_destroy");
+extern fn void test_queue_free (void* gfree_pointer) @extern ("g_test_queue_free");
+extern fn double test_rand_double () @extern ("g_test_rand_double");
+extern fn double test_rand_double_range (double range_start, double range_end) @extern ("g_test_rand_double_range");
+extern fn int test_rand_int () @extern ("g_test_rand_int");
+extern fn int test_rand_int_range (int begin, int end) @extern ("g_test_rand_int_range");
+extern fn int test_run () @extern ("g_test_run");
+extern fn int test_run_suite (TestSuite* suite) @extern ("g_test_run_suite");
+extern fn void test_set_nonfatal_assertions () @extern ("g_test_set_nonfatal_assertions");
+extern fn void test_skip (ZString msg) @extern ("g_test_skip");
+extern fn CInt test_subprocess () @extern ("g_test_subprocess");
+extern fn void test_summary (ZString summary) @extern ("g_test_summary");
+extern fn double test_timer_elapsed () @extern ("g_test_timer_elapsed");
+extern fn double test_timer_last () @extern ("g_test_timer_last");
+extern fn void test_timer_start () @extern ("g_test_timer_start");
+extern fn void test_trap_assertions (ZString domain, ZString file, int line, ZString func, ulong assertion_flags, ZString pattern) @extern ("g_test_trap_assertions");
+extern fn CInt test_trap_fork (ulong usec_timeout, TestTrapFlags test_trap_flags) @extern ("g_test_trap_fork");
+extern fn CInt test_trap_has_passed () @extern ("g_test_trap_has_passed");
+extern fn CInt test_trap_reached_timeout () @extern ("g_test_trap_reached_timeout");
+extern fn void test_trap_subprocess (ZString test_path, ulong usec_timeout, TestSubprocessFlags test_flags) @extern ("g_test_trap_subprocess");
+extern fn void test_trap_subprocess_with_envp (ZString test_path, char** envp, ulong usec_timeout, TestSubprocessFlags test_flags) @extern ("g_test_trap_subprocess_with_envp");
+extern fn uint thread_error_quark () @extern ("g_thread_error_quark");
+extern fn void thread_exit (void* retval) @extern ("g_thread_exit");
+extern fn uint thread_pool_get_max_idle_time () @extern ("g_thread_pool_get_max_idle_time");
+extern fn int thread_pool_get_max_unused_threads () @extern ("g_thread_pool_get_max_unused_threads");
+extern fn uint thread_pool_get_num_unused_threads () @extern ("g_thread_pool_get_num_unused_threads");
+extern fn void thread_pool_set_max_idle_time (uint interval) @extern ("g_thread_pool_set_max_idle_time");
+extern fn void thread_pool_set_max_unused_threads (int max_threads) @extern ("g_thread_pool_set_max_unused_threads");
+extern fn void thread_pool_stop_unused_threads () @extern ("g_thread_pool_stop_unused_threads");
+extern fn Thread* thread_self () @extern ("g_thread_self");
+extern fn void thread_yield () @extern ("g_thread_yield");
+extern fn CInt time_val_from_iso8601 (ZString iso_date, TimeVal time_) @extern ("g_time_val_from_iso8601");
+extern fn uint timeout_add_full (int priority, uint interval, SourceFunc function, void* data, DestroyNotify notify) @extern ("g_timeout_add_full");
+extern fn uint timeout_add_seconds_full (int priority, uint interval, SourceFunc function, void* data, DestroyNotify notify) @extern ("g_timeout_add_seconds_full");
+extern fn Source* timeout_source_new (uint interval) @extern ("g_timeout_source_new");
+extern fn Source* timeout_source_new_seconds (uint interval) @extern ("g_timeout_source_new_seconds");
+extern fn uint trash_stack_height (TrashStack* stack_p) @extern ("g_trash_stack_height");
+extern fn void* trash_stack_peek (TrashStack* stack_p) @extern ("g_trash_stack_peek");
+extern fn void* trash_stack_pop (TrashStack* stack_p) @extern ("g_trash_stack_pop");
+extern fn void trash_stack_push (TrashStack* stack_p, void* data_p) @extern ("g_trash_stack_push");
+extern fn void* try_malloc (ulong n_bytes) @extern ("g_try_malloc");
+extern fn void* try_malloc0 (ulong n_bytes) @extern ("g_try_malloc0");
+extern fn void* try_malloc0_n (ulong n_blocks, ulong n_block_bytes) @extern ("g_try_malloc0_n");
+extern fn void* try_malloc_n (ulong n_blocks, ulong n_block_bytes) @extern ("g_try_malloc_n");
+extern fn void* try_realloc (void* mem, ulong n_bytes) @extern ("g_try_realloc");
+extern fn void* try_realloc_n (void* mem, ulong n_blocks, ulong n_block_bytes) @extern ("g_try_realloc_n");
+extern fn ushort* ucs4_to_utf16 (char** str, long len, long items_read, long items_written) @extern ("g_ucs4_to_utf16");
+extern fn ZString ucs4_to_utf8 (char** str, long len, long items_read, long items_written) @extern ("g_ucs4_to_utf8");
+extern fn UnicodeBreakType unichar_break_type (WString c) @extern ("g_unichar_break_type");
+extern fn int unichar_combining_class (WString uc) @extern ("g_unichar_combining_class");
+extern fn CInt unichar_compose (WString a, WString b, WString ch) @extern ("g_unichar_compose");
+extern fn CInt unichar_decompose (WString ch, WString a, WString b) @extern ("g_unichar_decompose");
+extern fn int unichar_digit_value (WString c) @extern ("g_unichar_digit_value");
+extern fn ulong unichar_fully_decompose (WString ch, CInt compat, WString result, ulong result_len) @extern ("g_unichar_fully_decompose");
+extern fn CInt unichar_get_mirror_char (WString ch, WString mirrored_ch) @extern ("g_unichar_get_mirror_char");
+extern fn UnicodeScript unichar_get_script (WString ch) @extern ("g_unichar_get_script");
+extern fn CInt unichar_isalnum (WString c) @extern ("g_unichar_isalnum");
+extern fn CInt unichar_isalpha (WString c) @extern ("g_unichar_isalpha");
+extern fn CInt unichar_iscntrl (WString c) @extern ("g_unichar_iscntrl");
+extern fn CInt unichar_isdefined (WString c) @extern ("g_unichar_isdefined");
+extern fn CInt unichar_isdigit (WString c) @extern ("g_unichar_isdigit");
+extern fn CInt unichar_isgraph (WString c) @extern ("g_unichar_isgraph");
+extern fn CInt unichar_islower (WString c) @extern ("g_unichar_islower");
+extern fn CInt unichar_ismark (WString c) @extern ("g_unichar_ismark");
+extern fn CInt unichar_isprint (WString c) @extern ("g_unichar_isprint");
+extern fn CInt unichar_ispunct (WString c) @extern ("g_unichar_ispunct");
+extern fn CInt unichar_isspace (WString c) @extern ("g_unichar_isspace");
+extern fn CInt unichar_istitle (WString c) @extern ("g_unichar_istitle");
+extern fn CInt unichar_isupper (WString c) @extern ("g_unichar_isupper");
+extern fn CInt unichar_iswide (WString c) @extern ("g_unichar_iswide");
+extern fn CInt unichar_iswide_cjk (WString c) @extern ("g_unichar_iswide_cjk");
+extern fn CInt unichar_isxdigit (WString c) @extern ("g_unichar_isxdigit");
+extern fn CInt unichar_iszerowidth (WString c) @extern ("g_unichar_iszerowidth");
+extern fn int unichar_to_utf8 (WString c, ZString outbuf) @extern ("g_unichar_to_utf8");
+extern fn WString unichar_tolower (WString c) @extern ("g_unichar_tolower");
+extern fn WString unichar_totitle (WString c) @extern ("g_unichar_totitle");
+extern fn WString unichar_toupper (WString c) @extern ("g_unichar_toupper");
+extern fn UnicodeType unichar_type (WString c) @extern ("g_unichar_type");
+extern fn CInt unichar_validate (WString ch) @extern ("g_unichar_validate");
+extern fn int unichar_xdigit_value (WString c) @extern ("g_unichar_xdigit_value");
+extern fn WString* unicode_canonical_decomposition (WString ch, ulong* result_len) @extern ("g_unicode_canonical_decomposition");
+extern fn void unicode_canonical_ordering (char** string, ulong len) @extern ("g_unicode_canonical_ordering");
+extern fn UnicodeScript unicode_script_from_iso15924 (uint iso15924) @extern ("g_unicode_script_from_iso15924");
+extern fn uint unicode_script_to_iso15924 (UnicodeScript script) @extern ("g_unicode_script_to_iso15924");
+extern fn uint unix_error_quark () @extern ("g_unix_error_quark");
+extern fn uint unix_fd_add_full (int priority, int fd, IOCondition condition, UnixFDSourceFunc function, void* user_data, DestroyNotify notify) @extern ("g_unix_fd_add_full");
+extern fn Source* unix_fd_source_new (int fd, IOCondition condition) @extern ("g_unix_fd_source_new");
+extern fn void* unix_get_passwd_entry (ZString user_name) @extern ("g_unix_get_passwd_entry");
+extern fn CInt unix_open_pipe (char[2]* fds, int flags) @extern ("g_unix_open_pipe");
+extern fn CInt unix_set_fd_nonblocking (int fd, CInt nonblock) @extern ("g_unix_set_fd_nonblocking");
+extern fn uint unix_signal_add_full (int priority, int signum, SourceFunc handler, void* user_data, DestroyNotify notify) @extern ("g_unix_signal_add_full");
+extern fn Source* unix_signal_source_new (int signum) @extern ("g_unix_signal_source_new");
+extern fn int unlink (ZString* filename) @extern ("g_unlink");
+extern fn void unsetenv (ZString* variable) @extern ("g_unsetenv");
+extern fn Uri* uri_build (UriFlags flags, ZString scheme, ZString userinfo, ZString host, int port, ZString path, ZString query, ZString fragment) @extern ("g_uri_build");
+extern fn Uri* uri_build_with_user (UriFlags flags, ZString scheme, ZString user, ZString password, ZString auth_params, ZString host, int port, ZString path, ZString query, ZString fragment) @extern ("g_uri_build_with_user");
+extern fn uint uri_error_quark () @extern ("g_uri_error_quark");
+extern fn ZString uri_escape_bytes (char** unescaped, ulong length, ZString reserved_chars_allowed) @extern ("g_uri_escape_bytes");
+extern fn ZString uri_escape_string (ZString unescaped, ZString reserved_chars_allowed, CInt allow_utf8) @extern ("g_uri_escape_string");
+extern fn CInt uri_is_valid (ZString uri_string, UriFlags flags) @extern ("g_uri_is_valid");
+extern fn ZString uri_join (UriFlags flags, ZString scheme, ZString userinfo, ZString host, int port, ZString path, ZString query, ZString fragment) @extern ("g_uri_join");
+extern fn ZString uri_join_with_user (UriFlags flags, ZString scheme, ZString user, ZString password, ZString auth_params, ZString host, int port, ZString path, ZString query, ZString fragment) @extern ("g_uri_join_with_user");
+extern fn char** uri_list_extract_uris (ZString uri_list) @extern ("g_uri_list_extract_uris");
+extern fn Uri* uri_parse (ZString uri_string, UriFlags flags) @extern ("g_uri_parse");
+extern fn HashTable* uri_parse_params (ZString params, long length, ZString separators, UriParamsFlags flags) @extern ("g_uri_parse_params");
+extern fn ZString uri_parse_scheme (ZString uri) @extern ("g_uri_parse_scheme");
+extern fn ZString uri_peek_scheme (ZString uri) @extern ("g_uri_peek_scheme");
+extern fn ZString uri_resolve_relative (ZString base_uri_string, ZString uri_ref, UriFlags flags) @extern ("g_uri_resolve_relative");
+extern fn CInt uri_split (ZString uri_ref, UriFlags flags, ZString scheme, ZString userinfo, ZString host, int port, ZString path, ZString query, ZString fragment) @extern ("g_uri_split");
+extern fn CInt uri_split_network (ZString uri_string, UriFlags flags, ZString scheme, ZString host, int port) @extern ("g_uri_split_network");
+extern fn CInt uri_split_with_user (ZString uri_ref, UriFlags flags, ZString scheme, ZString user, ZString password, ZString auth_params, ZString host, int port, ZString path, ZString query, ZString fragment) @extern ("g_uri_split_with_user");
+extern fn Bytes* uri_unescape_bytes (ZString escaped_string, long length, ZString illegal_characters) @extern ("g_uri_unescape_bytes");
+extern fn ZString uri_unescape_segment (ZString escaped_string, ZString escaped_string_end, ZString illegal_characters) @extern ("g_uri_unescape_segment");
+extern fn ZString uri_unescape_string (ZString escaped_string, ZString illegal_characters) @extern ("g_uri_unescape_string");
+extern fn void usleep (ulong microseconds) @extern ("g_usleep");
+extern fn WString* utf16_to_ucs4 (char** str, long len, long items_read, long items_written) @extern ("g_utf16_to_ucs4");
+extern fn ZString utf16_to_utf8 (char** str, long len, long items_read, long items_written) @extern ("g_utf16_to_utf8");
+extern fn ZString utf8_casefold (ZString str, long len) @extern ("g_utf8_casefold");
+extern fn int utf8_collate (ZString str1, ZString str2) @extern ("g_utf8_collate");
+extern fn ZString utf8_collate_key (ZString str, long len) @extern ("g_utf8_collate_key");
+extern fn ZString utf8_collate_key_for_filename (ZString str, long len) @extern ("g_utf8_collate_key_for_filename");
+extern fn ZString utf8_find_next_char (ZString p, ZString end) @extern ("g_utf8_find_next_char");
+extern fn ZString utf8_find_prev_char (ZString str, ZString p) @extern ("g_utf8_find_prev_char");
+extern fn WString utf8_get_char (ZString p) @extern ("g_utf8_get_char");
+extern fn WString utf8_get_char_validated (ZString p, long max_len) @extern ("g_utf8_get_char_validated");
+extern fn ZString utf8_make_valid (ZString str, long len) @extern ("g_utf8_make_valid");
+extern fn ZString utf8_normalize (ZString str, long len, NormalizeMode mode) @extern ("g_utf8_normalize");
+extern fn ZString utf8_offset_to_pointer (ZString str, long offset) @extern ("g_utf8_offset_to_pointer");
+extern fn long utf8_pointer_to_offset (ZString str, ZString pos) @extern ("g_utf8_pointer_to_offset");
+extern fn ZString utf8_prev_char (ZString p) @extern ("g_utf8_prev_char");
+extern fn ZString utf8_strchr (ZString p, long len, WString c) @extern ("g_utf8_strchr");
+extern fn ZString utf8_strdown (ZString str, long len) @extern ("g_utf8_strdown");
+extern fn long utf8_strlen (ZString p, long max) @extern ("g_utf8_strlen");
+extern fn ZString utf8_strncpy (ZString dest, ZString src, ulong n) @extern ("g_utf8_strncpy");
+extern fn ZString utf8_strrchr (ZString p, long len, WString c) @extern ("g_utf8_strrchr");
+extern fn ZString utf8_strreverse (ZString str, long len) @extern ("g_utf8_strreverse");
+extern fn ZString utf8_strup (ZString str, long len) @extern ("g_utf8_strup");
+extern fn ZString utf8_substring (ZString str, long start_pos, long end_pos) @extern ("g_utf8_substring");
+extern fn WString* utf8_to_ucs4 (ZString str, long len, long items_read, long items_written) @extern ("g_utf8_to_ucs4");
+extern fn WString* utf8_to_ucs4_fast (ZString str, long len, long items_written) @extern ("g_utf8_to_ucs4_fast");
+extern fn ushort* utf8_to_utf16 (ZString str, long len, long items_read, long items_written) @extern ("g_utf8_to_utf16");
+extern fn ZString utf8_truncate_middle (ZString string, ulong truncate_length) @extern ("g_utf8_truncate_middle");
+extern fn CInt utf8_validate (char** str, long max_len, ZString end) @extern ("g_utf8_validate");
+extern fn CInt utf8_validate_len (char** str, ulong max_len, ZString end) @extern ("g_utf8_validate_len");
+extern fn int utime (ZString* filename, void* utb) @extern ("g_utime");
+extern fn CInt uuid_string_is_valid (ZString str) @extern ("g_uuid_string_is_valid");
+extern fn ZString uuid_string_random () @extern ("g_uuid_string_random");
+extern fn GType variant_get_gtype () @extern ("g_variant_get_gtype");
+extern fn CInt variant_is_object_path (ZString string) @extern ("g_variant_is_object_path");
+extern fn CInt variant_is_signature (ZString string) @extern ("g_variant_is_signature");
+extern fn Variant* variant_parse (VariantType* type, ZString text, ZString limit, ZString endptr) @extern ("g_variant_parse");
+extern fn ZString variant_parse_error_print_context (Error* error, ZString source_str) @extern ("g_variant_parse_error_print_context");
+extern fn uint variant_parse_error_quark () @extern ("g_variant_parse_error_quark");
+extern fn uint variant_parser_get_error_quark () @extern ("g_variant_parser_get_error_quark");
+extern fn VariantType* variant_type_checked_ (ZString type_string) @extern ("g_variant_type_checked_");
+extern fn ulong variant_type_string_get_depth_ (ZString type_string) @extern ("g_variant_type_string_get_depth_");
+extern fn CInt variant_type_string_is_valid (ZString type_string) @extern ("g_variant_type_string_is_valid");
+extern fn CInt variant_type_string_scan (ZString string, ZString limit, ZString endptr) @extern ("g_variant_type_string_scan");
