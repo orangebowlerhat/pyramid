@@ -4,11 +4,11 @@ A small linux command line program which generates c3 bindings from GNOME typeli
 
 It is written in c3 and uses libgirepository to parse typelib files. To do this, it uses a binding to libgirrepository which was created by pyramid itself. Thereby eating its own dog food.
 
-The binding uses the prefix from the typelib as the module name. The prefix is trimmed from function and type names, and case is matched with c3's naming conventions. So `glClear` would become `gl::clear`. Structs are created for any object types and methods are attached to them in a similar way.
+A generated binding uses the prefix from the typelib as its module name. The prefix is trimmed from function and type names, and case is matched with c3's naming conventions. So `glClear` would become `gl::clear`. Structs are created for any object types and methods are attached to them in a similar way.
 
 ## Build
 
-To build it simply clone the repository and do `c3c build` in the base folder. Create a `lib` folder in the base folder before building.
+To build it simply clone the repository and do `c3c build` in the base folder. Create a `lib` folder in the base folder before building. Linking requires the girepository and gobject libraries, these will be installed in most linux desktops.
 
 ## Usage
 
