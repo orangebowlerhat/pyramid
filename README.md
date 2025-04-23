@@ -8,7 +8,7 @@ A generated binding uses the prefix from the typelib as its module name. The pre
 
 ## Build
 
-To build it simply clone the repository and do `c3c build` in the base folder. Create a `lib` folder in the base folder before building. Linking requires the girepository and gobject libraries, these will be installed in most linux desktops.
+To build it simply clone the repository and do `c3c build` in the base folder. There should be a `lib` folder in the base folder but it isn't used. Linking requires the girepository and gobject libraries, these will be installed in most linux desktops.
 
 ## Usage
 
@@ -26,7 +26,7 @@ pyramid has only one option right now, `-p <prefix>`, which will replace the bin
 
 pyramid does not traverse dependencies of the typelib. If the generated binding requires another binding, you will need to generate it.
 
-Objects in a typelib can have no members but still have methods. Supporting objects in c3 involves creating a struct, but a struct with no members is an error. To work around this limitation, a struct is created which contains a single `void*` called `unused`.
+Objects in a typelib can have no members but still have methods. Supporting objects in c3 involves creating a struct, but a struct with no members is an error. To work around this limitation, a struct is created which contains a single `void*` called `unused`. The struct should not be allocated or used, it does not represent the actual object.
 
 Unfortunately, the binding may not be ready to use without manual tweaking. Elements of the typelib might conflict with c3's naming rules, reserved words or types. The generator attempts to resolve a few of these cases by replacing certain method names.
 
@@ -38,6 +38,6 @@ Unfortunately, the binding may not be ready to use without manual tweaking. Elem
 | int | get_int |
 | double | get_double |
 
-This is not an exhaustive list, there will almost certainly be more conflicts.
+But this is not an exhaustive list, there will almost certainly be more conflicts I haven't accounted for.
 
 The aim for this project is to produce a binding for GTK. However, they are many more many typelib files, but they seem to be incomplete. So I'm planning to produce another program which creates bindings from GIR files. These appear to be a lot more comprehensive and can be generated for almost any header file.
