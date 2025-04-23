@@ -1,6 +1,6 @@
 # pyramid
 
-A small linux command line program which generates c3 bindings from GNOME typelib files.
+A small linux command line program which generates c3 bindings from GNOME typelib files. These are part of the GObject Introspection system, described [here](https://gi.readthedocs.io/en/latest/).
 
 It is written in c3 and uses libgirepository to parse typelib files. To do this, it uses a binding to libgirrepository which was created by pyramid itself. Thereby eating its own dog food.
 
@@ -38,4 +38,6 @@ Unfortunately, the binding may not be ready to use without manual tweaking. Elem
 | int | get_int |
 | double | get_double |
 
-This is not an exhaustive list, there will almost certainly be more conflicts. Unfortunately, many typelib files seem to be incomplete so I'm planning to produce another program which creates bindings from GIR files.
+This is not an exhaustive list, there will almost certainly be more conflicts.
+
+The aim for this project is to produce a binding for GTK. However, they are many more many typelib files, but they seem to be incomplete. So I'm planning to produce another program which creates bindings from GIR files. These appear to be a lot more comprehensive and can be generated for almost any header file.
